@@ -1,0 +1,33 @@
+{
+  "name": "stas3-swap-api",
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "node --experimental-sqlite --import tsx src/selftest.ts",
+    "dev": "node --experimental-sqlite --import tsx src/server.ts",
+    "build": "tsc",
+    "start": "node --experimental-sqlite dist/server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "devDependencies": {
+    "@types/better-sqlite3": "^7.6.13",
+    "@types/express": "^5.0.6",
+    "@types/node": "^25.9.2",
+    "@types/secp256k1": "^4.0.7",
+    "tsx": "^4.22.4",
+    "typescript": "^6.0.3"
+  },
+  "dependencies": {
+    "@bsv/sdk": "^2.1.4",
+    "@noble/hashes": "^2.2.0",
+    "@noble/secp256k1": "^3.1.0",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "secp256k1": "^5.0.1",
+    "zod": "^4.4.3"
+  }
+}

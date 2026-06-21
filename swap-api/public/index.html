@@ -1,0 +1,315 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>STAS 3.0 swap throughput bench</title>
+<style>
+  :root{
+    --ink:#0B0E14; --panel:#11151D; --line:#1C2230; --text:#E6E9EF;
+    --muted:#8B97A8; --signal:#FFB454; --pass:#3FDCC4; --fail:#FF5C5C;
+    --mono:ui-monospace,'SF Mono','Cascadia Mono',Menlo,Consolas,monospace;
+    --sans:system-ui,-apple-system,'Hiragino Sans','Noto Sans JP',sans-serif;
+  }
+  *{box-sizing:border-box;margin:0}
+  html,body{height:100%}
+  body{background:var(--ink);color:var(--text);font-family:var(--sans);font-size:14px;line-height:1.6}
+  .wrap{max-width:1080px;margin:0 auto;padding:28px 20px 64px}
+  header{display:flex;justify-content:space-between;align-items:baseline;border-bottom:1px solid var(--line);padding-bottom:14px;margin-bottom:28px}
+  header h1{font:600 15px/1 var(--mono);letter-spacing:.04em}
+  header h1 em{color:var(--signal);font-style:normal}
+  header .env{font:11px var(--mono);color:var(--muted)}
+  .layout{display:grid;grid-template-columns:200px 1fr;gap:28px}
+  @media(max-width:760px){.layout{grid-template-columns:1fr}}
+
+  /* step rail — a true sequence */
+  .rail{display:flex;flex-direction:column;gap:0}
+  .step{display:flex;gap:12px;padding:10px 0;color:var(--muted);font-family:var(--mono);font-size:12px}
+  .step .dot{width:22px;height:22px;border:1px solid var(--line);border-radius:50%;display:grid;place-items:center;font-size:11px;flex:none;background:var(--panel)}
+  .step.active{color:var(--text)}
+  .step.active .dot{border-color:var(--signal);color:var(--signal)}
+  .step.done .dot{border-color:var(--pass);color:var(--pass)}
+  .step .lbl small{display:block;color:var(--muted);font-size:10px}
+  .rail .conn{width:1px;height:14px;background:var(--line);margin-left:11px}
+
+  .panel{background:var(--panel);border:1px solid var(--line);border-radius:4px;padding:20px}
+  .panel h2{font:600 12px var(--mono);color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-bottom:14px}
+  .hidden{display:none}
+  label{display:block;font:11px var(--mono);color:var(--muted);margin-bottom:6px}
+  input[type=text],input[type=number],select{
+    width:100%;background:var(--ink);border:1px solid var(--line);border-radius:4px;
+    color:var(--text);font:13px var(--mono);padding:10px 12px;outline:none}
+  input:focus,select:focus{border-color:var(--signal)}
+  button{background:var(--signal);color:#1A1206;border:0;border-radius:4px;
+    font:600 13px var(--mono);padding:11px 20px;cursor:pointer}
+  button.ghost{background:transparent;color:var(--muted);border:1px solid var(--line)}
+  button:disabled{opacity:.45;cursor:default}
+  button:focus-visible,.tok:focus-visible{outline:2px solid var(--signal);outline-offset:2px}
+  .row{display:flex;gap:12px;align-items:end;flex-wrap:wrap}
+  .row>div{flex:1;min-width:130px}
+  .err{color:var(--fail);font:12px var(--mono);margin-top:10px;min-height:1em}
+  .addr{font:12px var(--mono);color:var(--pass);margin-top:10px;word-break:break-all}
+
+  .tokens{display:grid;gap:10px;margin-top:6px}
+  .tok{display:grid;grid-template-columns:1fr auto;gap:4px 14px;text-align:left;width:100%;
+    background:var(--ink);border:1px solid var(--line);border-radius:4px;padding:12px 14px;
+    color:var(--text);cursor:pointer;font-family:var(--mono)}
+  .tok .sym{font-size:14px;font-weight:600}
+  .tok .bal{font-size:14px;color:var(--signal);font-variant-numeric:tabular-nums;text-align:right}
+  .tok .meta{grid-column:1/-1;font-size:10px;color:var(--muted);word-break:break-all}
+  .tok[aria-pressed=true]{border-color:var(--signal)}
+
+  /* live meter */
+  .meter{display:flex;align-items:baseline;gap:14px;margin-bottom:6px}
+  .meter .big{font:600 56px/1 var(--mono);font-variant-numeric:tabular-nums;color:var(--signal)}
+  .meter .unit{font:12px var(--mono);color:var(--muted)}
+  .meter .state{margin-left:auto;font:11px var(--mono);color:var(--muted)}
+  canvas{width:100%;height:200px;display:block;background:var(--ink);border:1px solid var(--line);border-radius:4px}
+  .counters{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:1px;background:var(--line);
+    border:1px solid var(--line);border-radius:4px;overflow:hidden;margin-top:14px}
+  .counters div{background:var(--panel);padding:10px 12px}
+  .counters b{display:block;font:600 18px var(--mono);font-variant-numeric:tabular-nums}
+  .counters span{font:10px var(--mono);color:var(--muted);letter-spacing:.06em}
+
+  .verdict{font:600 16px var(--mono);padding:14px 16px;border-radius:4px;margin-bottom:16px;border:1px solid}
+  .verdict.pass{color:var(--pass);border-color:var(--pass);background:rgba(63,220,196,.06)}
+  .verdict.info{color:var(--signal);border-color:var(--signal);background:rgba(255,180,84,.06)}
+  table{width:100%;border-collapse:collapse;font:12px var(--mono)}
+  td{padding:8px 10px;border-top:1px solid var(--line)}
+  td:last-child{text-align:right;font-variant-numeric:tabular-nums}
+  .note{font:11px var(--mono);color:var(--muted);margin-top:14px;line-height:1.7}
+  @media (prefers-reduced-motion: reduce){ .big{transition:none} }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>STAS 3.0 <em>swap throughput</em> bench</h1>
+    <div class="env" id="env">—</div>
+  </header>
+
+  <div class="layout">
+    <nav class="rail" aria-label="手順">
+      <div class="step active" id="s1"><div class="dot">1</div><div class="lbl">WIF読み込み<small>鍵はこの端末から出ない*</small></div></div>
+      <div class="conn"></div>
+      <div class="step" id="s2"><div class="dot">2</div><div class="lbl">トークン選択<small>有効なSTAS一覧</small></div></div>
+      <div class="conn"></div>
+      <div class="step" id="s3"><div class="dot">3</div><div class="lbl">高速swapテスト<small>build+sign 実測</small></div></div>
+      <div class="conn"></div>
+      <div class="step" id="s4"><div class="dot">4</div><div class="lbl">結果<small>判定と内訳</small></div></div>
+    </nav>
+
+    <main>
+      <!-- step 1 -->
+      <section class="panel" id="p1">
+        <h2>1 — WIF読み込み</h2>
+        <label for="wif">テストネットWIF</label>
+        <div class="row">
+          <div style="flex:3"><input id="wif" type="text" placeholder="cT… / cU… / 92…" autocomplete="off" spellcheck="false"></div>
+          <div style="flex:0"><button id="loadBtn">読み込む</button></div>
+        </div>
+        <div class="addr" id="addr"></div>
+        <div class="err" id="err1"></div>
+        <p class="note">* WIFはローカルのベンチサーバー(127.0.0.1)にのみ送られ、ワーカースレッドの署名に使われます。外部送信はありません。</p>
+      </section>
+
+      <!-- step 2 -->
+      <section class="panel hidden" id="p2">
+        <h2>2 — 交換に出すSTASを選択</h2>
+        <div class="tokens" id="tokens"></div>
+        <div class="err" id="err2"></div>
+      </section>
+
+      <!-- step 3 -->
+      <section class="panel hidden" id="p3">
+        <h2>3 — 高速swapテスト</h2>
+        <div class="row">
+          <div><label for="total">スワップ件数</label><input id="total" type="number" value="10000" min="100" step="100"></div>
+          <div><label for="workers">ワーカー数 (0=全コア)</label><input id="workers" type="number" value="0" min="0" max="64"></div>
+          <div><label for="tail">スクリプトtailサイズ</label>
+            <select id="tail">
+              <option value="1024" selected>1 KB(縮約)</option>
+              <option value="4096">4 KB</option>
+              <option value="20480">20 KB(実テンプレート相当)</option>
+            </select></div>
+          <div style="flex:0"><button id="startBtn">テスト開始</button></div>
+        </div>
+        <div class="err" id="err3"></div>
+        <div id="live" class="hidden" style="margin-top:18px">
+          <div class="meter">
+            <span class="big" id="rate">0</span><span class="unit">swaps / s(瞬間)</span>
+            <span class="state" id="state">準備中…</span>
+          </div>
+          <canvas id="chart" width="1040" height="200" role="img" aria-label="スループット推移チャート"></canvas>
+          <div class="counters">
+            <div><b id="cDone">0</b><span>完了</span></div>
+            <div><b id="cAvg">0</b><span>平均 swaps/s</span></div>
+            <div><b id="cPeak">0</b><span>ピーク swaps/s</span></div>
+            <div><b id="cWorkers">—</b><span>ワーカー / コア</span></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- step 4 -->
+      <section class="panel hidden" id="p4">
+        <h2>4 — 結果</h2>
+        <div id="verdict" class="verdict info"></div>
+        <table id="report"></table>
+        <p class="note" id="method"></p>
+        <div style="margin-top:16px"><button class="ghost" id="again">同条件でもう一度</button></div>
+      </section>
+    </main>
+  </div>
+</div>
+
+<script>
+const $ = (id) => document.getElementById(id)
+const stepTo = (n) => {
+  for (let i=1;i<=4;i++){
+    $('s'+i).classList.toggle('active', i===n)
+    $('s'+i).classList.toggle('done', i<n)
+    $('p'+i).classList.toggle('hidden', i>n)
+  }
+}
+const fmt = (n) => Number(n).toLocaleString('ja-JP')
+let wallet = null, selectedToken = null, es = null
+
+fetch('/health').then(r=>r.json()).then(h=>{ $('env').textContent = `${h.network} · ARC ${h.arcUrl}` }).catch(()=>{})
+
+// --- step 1 ---------------------------------------------------------------
+$('loadBtn').onclick = async () => {
+  $('err1').textContent = ''
+  try {
+    const r = await fetch('/bench/wallet', { method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ wif: $('wif').value.trim(), tailBytes: Number($('tail').value) }) })
+    const j = await r.json()
+    if (!r.ok) throw new Error(j.error || 'WIFを読み込めません')
+    wallet = { wif: $('wif').value.trim(), ...j }
+    $('addr').textContent = `address: ${j.address}`
+    renderTokens(j.tokens)
+    stepTo(2)
+  } catch(e){ $('err1').textContent = e.message }
+}
+
+function renderTokens(tokens){
+  const box = $('tokens'); box.innerHTML = ''
+  tokens.forEach(t => {
+    const b = document.createElement('button')
+    b.className = 'tok'; b.type='button'; b.setAttribute('aria-pressed','false')
+    b.innerHTML = `<span class="sym">${t.symbol}</span><span class="bal">${fmt(t.balance)}</span>
+      <span class="meta">protoID ${t.protoId} · tail ${t.tailBytes} B</span>`
+    b.onclick = () => {
+      box.querySelectorAll('.tok').forEach(x=>x.setAttribute('aria-pressed','false'))
+      b.setAttribute('aria-pressed','true')
+      selectedToken = t
+      stepTo(3)
+    }
+    box.appendChild(b)
+  })
+}
+
+// --- step 3 ---------------------------------------------------------------
+const chart = $('chart').getContext('2d')
+let samples = []
+function drawChart(){
+  const W = $('chart').width, H = $('chart').height
+  chart.fillStyle = '#0B0E14'; chart.fillRect(0,0,W,H)
+  const maxRate = Math.max(12000, ...samples.map(s=>s.rate)) * 1.1
+  // grid
+  chart.strokeStyle = '#1C2230'; chart.lineWidth = 1
+  for (let y=0; y<=4; y++){ const yy = H - (y/4)*H + .5
+    chart.beginPath(); chart.moveTo(0,yy); chart.lineTo(W,yy); chart.stroke() }
+  // 10k target line
+  const ty = H - (10000/maxRate)*H + .5
+  chart.strokeStyle = '#3FDCC4'; chart.setLineDash([5,5])
+  chart.beginPath(); chart.moveTo(0,ty); chart.lineTo(W,ty); chart.stroke()
+  chart.setLineDash([])
+  chart.fillStyle = '#3FDCC4'; chart.font = '10px ui-monospace'
+  chart.fillText('10,000 / s', 8, ty-5)
+  if (!samples.length) return
+  const tMax = Math.max(2000, samples[samples.length-1].tMs)
+  chart.strokeStyle = '#FFB454'; chart.lineWidth = 1.6
+  chart.beginPath()
+  samples.forEach((s,i)=>{
+    const x = (s.tMs/tMax)*W, y = H - (s.rate/maxRate)*H
+    i ? chart.lineTo(x,y) : chart.moveTo(x,y)
+  })
+  chart.stroke()
+}
+
+$('startBtn').onclick = async () => {
+  $('err3').textContent = ''
+  $('startBtn').disabled = true
+  samples = []; drawChart()
+  $('live').classList.remove('hidden')
+  $('state').textContent = 'フィクスチャ生成中…'
+  try {
+    const r = await fetch('/bench/start', { method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({
+        wif: wallet.wif,
+        offeredTokenSeed: Number(selectedToken.id.split('-')[1]),
+        tailBytes: Number($('tail').value),
+        totalSwaps: Number($('total').value),
+        workers: Number($('workers').value),
+      }) })
+    const j = await r.json()
+    if (!r.ok) throw new Error(j.error || 'ベンチを開始できません')
+    $('cWorkers').textContent = `${j.workersUsed} / ${j.cpuCount}`
+    listen(j.id)
+  } catch(e){ $('err3').textContent = e.message; $('startBtn').disabled = false }
+}
+
+function listen(id){
+  if (es) es.close()
+  es = new EventSource(`/bench/${id}/events`)
+  const t0 = performance.now()
+  es.addEventListener('sample', ev => {
+    const s = JSON.parse(ev.data)
+    samples.push(s)
+    $('state').textContent = '実行中'
+    $('rate').textContent = fmt(s.rate)
+    $('cDone').textContent = fmt(s.done)
+    $('cAvg').textContent = fmt(Math.round(s.done / Math.max(1,s.tMs) * 1000))
+    $('cPeak').textContent = fmt(Math.max(...samples.map(x=>x.rate)))
+    drawChart()
+  })
+  es.addEventListener('end', ev => {
+    es.close(); $('startBtn').disabled = false
+    showResult(JSON.parse(ev.data))
+  })
+  es.onerror = () => { $('state').textContent = '接続再試行中…' }
+}
+
+// --- step 4 ---------------------------------------------------------------
+function showResult(r){
+  stepTo(4); $('p3').classList.remove('hidden') // keep chart visible
+  $('state').textContent = '完了'
+  if (r.state === 'error'){
+    $('verdict').className = 'verdict info'
+    $('verdict').textContent = 'エラー: ' + r.error
+    return
+  }
+  const pass = r.swapsPerSec >= r.target
+  $('verdict').className = 'verdict ' + (pass ? 'pass' : 'info')
+  $('verdict').textContent = r.verdict
+  const us = v => (v/1000).toFixed(2) + ' ms'
+  const rows = [
+    ['総スワップ件数', fmt(r.totalDone)],
+    ['経過時間', (r.elapsedMs/1000).toFixed(2) + ' s'],
+    ['平均スループット', fmt(r.swapsPerSec) + ' swaps/s'],
+    ['ピークスループット', fmt(r.peakSwapsPerSec) + ' swaps/s'],
+    ['ECDSA署名スループット', fmt(r.sigOpsPerSec) + ' sig/s(2署名/swap)'],
+    ['生成txデータ量', (r.bytesOut/1e6).toFixed(1) + ' MB(EF形式)'],
+    ['レイテンシ p50 / p90 / p99', `${us(r.p50us)} / ${us(r.p90us)} / ${us(r.p99us)}`],
+    ['ワーカー / 論理コア', `${r.workersUsed} / ${r.cpuCount}`],
+    ['スクリプトtail', fmt(r.config.tailBytes) + ' B'],
+  ]
+  $('report').innerHTML = rows.map(([k,v])=>`<tr><td>${k}</td><td>${v}</td></tr>`).join('')
+  $('method').textContent =
+    '計測対象: 本番と同一のbuildTakeTx経路(STASスクリプト解析 → ディスクリプタ検証 → カウンターパーティtx再構成ピース → sighashプリイメージ×2 → ECDSA署名×2(taker+funding)→ アンロック構築 → raw+EF直列化)。' +
+    '各スワップは独立したオファーUTXOを消費(L1オーダーブックの並列実行モデル)。ブロードキャストは含まない(ARC送信は --broadcast で別測)。'
+  $('again').onclick = () => { stepTo(3); window.scrollTo({top:0}) }
+}
+</script>
+</body>
+</html>

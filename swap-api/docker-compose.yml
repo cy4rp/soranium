@@ -1,0 +1,19 @@
+services:
+  swap-api:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - ARC_URL=${ARC_URL:-http://host.docker.internal:9090}
+      - ARC_API_KEY=${ARC_API_KEY:-}
+      - ARC_WAIT_FOR=${ARC_WAIT_FOR:-SEEN_ON_NETWORK}
+      - PORT=3000
+      - DB_PATH=/app/data/orderbook.sqlite
+      - FEE_PER_KB=${FEE_PER_KB:-50}
+      - NETWORK=${NETWORK:-testnet}
+    volumes:
+      - swap-data:/app/data
+    restart: unless-stopped
+
+volumes:
+  swap-data:
