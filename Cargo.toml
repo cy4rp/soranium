@@ -1,0 +1,16 @@
+[package]
+name = "soranium"
+version = "0.1.0"
+edition = "2021"
+description = "Soranium: trait-composed token system with micro-gas mining and high-speed trading"
+license = "MIT"
+
+[dependencies]
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+sha2 = "0.10.8"
+thiserror = "1"
+uuid = { version = "=1.11.0", features = ["v4"] }
+getrandom = "=0.2.15"
+
+[dev-dependencies]
