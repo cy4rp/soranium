@@ -128,7 +128,7 @@ Express起動時はStreamable HTTPの `POST /mcp` も利用できます。
 
 ## Results on Teratestnet
 
-実測日: 2026-09-16。マシン: `nproc=8`、`INTEL(R) XEON(R) PLATINUM 8559C`。設定は`NETWORK=ttn`、`FEE_PER_KB=1`、workers=8、batchSize=500、concurrency=16、count=10,000です。完全なJSONは`/home/ubuntu/ttn/bench-results.md`に保存しています。
+実測日: 2026-09-16。マシン: `nproc=8`、`INTEL(R) XEON(R) PLATINUM 8559C`。設定は`NETWORK=ttn`、`FEE_PER_KB=1`、workers=8、batchSize=500、concurrency=16、count=10,000です。完全なJSONは[`docs/ttn-bench-2026-09-16.md`](docs/ttn-bench-2026-09-16.md)に保存しています。
 
 | mode | pipeline | build TPS | broadcast TPS | end-to-end TPS | accepted / rejected |
 |---|---:|---:|---:|---:|---:|
@@ -142,7 +142,7 @@ Express起動時はStreamable HTTPの `POST /mcp` も利用できます。
 
 P2PKHのArcadeステータス検証サンプルは、pipeline=trueで`RECEIVED=19`、`SEEN_ON_NETWORK=1`、pipeline=falseで`RECEIVED=20`でした。新しいP2PKHガード付き疑似STASでは、pipeline=trueが`RECEIVED=8`、`SEEN_ON_NETWORK=4`、`SEEN_ON_MULTIPLE_NODES=8`、pipeline=falseが`RECEIVED=4`、`ACCEPTED_BY_NETWORK=8`、`SEEN_ON_NETWORK=8`でした。旧tailを含むSTAS UTXOを選んだ試行では、次の理由でHTTP 400となり、そのステップを停止しました: `TX_INVALID (31): GoBDK fail to ValidateTransaction -> UNKNOWN (0): Script evaluated without error but finished with a false/empty top stack element: TX_INVALID (31): GoBDK fail to ValidateTransaction -> UNKNOWN (0): Script evaluated without error but finished with a false/empty top stack element Transaction unlocking scripts are invalid`。
 
-P2PKH sweepのArcadeステータス検証サンプルは、batch 100で`RECEIVED=19`/`ACCEPTED_BY_NETWORK=1`、batch 2,000で`RECEIVED=20`、batch 10,000で`RECEIVED=20`でした。新tailのSTAS発行は2,000 outputs×2と1,000 outputs×6に分割し、各トランザクションを順番に送信してHTTP 202を確認しました。bench結果の全JSON、残高、各ステップのUTXO数は`/home/ubuntu/ttn/bench-results.md`を参照してください。
+P2PKH sweepのArcadeステータス検証サンプルは、batch 100で`RECEIVED=19`/`ACCEPTED_BY_NETWORK=1`、batch 2,000で`RECEIVED=20`、batch 10,000で`RECEIVED=20`でした。新tailのSTAS発行は2,000 outputs×2と1,000 outputs×6に分割し、各トランザクションを順番に送信してHTTP 202を確認しました。bench結果の全JSON、残高、各ステップのUTXO数は[`docs/ttn-bench-2026-09-16.md`](docs/ttn-bench-2026-09-16.md)を参照してください。
 
 合成エンジンは、STAS-3のレイアウト/サイズを保つP2PKHガード付き疑似STASです（実際のSTAS-3エンジンではありません）。TTN上では署名検証とトランザクションサイズを検証しますが、STAS-3トークンルールそのものは検証しません。
 
