@@ -84,7 +84,7 @@ Node 22+(`node:sqlite`使用)。
 
 ## TTN MCP wallet
 
-Teranode Testnet (TTN) のArcade/WoCを使うウォレットMCPです。`.env` に `NETWORK=ttn`、`WOC_URL`、`WALLET_WIF` を設定すると、残高・UTXO確認、P2PKH送金、分割、公式SDKによるSTAS 3.0 DSTAS発行・転送、オフライン/送信ベンチを利用できます。DSTAS実装は `dxs-bsv-token-sdk@1.0.4` に固定し、WIFはツール結果に返しません。送信系は安全のため `broadcast: false` を指定して構築だけ確認できます。
+Teranode Testnet (TTN) のArcade/WoCを使うウォレットMCPです。`.env` に `NETWORK=ttn`、`WOC_URL`、`WALLET_WIF` を設定すると、残高・UTXO確認、P2PKH送金、分割、公式SDKによるSTAS 3.0 DSTAS発行・転送、オフライン/送信ベンチを利用できます。DSTAS実装は `dxs-bsv-token-sdk@1.0.4` に固定し、Template STAS 3.1 patchでエンジンを差し替えています。WIFはツール結果に返しません。送信系は安全のため `broadcast: false` を指定して構築だけ確認できます。
 
 TTNではWoCのaddress indexが不安定なため、ウォレットUTXOは`DB_PATH`のSQLiteに保存します。faucetのEF JSONLまたはraw/EF hexを取り込むには次を使います。
 
@@ -116,7 +116,7 @@ Claude Desktop / Cursor の設定例(`mcp.json`):
 
 Express起動時はStreamable HTTPの `POST /mcp` も利用できます。
 
-STAS発行・転送は `dxs-bsv-token-sdk@1.0.4` の公式DSTAS APIを使用します。SDK 1.0.4が生成した今回のDSTAS出力は、STAS 3.0 v0.2.4 §15.6のサイズ表に照合すると、base 2,942 bytesにflags（2 bytes）とfreeze/confiscationのサービスフィールド（各21 bytes）を加えた2,986-byte locking scriptで、engine revision 0.0.9に該当します。v0.2.4の0.0.11 engine bytesは未提供のため、この実装がv0.2.4 engineを使用しているとは主張しません。
+STAS 3.0 spec v0.2.4 / engine Template STAS 3.1 (revision 0.0.11) via dxs-bsv-token-sdk 1.0.4 + patch
 
 ## ARC
 
@@ -142,7 +142,7 @@ P2PKHのArcadeステータス検証サンプルは、pipeline=trueで`RECEIVED=1
 
 P2PKH sweepのArcadeステータス検証サンプルは、batch 100で`RECEIVED=19`/`ACCEPTED_BY_NETWORK=1`、batch 2,000で`RECEIVED=20`、batch 10,000で`RECEIVED=20`でした。bench結果の全JSON、残高、各ステップのUTXO数は[`docs/ttn-bench-2026-09-16.md`](docs/ttn-bench-2026-09-16.md)を参照してください。
 
-公式DSTASの単件TTN検証は [`/home/ubuntu/ttn/dstas-validation.json`](/home/ubuntu/ttn/dstas-validation.json) に保存しています。issueのcontract txとissue tx、続くtransfer txはいずれもArcade HTTP 202を返し、3秒後のステータス取得に成功しました。10,000件の公式DSTASベンチマークは、現在のローカルウォレットに必要な10,000個の十分なP2PKH fee UTXOが残っていないため未実施です。旧STASベンチマーク値を公式DSTASの結果として扱ってはいけません。
+公式DSTASの単件TTN検証は [`/home/ubuntu/ttn/dstas-validation.json`](/home/ubuntu/ttn/dstas-validation.json) に保存しています。unpatched Template STAS 3.0 と patched Template STAS 3.1 の issue → transfer はいずれも Arcade HTTP 202 を返し、3秒後のステータス取得に成功しました。10,000件の公式DSTASベンチマークは、既存の旧pseudo-STAS UTXOを安全にP2PKHへ回収できず、発行資金と独立したfee UTXOが不足したため未実施です。旧pseudo-STASベンチマーク値を公式DSTASの結果として扱ってはいけません。
 
 `wallet_split`の10,000 outputs（100 sats each）はtxid `8e8c205582abf718dc1429943d874f33a994a4ec54535171f4c661863b9af1aa`として受理され、3秒後に`SEEN_MULTIPLE_NODES`でした。なお、`broadcastTps`はArcade HTTP 202受理のスループットであり、ブロック取り込みやマイニングのスループットではありません。
 

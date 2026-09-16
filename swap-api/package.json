@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "postinstall": "patch-package",
     "test": "WALLET_DB_PATH=:memory: node --experimental-sqlite --import tsx src/selftest.ts",
     "mcp": "node --experimental-sqlite --import tsx src/mcp/server.ts",
     "wallet:import": "node --experimental-sqlite --import tsx src/wallet/import-cli.ts",
@@ -20,6 +21,7 @@
     "@types/express": "^5.0.6",
     "@types/node": "^25.9.2",
     "@types/secp256k1": "^4.0.7",
+    "patch-package": "^8.0.1",
     "tsx": "^4.22.4",
     "typescript": "^6.0.3"
   },

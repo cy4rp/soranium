@@ -19,7 +19,10 @@ import { runSendBench } from './wallet/sendbench.js'
 import { arcadeBatchBody } from './arc.js'
 import { importTx, listUtxos, markSpent, removeTx } from './wallet/store.js'
 import { config } from './config.js'
-import { LockingScriptReader, TransactionReader } from 'dxs-bsv-token-sdk/bsv'
+import { LockingScriptReader, ScriptBuilder, ScriptType, TransactionReader, asmToTokens } from 'dxs-bsv-token-sdk/bsv'
+import * as fs from 'node:fs'
+import { createRequire } from 'node:module'
+import { dirname, join } from 'node:path'
 
 // --- synthetic fixtures ------------------------------------------------------
 const makerKey = PrivateKey.fromRandom()
@@ -59,6 +62,30 @@ const makerTokenUtxo = utxoFromSource(fakeSourceTx(makerTokenScript, 10_000n), 0
 const takerTokenScript = buildStasScript(pkhOfKey(takerKey), new Uint8Array(0), tailB)
 const takerTokenUtxo = utxoFromSource(fakeSourceTx(takerTokenScript, 500_000n), 0)
 const fundingUtxo = (n: bigint) => utxoFromSource(fakeSourceTx(p2pkh(pkhOfKey(fundKey)), n), 0)
+
+// --- official Template STAS 3.1 seam -----------------------------------------
+const sdkRequire = createRequire(import.meta.url)
+const sdkRoot = dirname(sdkRequire.resolve('dxs-bsv-token-sdk/package.json'))
+const sdkTemplateBase = sdkRequire(join(sdkRoot, 'dist/script/templates/dstas-locking-template-base.js')) as {
+  buildDstasTemplateBaseTokens: () => Parameters<typeof ScriptBuilder.fromTokens>[0]
+}
+const template3_1 = fs.readFileSync(new URL('../assets/stas3.1-template.txt', import.meta.url), 'utf8')
+const redemptionTail = 'OP_RETURN <"redemption address"/"protocol ID" - 20 bytes> <flags field> <service data per each flag> <optional data field/s - upto around 4.2GB size>'
+const templateBody = template3_1.replace(/\s+/g, ' ').trim()
+  .slice('<owner address/MPKH - 20 bytes> <action data>'.length)
+  .replace(redemptionTail, '')
+  .trim() + ' OP_RETURN'
+const templateScript = ScriptBuilder.fromTokens(
+  asmToTokens(templateBody),
+  ScriptType.unknown,
+).toBytes()
+const sdkTemplateScript = ScriptBuilder.fromTokens(
+  sdkTemplateBase.buildDstasTemplateBaseTokens(),
+  ScriptType.unknown,
+).toBytes()
+assert.equal(bytesToHex(sdkTemplateScript), bytesToHex(templateScript), 'SDK DSTAS base must match tracked Template STAS 3.1')
+assert(bytesToHex(sdkTemplateScript).includes('4b0c'), 'Template STAS 3.1 must contain the 4b0c redemption offset push')
+console.log('✓ SDK DSTAS template matches Template STAS 3.1 (4b0c offset)')
 
 // --- 1. descriptor round-trip ------------------------------------------------
 const wantedTail = parseStasScript(bytesToHex(takerTokenScript))

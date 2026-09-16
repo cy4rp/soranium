@@ -25,10 +25,10 @@ const Bsv = sdk.default ?? sdk
 const Dstas = sdkDstas.default ?? sdkDstas
 
 /** The SDK's locking-script engine is kept behind this seam for future revisions. */
-export const DSTAS_SDK_ENGINE = 'dxs-bsv-token-sdk@1.0.4'
-/** Derived from the SDK output size: 2,942-byte base + 44-byte authority fields. */
-export const DSTAS_ENGINE_REVISION = '0.0.9'
-export const DSTAS_ENGINE_BASE_SIZE = 2942
+export const DSTAS_SDK_ENGINE = 'dxs-bsv-token-sdk@1.0.4 + Template STAS 3.1 patch'
+/** STAS 3.0 spec v0.2.4 / engine Template STAS 3.1 (revision 0.0.11). */
+export const DSTAS_ENGINE_REVISION = '0.0.11'
+export const DSTAS_ENGINE_BASE_SIZE = 3189
 /** Keeps an issue transaction well below Arcade/Cloudflare request limits. */
 export const DSTAS_MAX_DESTINATIONS_PER_TX = 2000
 
