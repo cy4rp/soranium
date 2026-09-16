@@ -13,7 +13,7 @@ import { encodeSwapDescriptor, decodeSwapDescriptor, requiredWantedAmount } from
 import { buildOfferTx, buildTakeTx, buildCancelTx, Utxo } from './stas/swap.js'
 import { EMPTY_HASH160 } from './stas/constants.js'
 import { pkhOfKey } from './keys.js'
-import { buildP2pkhSend, buildSplitTx, buildStasTransferTx } from './wallet/transfer.js'
+import { buildP2pkhSend, buildSplitTx, buildStasIssueTx, buildStasTransferTx } from './wallet/transfer.js'
 import { runSendBench } from './wallet/sendbench.js'
 import { arcadeBatchBody } from './arc.js'
 import { importTx, listUtxos, markSpent, removeTx } from './wallet/store.js'
@@ -179,24 +179,48 @@ console.log('✓ EF-to-raw conversion + Arcade batch body length')
 
 if (config.walletWif) {
   const walletPkh = pkhOfKey(PrivateKey.fromWif(config.walletWif))
-  const walletRawTx = {
+  const walletSourceTx = {
     version: 2,
     inputs: [{ txid: '22'.repeat(32), vout: 0, script: new Uint8Array([0x51]), sequence: 0xffffffff, prevSatoshis: 0n, prevScript: new Uint8Array(0) }],
+    outputs: [
+      { satoshis: 1_000n, script: p2pkh(walletPkh) },
+    ],
+    lockTime: 0,
+  }
+  const sourceHex = bytesToHex(serializeTx(walletSourceTx))
+  const sourceTxid = parseTx(sourceHex).txid
+  const walletRawTx = {
+    version: 2,
+    inputs: [{ txid: sourceTxid, vout: 0, script: new Uint8Array([0x51]), sequence: 0xffffffff, prevSatoshis: 0n, prevScript: new Uint8Array(0) }],
     outputs: [
       { satoshis: 777n, script: p2pkh(walletPkh) },
       { satoshis: 333n, script: p2pkh(pkhOfKey(makerKey)) },
     ],
     lockTime: 0,
   }
-  const walletRaw = bytesToHex(serializeTx(walletRawTx))
+  importTx(sourceHex)
   const walletImported = importTx(bytesToHex(serializeTxEF(walletRawTx)))
   assert.equal(walletImported.added, 1)
-  assert.equal(listUtxos().filter((row) => row.txid === walletImported.txid).length, 1)
+  assert.equal(listUtxos().filter((row) => row.txid === walletImported.txid && row.kind === 'p2pkh').length, 1)
+  assert.equal(listUtxos({ unspentOnly: false }).find((row) => row.txid === sourceTxid)?.spentBy, walletImported.txid)
   markSpent([{ txid: walletImported.txid, vout: 0 }], '33'.repeat(32))
   assert.equal(listUtxos().some((row) => row.txid === walletImported.txid && row.vout === 0), false)
   removeTx(walletImported.txid)
+  removeTx(sourceTxid)
   console.log('✓ local wallet import ownership + markSpent')
 }
+
+const issued = buildStasIssueTx({
+  fundingUtxos: [fundingUtxo(20_000n), fundingUtxo(20_000n)],
+  wif: fundKey.toWif([0xef]), toPkh: pkhOfKey(fundKey), amount: 1_000n, count: 3, feePerKb: 50,
+})
+const issuedTx = parseTx(issued.rawHex)
+assert.equal(issuedTx.outputs.length, 4)
+for (const output of issuedTx.outputs.slice(0, 3)) {
+  const issuedStas = parseStasScript(bytesToHex(output.script))
+  assert(eq(issuedStas.owner, pkhOfKey(fundKey)), 'issued STAS owner')
+}
+console.log('✓ multi-output STAS issue')
 
 const transferred = buildStasTransferTx({
   tokenUtxo: makerTokenUtxo, ownerWif: makerKey.toWif([0xef]),

@@ -118,47 +118,61 @@ export const buildStasTransferTx = (p: StasTransferParams): BuiltTx => {
   const tx = build(change)
   const unlockChange = change > 0n ? { satoshis: change, pkh: changePkh } : undefined
   const preimage = sighashPreimage(tx, 0, SIGHASH_STAS)
-  tx.inputs[0].script = buildStasUnlock({
+  const unlock = buildStasUnlock({
     tokenOutputs: decl, note, change: unlockChange, fundingVin: 1,
     spendType: SPEND_TYPE.REGULAR, txType: TX_TYPE.REGULAR, preimage,
     signature: signPreimageRaw(preimage, ownerKm.priv, SIGHASH_STAS), pubKeyOrRedeemBuffer: ownerKm.pub,
   })
+  const syntheticTail = token.tail.every((byte) => byte === 0x61) || (token.tail.length >= 23 &&
+    token.tail.slice(0, token.tail.length - 23).every((byte) => byte === 0x61) &&
+    token.tail[token.tail.length - 23] === 0x6a &&
+    token.tail[token.tail.length - 22] === 0x14)
+  tx.inputs[0].script = syntheticTail ? concat(unlock, new Uint8Array([0x51])) : unlock
   tx.inputs[1].script = p2pkhUnlock(tx, 1, fundingKm)
   return finalize(tx)
 }
 
 export interface StasIssueParams {
-  fundingUtxo: Utxo
+  fundingUtxos?: Utxo[]
+  fundingUtxo?: Utxo
   wif: string
   toPkh: Pkh
   amount: bigint
   tailBytes?: number
   protoSeed?: number
   engine?: 'synthetic' | 'template'
+  count?: number
+  feePerKb?: number
 }
 
 export const buildStasIssueTx = (p: StasIssueParams): BuiltTx => {
   if (p.amount <= 0n) throw new Error('amount must be positive')
+  const count = p.count ?? 1
+  if (!Number.isInteger(count) || count <= 0 || count > 100000) throw new Error('count must be between 1 and 100000')
+  if (p.engine === 'template' && count !== 1) throw new Error('template STAS issuance supports count=1 only')
+  const fundingUtxos = p.fundingUtxos ?? (p.fundingUtxo ? [p.fundingUtxo] : [])
+  if (!fundingUtxos.length) throw new Error('at least one funding UTXO is required')
   const km = keyMaterialFromWif(p.wif)
   const owner = pkhBytes(p.toPkh)
   const tail = p.engine === 'template'
     ? compileStasTemplate(owner, new Uint8Array(0))
     : makeTail(p.tailBytes ?? 96, p.protoSeed ?? 1)
   const tokenScript = p.engine === 'template' ? tail : buildStasScript(owner, new Uint8Array(0), tail)
+  const totalIn = fundingUtxos.reduce((sum, utxo) => sum + utxo.satoshis, 0n)
   const build = (change: bigint): Tx => ({
     version: 2,
-    inputs: [toTxIn(p.fundingUtxo)],
+    inputs: fundingUtxos.map(toTxIn),
     outputs: [
-      { satoshis: p.amount, script: tokenScript },
+      ...Array.from({ length: count }, () => ({ satoshis: p.amount, script: tokenScript })),
       ...(change > 0n ? [{ satoshis: change, script: p2pkh(km.pkh) }] : []),
     ],
     lockTime: 0,
   })
-  const fee = feeFor(serializeTx(build(1n)).length + 107, 50)
-  const change = p.fundingUtxo.satoshis - p.amount - fee
-  if (change < 0n) throw new Error(`funding UTXO too small: need ≥ ${p.amount + fee} sats`)
+  const fee = feeFor(serializeTx(build(1n)).length + fundingUtxos.length * 107, p.feePerKb ?? 50)
+  const change = totalIn - p.amount * BigInt(count) - fee
+  if (change < 0n) throw new Error(`funding UTXOs too small: need ≥ ${p.amount * BigInt(count) + fee} sats`)
   const tx = build(change)
-  tx.inputs[0].script = p2pkhUnlock(tx, 0, km)
+  tx.inputs.forEach((_, index) => { tx.inputs[index].script = p2pkhUnlock(tx, index, km) })
   return finalize(tx)
 }
 

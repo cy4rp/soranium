@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "node --experimental-sqlite --import tsx src/selftest.ts",
+    "test": "WALLET_DB_PATH=:memory: node --experimental-sqlite --import tsx src/selftest.ts",
     "mcp": "node --experimental-sqlite --import tsx src/mcp/server.ts",
     "wallet:import": "node --experimental-sqlite --import tsx src/wallet/import-cli.ts",
     "dev": "node --experimental-sqlite --import tsx src/server.ts",

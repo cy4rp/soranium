@@ -16,7 +16,7 @@ export const config = {
   /** Optional ARC callback URL for merkle proof / status callbacks */
   arcCallbackUrl: process.env.ARC_CALLBACK_URL ?? '',
   port: Number(process.env.PORT ?? 3000),
-  dbPath: process.env.DB_PATH ?? './orderbook.sqlite',
+  dbPath: process.env.WALLET_DB_PATH ?? process.env.DB_PATH ?? './orderbook.sqlite',
   /** sat/kB. Testnet nodes generally accept 1 sat/kB; keep margin by default. */
   feePerKb: Number(process.env.FEE_PER_KB ?? (ttn ? 1 : 50)),
   network,

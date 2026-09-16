@@ -126,6 +126,21 @@ Express起動時はStreamable HTTPの `POST /mcp` も利用できます。
 
 `tps_bench`は`worker_threads`で構築を並列化します。`workers`（既定`os.availableParallelism()`）、`concurrency`、`batchSize`、`pipeline`を指定でき、`buildTps`/`buildP50us`/`buildP99us`、`broadcastTps`、`endToEndTps`、受理/拒否件数、10,000 TPSに対する`verdict`を返します。`broadcast: false`はオフライン構築のみを測定し、count上限は100,000です。
 
+## Results on Teratestnet
+
+実測日: 2026-09-16。マシン: `nproc=8`、`INTEL(R) XEON(R) PLATINUM 8559C`。設定は`NETWORK=ttn`、`FEE_PER_KB=1`、workers=8、batchSize=500、concurrency=16、count=10,000です。完全なJSONは`/home/ubuntu/ttn/bench-results.md`に保存しています。
+
+| mode | pipeline | build TPS | broadcast TPS | end-to-end TPS | accepted / rejected |
+|---|---:|---:|---:|---:|---:|
+| P2PKH | true | 14,075 | 886 | 886 | 10,000 / 0 |
+| P2PKH | false | 14,134 | 749 | 711 | 10,000 / 0 |
+| STAS | true | 11,619 | 0 | 0 | 0 / 7,250 |
+| STAS | false | 12,151 | 0 | 0 | 0 / 8,000 |
+
+P2PKHのArcadeステータス検証サンプルは、pipeline=trueで`RECEIVED=19`、`SEEN_ON_NETWORK=1`、pipeline=falseで`RECEIVED=20`でした。STAS転送はArcade HTTP 400（`TX_INVALID (31)`、unlocking scriptが無効）でチャンクが拒否されたため、報告された拒否理由を保持して後続チャンクの送信を停止しました。10,000-outputのSTAS issuance本体はArcade HTTP 524、補助的な大口入力での再試行はHTTP 500となりました。
+
+`wallet_split`の10,000 outputs（100 sats each）はtxid `8e8c205582abf718dc1429943d874f33a994a4ec54535171f4c661863b9af1aa`として受理され、3秒後に`SEEN_MULTIPLE_NODES`でした。なお、`broadcastTps`はArcade HTTP 202受理のスループットであり、ブロック取り込みやマイニングのスループットではありません。
+
 ## ⚠ 本番前に必ず検証すべき点
 
 1. **アンロッキングスクリプトのスタック順序** — `src/stas/unlock.ts` に一箇所集約してある。公開散文仕様の記述順(出力宣言 → note → change → funding vin → spendType → txType → [counterparty script, piece count, pieces] → preimage → sig → pubkey/redeem buffer)で実装しているが、20KBエンジンの正確な消費順序はテンプレートが正。自前ノードに対する `sendrawtransaction` で1スペンド検証し、不一致があれば `buildStasUnlock()` の `parts` 順序のみ修正すればよい。

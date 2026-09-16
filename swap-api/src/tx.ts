@@ -97,6 +97,32 @@ export const parseTx = (raw: Uint8Array | string): ParsedTx => {
   return { bytes, txid: bytesToHex(sha256d(bytes).reverse()), outputs }
 }
 
+/** Parse a raw transaction into the full signing model, without prevout data. */
+export const parseTxModel = (raw: Uint8Array | string): Tx => {
+  const bytes = typeof raw === 'string' ? hexToBytes(raw) : raw
+  const r = new Reader(bytes)
+  const version = r.u32()
+  const inputs: TxIn[] = []
+  const nIn = Number(r.varInt())
+  for (let i = 0; i < nIn; i++) {
+    const txid = bytesToHex(r.take(32).reverse())
+    const vout = r.u32()
+    const script = r.take(Number(r.varInt()))
+    const sequence = r.u32()
+    inputs.push({ txid, vout, script, sequence, prevSatoshis: 0n, prevScript: new Uint8Array(0) })
+  }
+  const outputs: TxOut[] = []
+  const nOut = Number(r.varInt())
+  for (let i = 0; i < nOut; i++) {
+    const satoshis = r.u64()
+    const script = r.take(Number(r.varInt()))
+    outputs.push({ satoshis, script })
+  }
+  const lockTime = r.u32()
+  if (r.pos !== bytes.length) throw new Error('trailing bytes after transaction')
+  return { version, inputs, outputs, lockTime }
+}
+
 /** Parse BIP-239 Extended Format and return its equivalent raw transaction. */
 export const parseTxEF = (ef: Uint8Array | string): Tx => {
   const bytes = typeof ef === 'string' ? hexToBytes(ef) : ef

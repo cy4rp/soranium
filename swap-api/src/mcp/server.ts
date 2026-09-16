@@ -13,6 +13,7 @@ import { runSendBench } from '../wallet/sendbench.js'
 import type { Utxo } from '../stas/swap.js'
 import { parseStasScript } from '../stas/script.js'
 import { balance as localBalance, importTx, listUtxos, recordBroadcast } from '../wallet/store.js'
+import type { WalletStoreUtxo } from '../wallet/store.js'
 
 const walletKey = (): PrivateKey => {
   if (!config.walletWif) throw new Error('WALLET_WIF is not configured')
@@ -23,7 +24,7 @@ const walletAddress = (): string => pkhToTestnetAddress(walletPkh())
 const result = (value: unknown) => ({ content: [{ type: 'text' as const, text: JSON.stringify(value) }] })
 const errorResult = (error: unknown) => result({ error: (error as Error).message })
 
-const sourceUtxos = async (address: string, limit?: number): Promise<Utxo[]> => {
+const sourceUtxos = async (address: string, limit?: number): Promise<WalletStoreUtxo[]> => {
   const local = listUtxos({ limit })
   if (local.length) return local
   return []
@@ -99,18 +100,23 @@ export const createMcpServer = (): McpServer => {
   })
   server.registerTool('stas_issue', {
     description: 'Issue a synthetic or template STAS output',
-    inputSchema: { amount: z.union([z.number(), z.string()]), toAddress: z.string().optional(), engine: z.enum(['synthetic', 'template']).default('synthetic'), broadcast: z.boolean().default(true) },
-  }, async ({ amount, toAddress, engine, broadcast }) => {
+    inputSchema: {
+      amount: z.union([z.number(), z.string()]), count: z.number().int().positive().max(100000).default(1),
+      toAddress: z.string().optional(), engine: z.enum(['synthetic', 'template']).default('synthetic'),
+      broadcast: z.boolean().default(true),
+    },
+  }, async ({ amount, count, toAddress, engine, broadcast }) => {
     try {
       const value = BigInt(amount)
       const rows = await sourceUtxos(walletAddress())
-      const input = selectFunding(rows, value)[0]
+      const feeReserve = BigInt(Math.max(1_000, count * Math.max(1, config.feePerKb) * 2))
+      const inputs = selectFunding(rows.filter((u) => u.kind === 'p2pkh'), value * BigInt(count) + feeReserve)
       const built = buildStasIssueTx({
-        fundingUtxo: input, wif: config.walletWif, toPkh: toAddress ? addressToPkh(toAddress) : walletPkh(),
-        amount: value, engine,
+        fundingUtxos: inputs, wif: config.walletWif, toPkh: toAddress ? addressToPkh(toAddress) : walletPkh(),
+        amount: value, count, engine, feePerKb: config.feePerKb,
       })
       const arc = broadcast ? await arcSubmit(built.efHex) : null
-      if (broadcast) recordBroadcast(built, [input])
+      if (broadcast) recordBroadcast(built, inputs)
       return result({ txid: built.txid, rawHex: built.rawHex, arc })
     } catch (e) { return errorResult(e) }
   })
@@ -161,8 +167,9 @@ export const createMcpServer = (): McpServer => {
       concurrency: z.number().int().positive().max(256).default(32), batchSize: z.number().int().positive().max(1000).default(100),
       broadcast: z.boolean().default(true), satoshisEach: z.union([z.number(), z.string()]).default(1000),
       workers: z.number().int().positive().max(256).optional(), pipeline: z.boolean().default(false),
+      verifySample: z.boolean().default(true),
     },
-  }, async ({ count, mode, concurrency, batchSize, broadcast, satoshisEach, workers, pipeline }) => {
+  }, async ({ count, mode, concurrency, batchSize, broadcast, satoshisEach, workers, pipeline, verifySample }) => {
     try {
       const each = BigInt(satoshisEach)
       const rows = await sourceUtxos(walletAddress())
@@ -172,12 +179,13 @@ export const createMcpServer = (): McpServer => {
       if (candidates.length < count) throw new Error(`not enough ${mode} UTXOs; run wallet_split first`)
       const chosen = candidates.slice(0, count)
       const funding = mode === 'stas'
-        ? rows.filter((u) => !chosen.some((c) => c.txid === u.txid && c.vout === u.vout) && u.satoshis >= config.feePerKb).slice(0, count)
+        ? listUtxos({ kind: 'p2pkh', minSatoshis: 10n }).filter((u) =>
+          !chosen.some((c) => c.txid === u.txid && c.vout === u.vout)).slice(0, count)
         : undefined
       if (mode === 'stas' && funding!.length < count) throw new Error('not enough funding UTXOs for stas mode; run wallet_split first')
       return result(await runSendBench({
         wif: config.walletWif, utxos: chosen, fundingUtxos: funding, mode, toPkh: walletPkh(),
-        feePerKb: config.feePerKb, concurrency, broadcast, batchSize, satoshisEach: each, workers, pipeline,
+        feePerKb: config.feePerKb, concurrency, broadcast, batchSize, satoshisEach: each, workers, pipeline, verifySample,
       }))
     } catch (e) { return errorResult(e) }
   })

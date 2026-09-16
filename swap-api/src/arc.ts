@@ -127,6 +127,6 @@ export const arcStatus = async (txid: string): Promise<ArcSubmitResult> => {
 
 export class ArcError extends Error {
   constructor(public httpStatus: number, public body: ArcSubmitResult) {
-    super(`ARC ${httpStatus}: ${body.title ?? ''} ${body.detail ?? body.extraInfo ?? ''}`.trim())
+    super(`ARC ${httpStatus}: ${body.reason ?? body.title ?? ''} ${body.detail ?? body.extraInfo ?? ''}`.trim())
   }
 }
