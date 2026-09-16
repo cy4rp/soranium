@@ -19,11 +19,12 @@ const { buildP2pkhSend } = await tsImport(
   `./transfer${import.meta.url.endsWith('.ts') ? '.ts' : '.js'}`,
   import.meta.url,
 )
-const { buildDstasTransfer } = await tsImport(
+const { buildDstasTransfer, createDstasTransferCache } = await tsImport(
   `./dstas${import.meta.url.endsWith('.ts') ? '.ts' : '.js'}`,
   import.meta.url,
 )
 const built: { index: number; txid: string; rawHex: string; efHex: string; us: number }[] = []
+const transferCache = createDstasTransferCache()
 try {
   for (const pair of p.pairs) {
     const started = process.hrtime.bigint()
@@ -41,7 +42,7 @@ try {
       })
       : buildDstasTransfer({
         stasUtxo, feeUtxo: fundingUtxo!, wif: p.wif,
-        to: p.toPkh, feePerKb: p.feePerKb,
+        to: p.toPkh, feePerKb: p.feePerKb, cache: transferCache,
       })
     built.push({
       index: pair.index, txid: tx.txid, rawHex: tx.rawHex, efHex: tx.efHex,

@@ -40,9 +40,37 @@ const sdkKey = (wif: string): InstanceType<typeof Bsv.PrivateKey> =>
 const sdkAddress = (pkh: Uint8Array | string): InstanceType<typeof Bsv.Address> =>
   Bsv.Address.fromHash160Hex(typeof pkh === 'string' ? bytesToHex(addressToPkh(pkh)) : bytesToHex(pkh))
 
-const sdkOutPoint = (utxo: Utxo): InstanceType<typeof Bsv.OutPoint> => {
+export interface DstasTransferCache {
+  transactions: Map<string, ReturnType<typeof Bsv.TransactionReader.readHex>>
+  outPoints: Map<string, InstanceType<typeof Bsv.OutPoint>>
+  tokens: Map<string, ReturnType<typeof Bsv.LockingScriptReader.read>>
+  schemes: Map<string, InstanceType<typeof Bsv.TokenScheme>>
+}
+
+export const createDstasTransferCache = (): DstasTransferCache => ({
+  transactions: new Map(),
+  outPoints: new Map(),
+  tokens: new Map(),
+  schemes: new Map(),
+})
+
+const sdkOutPoint = (utxo: Utxo, cache?: DstasTransferCache): InstanceType<typeof Bsv.OutPoint> => {
   if (!utxo.sourceTxHex) throw new Error(`source transaction is required for ${utxo.txid}:${utxo.vout}`)
-  const out = Bsv.OutPoint.fromHex(utxo.sourceTxHex, utxo.vout)
+  const key = `${utxo.txid}:${utxo.vout}`
+  let out = cache?.outPoints.get(key)
+  if (!out) {
+    if (cache) {
+      let transaction = cache.transactions.get(utxo.txid)
+      if (!transaction) {
+        transaction = Bsv.TransactionReader.readHex(utxo.sourceTxHex)
+        cache.transactions.set(utxo.txid, transaction)
+      }
+      out = new Bsv.OutPointFull(transaction, utxo.vout)
+      cache.outPoints.set(key, out)
+    } else {
+      out = Bsv.OutPoint.fromHex(utxo.sourceTxHex, utxo.vout)
+    }
+  }
   if (out.TxId !== utxo.txid || out.Satoshis !== Number(utxo.satoshis)) {
     throw new Error(`UTXO source mismatch for ${utxo.txid}:${utxo.vout}`)
   }
@@ -142,31 +170,39 @@ export interface DstasTransferParams {
   wif: string
   to: string | Uint8Array
   feePerKb?: number
+  cache?: DstasTransferCache
 }
 
 export const buildDstasTransfer = (p: DstasTransferParams): DstasBuilt => {
   const key = sdkKey(p.wif)
   const destination = sdkAddress(p.to)
-  const tokenReader = Bsv.LockingScriptReader.read(hexToBytes(p.stasUtxo.script))
+  const tokenReader = p.cache?.tokens.get(p.stasUtxo.script) ??
+    Bsv.LockingScriptReader.read(hexToBytes(p.stasUtxo.script))
+  p.cache?.tokens.set(p.stasUtxo.script, tokenReader)
   const token = tokenReader.Dstas
   if (!token) throw new Error(`not a DSTAS UTXO: ${p.stasUtxo.txid}:${p.stasUtxo.vout}`)
   const pubkey = Bsv.toHex(key.PublicKey)
-  const scheme = new Bsv.TokenScheme(
-    'DSTAS',
-    Bsv.toHex(token.Redemption),
-    'DSTAS',
-    1,
-    {
-      isDivisible: true,
-      freeze: token.FreezeEnabled,
-      confiscation: token.ConfiscationEnabled,
-      freezeAuthority: token.FreezeEnabled ? { m: 1, publicKeys: [pubkey] } : undefined,
-      confiscationAuthority: token.ConfiscationEnabled ? { m: 1, publicKeys: [pubkey] } : undefined,
-    },
-  )
+  const schemeKey = `${Bsv.toHex(token.Redemption)}:${token.FreezeEnabled ? 1 : 0}:${token.ConfiscationEnabled ? 1 : 0}:${pubkey}`
+  let scheme = p.cache?.schemes.get(schemeKey)
+  if (!scheme) {
+    scheme = new Bsv.TokenScheme(
+      'DSTAS',
+      Bsv.toHex(token.Redemption),
+      'DSTAS',
+      1,
+      {
+        isDivisible: true,
+        freeze: token.FreezeEnabled,
+        confiscation: token.ConfiscationEnabled,
+        freezeAuthority: token.FreezeEnabled ? { m: 1, publicKeys: [pubkey] } : undefined,
+        confiscationAuthority: token.ConfiscationEnabled ? { m: 1, publicKeys: [pubkey] } : undefined,
+      },
+    )
+    p.cache?.schemes.set(schemeKey, scheme)
+  }
   const rawHex = Dstas.BuildDstasTransferTx({
-    stasPayment: { OutPoint: sdkOutPoint(p.stasUtxo), Owner: key },
-    feePayment: { OutPoint: sdkOutPoint(p.feeUtxo), Owner: key },
+    stasPayment: { OutPoint: sdkOutPoint(p.stasUtxo, p.cache), Owner: key },
+    feePayment: { OutPoint: sdkOutPoint(p.feeUtxo, p.cache), Owner: key },
     destination: { Satoshis: Number(p.stasUtxo.satoshis), To: destination },
     scheme,
     feeRate: feeRate(p.feePerKb),
