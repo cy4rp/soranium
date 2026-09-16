@@ -2,7 +2,7 @@
 
 STAS 3.0 ホルダー同士のオンチェーン交換(divisible swap)API。トランザクションはBIP-239 Extended Format(EF)で、自前BSV TestnetノードのARCにブロードキャストする。
 
-仕様根拠: STAS 3.0 spec v0.2.1(stastech.org/docs/stas, /docs/swap)+ 同梱の公式ロッキングスクリプトテンプレート(`assets/stas3-template.txt`)。
+交換APIは既存のSTAS swap descriptorと同梱テンプレートを使用します。TTNウォレットの発行・転送は、別経路として公式 `dxs-bsv-token-sdk@1.0.4` のDSTAS APIを使用します。
 
 ## フロー
 
@@ -84,7 +84,7 @@ Node 22+(`node:sqlite`使用)。
 
 ## TTN MCP wallet
 
-Teranode Testnet (TTN) のARC/WoCを使うウォレットMCPです。`.env` に `NETWORK=ttn`、`WOC_URL`、`WALLET_WIF` を設定すると、残高・UTXO確認、P2PKH送金、分割、合成/テンプレートSTAS発行・転送、オフライン/送信ベンチを利用できます。WIFはツール結果に返しません。送信系は安全のため `broadcast: false` を指定して構築だけ確認できます。
+Teranode Testnet (TTN) のArcade/WoCを使うウォレットMCPです。`.env` に `NETWORK=ttn`、`WOC_URL`、`WALLET_WIF` を設定すると、残高・UTXO確認、P2PKH送金、分割、公式SDKによるSTAS 3.0 DSTAS発行・転送、オフライン/送信ベンチを利用できます。DSTAS実装は `dxs-bsv-token-sdk@1.0.4` に固定し、WIFはツール結果に返しません。送信系は安全のため `broadcast: false` を指定して構築だけ確認できます。
 
 TTNではWoCのaddress indexが不安定なため、ウォレットUTXOは`DB_PATH`のSQLiteに保存します。faucetのEF JSONLまたはraw/EF hexを取り込むには次を使います。
 
@@ -116,7 +116,7 @@ Claude Desktop / Cursor の設定例(`mcp.json`):
 
 Express起動時はStreamable HTTPの `POST /mcp` も利用できます。
 
-テンプレートengineは同梱ASMの大文字hexを正規化して組み立て、公式ファイル末尾のprotocol/flags/serviceプレースホルダーはPoC用にowner PKH/空フィールドで補います。実TTN発行ではissuerのprotocol IDとflags/service dataを確定してから検証してください。
+STAS発行・転送は `dxs-bsv-token-sdk@1.0.4` の公式DSTAS APIを使用します。SDK 1.0.4が生成した今回のDSTAS出力は、STAS 3.0 v0.2.4 §15.6のサイズ表に照合すると、base 2,942 bytesにflags（2 bytes）とfreeze/confiscationのサービスフィールド（各21 bytes）を加えた2,986-byte locking scriptで、engine revision 0.0.9に該当します。v0.2.4の0.0.11 engine bytesは未提供のため、この実装がv0.2.4 engineを使用しているとは主張しません。
 
 ## ARC
 
@@ -137,14 +137,12 @@ Express起動時はStreamable HTTPの `POST /mcp` も利用できます。
 | P2PKH sweep (batch 100, concurrency 64) | false | 13,242 | 866 | 813 | 10,000 / 0 |
 | P2PKH sweep (batch 2,000, concurrency 5) | false | 13,672 | 718 | 682 | 10,000 / 0 |
 | P2PKH sweep (batch 10,000, concurrency 1) | false | 14,616 | 404 | 393 | 10,000 / 0 |
-| STAS | true | 11,487 | 694 | 694 | 10,000 / 0 |
-| STAS | false | 11,539 | 630 | 597 | 10,000 / 0 |
 
-P2PKHのArcadeステータス検証サンプルは、pipeline=trueで`RECEIVED=19`、`SEEN_ON_NETWORK=1`、pipeline=falseで`RECEIVED=20`でした。新しいP2PKHガード付き疑似STASでは、pipeline=trueが`RECEIVED=8`、`SEEN_ON_NETWORK=4`、`SEEN_ON_MULTIPLE_NODES=8`、pipeline=falseが`RECEIVED=4`、`ACCEPTED_BY_NETWORK=8`、`SEEN_ON_NETWORK=8`でした。旧tailを含むSTAS UTXOを選んだ試行では、次の理由でHTTP 400となり、そのステップを停止しました: `TX_INVALID (31): GoBDK fail to ValidateTransaction -> UNKNOWN (0): Script evaluated without error but finished with a false/empty top stack element: TX_INVALID (31): GoBDK fail to ValidateTransaction -> UNKNOWN (0): Script evaluated without error but finished with a false/empty top stack element Transaction unlocking scripts are invalid`。
+P2PKHのArcadeステータス検証サンプルは、pipeline=trueで`RECEIVED=19`、`SEEN_ON_NETWORK=1`、pipeline=falseで`RECEIVED=20`でした。P2PKH sweepの詳細は[`docs/ttn-bench-2026-09-16.md`](docs/ttn-bench-2026-09-16.md)を参照してください。
 
-P2PKH sweepのArcadeステータス検証サンプルは、batch 100で`RECEIVED=19`/`ACCEPTED_BY_NETWORK=1`、batch 2,000で`RECEIVED=20`、batch 10,000で`RECEIVED=20`でした。新tailのSTAS発行は2,000 outputs×2と1,000 outputs×6に分割し、各トランザクションを順番に送信してHTTP 202を確認しました。bench結果の全JSON、残高、各ステップのUTXO数は[`docs/ttn-bench-2026-09-16.md`](docs/ttn-bench-2026-09-16.md)を参照してください。
+P2PKH sweepのArcadeステータス検証サンプルは、batch 100で`RECEIVED=19`/`ACCEPTED_BY_NETWORK=1`、batch 2,000で`RECEIVED=20`、batch 10,000で`RECEIVED=20`でした。bench結果の全JSON、残高、各ステップのUTXO数は[`docs/ttn-bench-2026-09-16.md`](docs/ttn-bench-2026-09-16.md)を参照してください。
 
-合成エンジンは、STAS-3のレイアウト/サイズを保つP2PKHガード付き疑似STASです（実際のSTAS-3エンジンではありません）。TTN上では署名検証とトランザクションサイズを検証しますが、STAS-3トークンルールそのものは検証しません。
+公式DSTASの単件TTN検証は [`/home/ubuntu/ttn/dstas-validation.json`](/home/ubuntu/ttn/dstas-validation.json) に保存しています。issueのcontract txとissue tx、続くtransfer txはいずれもArcade HTTP 202を返し、3秒後のステータス取得に成功しました。10,000件の公式DSTASベンチマークは、現在のローカルウォレットに必要な10,000個の十分なP2PKH fee UTXOが残っていないため未実施です。旧STASベンチマーク値を公式DSTASの結果として扱ってはいけません。
 
 `wallet_split`の10,000 outputs（100 sats each）はtxid `8e8c205582abf718dc1429943d874f33a994a4ec54535171f4c661863b9af1aa`として受理され、3秒後に`SEEN_MULTIPLE_NODES`でした。なお、`broadcastTps`はArcade HTTP 202受理のスループットであり、ブロック取り込みやマイニングのスループットではありません。
 

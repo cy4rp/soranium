@@ -2,7 +2,8 @@ import { DatabaseSync } from 'node:sqlite'
 import { config } from '../config.js'
 import { bytesToHex, eq, hexToBytes } from '../bytes.js'
 import { keyMaterialFromWif } from '../keys.js'
-import { parseStasScript, p2pkh } from '../stas/script.js'
+import { p2pkh } from '../stas/script.js'
+import { LockingScriptReader } from 'dxs-bsv-token-sdk/bsv'
 import type { BuiltTx } from '../stas/swap.js'
 import type { Utxo } from '../stas/swap.js'
 import { efToRaw, parseTx, parseTxModel } from '../tx.js'
@@ -73,9 +74,9 @@ export const importTx = (hex: string): { txid: string; added: number } => {
       if (eq(output.script, p2pkhScript)) kind = 'p2pkh'
       else {
         try {
-          const stas = parseStasScript(output.script)
-          if (eq(stas.owner, pkh)) kind = 'stas'
-        } catch { /* non-STAS output */ }
+          const dstas = LockingScriptReader.read(output.script).Dstas
+          if (dstas && eq(dstas.Owner, pkh)) kind = 'stas'
+        } catch { /* non-DSTAS output */ }
       }
       if (!kind) continue
       const result = insert.run(parsed.txid, vout, output.satoshis.toString(), bytesToHex(output.script), kind, now)

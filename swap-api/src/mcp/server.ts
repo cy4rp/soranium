@@ -8,10 +8,10 @@ import { config } from '../config.js'
 import { bytesToHex } from '../bytes.js'
 import { pkhOfKey, pkhToTestnetAddress, addressToPkh } from '../keys.js'
 import { getChainInfo, getUtxos, getRawTx } from '../wallet/chain.js'
-import { buildP2pkhSend, buildSplitTx, buildStasIssueTx, buildStasTransferTx } from '../wallet/transfer.js'
+import { buildP2pkhSend, buildSplitTx } from '../wallet/transfer.js'
+import { buildDstasIssue, buildDstasTransfer, DSTAS_MAX_DESTINATIONS_PER_TX } from '../wallet/dstas.js'
 import { runSendBench } from '../wallet/sendbench.js'
 import type { Utxo } from '../stas/swap.js'
-import { parseStasScript } from '../stas/script.js'
 import { balance as localBalance, importTx, listUtxos, recordBroadcast } from '../wallet/store.js'
 import type { WalletStoreUtxo } from '../wallet/store.js'
 
@@ -99,25 +99,33 @@ export const createMcpServer = (): McpServer => {
     } catch (e) { return errorResult(e) }
   })
   server.registerTool('stas_issue', {
-    description: 'Issue a synthetic or template STAS output',
+    description: 'Issue STAS 3.0 DSTAS outputs using the official SDK',
     inputSchema: {
-      amount: z.union([z.number(), z.string()]), count: z.number().int().positive().max(100000).default(1),
-      toAddress: z.string().optional(), engine: z.enum(['synthetic', 'template']).default('synthetic'),
+      amount: z.union([z.number(), z.string()]), count: z.number().int().positive().max(DSTAS_MAX_DESTINATIONS_PER_TX).default(1),
+      tokenName: z.string().optional(),
       broadcast: z.boolean().default(true),
     },
-  }, async ({ amount, count, toAddress, engine, broadcast }) => {
+  }, async ({ amount, count, tokenName, broadcast }) => {
     try {
       const value = BigInt(amount)
       const rows = await sourceUtxos(walletAddress())
       const feeReserve = BigInt(Math.max(1_000, count * Math.max(1, config.feePerKb) * 2))
-      const inputs = selectFunding(rows.filter((u) => u.kind === 'p2pkh'), value * BigInt(count) + feeReserve)
-      const built = buildStasIssueTx({
-        fundingUtxos: inputs, wif: config.walletWif, toPkh: toAddress ? addressToPkh(toAddress) : walletPkh(),
-        amount: value, count, engine, feePerKb: config.feePerKb,
+      const needed = value * BigInt(count) + feeReserve
+      const funding = rows.find((u) => u.kind === 'p2pkh' && u.satoshis >= needed)
+      if (!funding) throw new Error('DSTAS issue requires one P2PKH UTXO covering the full issue; consolidate funding first')
+      const built = buildDstasIssue({
+        fundingUtxos: [funding], wif: config.walletWif, count, satoshisEach: value,
+        tokenName, feePerKb: config.feePerKb,
       })
-      const arc = broadcast ? await arcSubmit(built.efHex) : null
-      if (broadcast) recordBroadcast(built, inputs)
-      return result({ txid: built.txid, rawHex: built.rawHex, arc })
+      let contractArc = null
+      let arc = null
+      if (broadcast) {
+        contractArc = await arcSubmit(built.contractEfHex!)
+        recordBroadcast({ ...built, txid: built.contractTxid!, rawHex: built.contractRawHex!, efHex: built.contractEfHex!, tx: built.contractTx! }, [funding])
+        arc = await arcSubmit(built.efHex)
+        recordBroadcast(built, [])
+      }
+      return result({ txid: built.txid, contractTxid: built.contractTxid, rawHex: built.rawHex, contractRawHex: built.contractRawHex, contractArc, arc })
     } catch (e) { return errorResult(e) }
   })
   server.registerTool('stas_transfer', {
@@ -130,11 +138,12 @@ export const createMcpServer = (): McpServer => {
     try {
       const token = listUtxos({ kind: 'stas', unspentOnly: true }).find((u) => u.txid === tokenTxid && u.vout === tokenVout)
       if (!token) throw new Error(`local token UTXO not found: ${tokenTxid}:${tokenVout}`)
-      const rows = await sourceUtxos(walletAddress())
-      const funding = selectFunding(rows.filter((u) => u.txid !== tokenTxid), 1n)[0]
-      const built = buildStasTransferTx({
-        tokenUtxo: token, ownerWif: config.walletWif, fundingUtxo: funding, fundingWif: config.walletWif,
-        toPkh: addressToPkh(toAddress), amount: amount === undefined ? undefined : BigInt(amount), feePerKb: config.feePerKb,
+      if (amount !== undefined && BigInt(amount) !== token.satoshis) throw new Error('DSTAS transfer currently transfers the full token UTXO')
+      const funding = listUtxos({ kind: 'p2pkh', minSatoshis: 10n }).find((u) => u.txid !== tokenTxid)
+      if (!funding) throw new Error('not enough P2PKH fee UTXOs for DSTAS transfer')
+      const built = buildDstasTransfer({
+        stasUtxo: token, feeUtxo: funding, wif: config.walletWif,
+        to: toAddress, feePerKb: config.feePerKb,
       })
       const arc = broadcast ? await arcSubmit(built.efHex) : null
       if (broadcast) recordBroadcast(built, [token, funding])
@@ -174,7 +183,7 @@ export const createMcpServer = (): McpServer => {
       const each = BigInt(satoshisEach)
       const rows = await sourceUtxos(walletAddress())
       const candidates = mode === 'stas'
-        ? rows.filter((u) => { try { parseStasScript(u.script); return u.satoshis >= each } catch { return false } })
+        ? rows.filter((u) => u.kind === 'stas' && u.satoshis >= each)
         : rows.filter((u) => u.satoshis >= each)
       if (candidates.length < count) throw new Error(`not enough ${mode} UTXOs; run wallet_split first`)
       const chosen = candidates.slice(0, count)

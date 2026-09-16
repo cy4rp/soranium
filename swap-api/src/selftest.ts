@@ -4,8 +4,7 @@
  * (descriptor round-trip, piece reconstruction, satoshi conservation, EF format).
  * Run: npm test
  */
-import { PrivateKey, PublicKey, Signature } from '@bsv/sdk'
-import { createHash } from 'node:crypto'
+import { PrivateKey } from '@bsv/sdk'
 import assert from 'node:assert'
 import { bytesToHex, concat, eq, hexToBytes } from './bytes.js'
 import { parseTx, txPieces, serializeTx, serializeTxEF, efToRaw } from './tx.js'
@@ -14,13 +13,13 @@ import { encodeSwapDescriptor, decodeSwapDescriptor, requiredWantedAmount } from
 import { buildOfferTx, buildTakeTx, buildCancelTx, Utxo } from './stas/swap.js'
 import { EMPTY_HASH160, SIGHASH_ALL_FORKID } from './stas/constants.js'
 import { pkhOfKey } from './keys.js'
-import { buildP2pkhSend, buildSplitTx, buildStasIssueTx, buildStasTransferTx } from './wallet/transfer.js'
-import { makeTail as makeEngineTail } from './bench/fixtures.js'
+import { buildP2pkhSend, buildSplitTx } from './wallet/transfer.js'
+import { buildDstasIssue, buildDstasTransfer } from './wallet/dstas.js'
 import { runSendBench } from './wallet/sendbench.js'
 import { arcadeBatchBody } from './arc.js'
 import { importTx, listUtxos, markSpent, removeTx } from './wallet/store.js'
 import { config } from './config.js'
-import { sighashPreimage } from './sighash.js'
+import { LockingScriptReader, TransactionReader } from 'dxs-bsv-token-sdk/bsv'
 
 // --- synthetic fixtures ------------------------------------------------------
 const makerKey = PrivateKey.fromRandom()
@@ -213,72 +212,50 @@ if (config.walletWif) {
   console.log('✓ local wallet import ownership + markSpent')
 }
 
-const issued = buildStasIssueTx({
-  fundingUtxos: [fundingUtxo(20_000n), fundingUtxo(20_000n)],
-  wif: fundKey.toWif([0xef]), toPkh: pkhOfKey(fundKey), amount: 1_000n, count: 3, feePerKb: 50,
+const dstasKey = config.walletWif ? PrivateKey.fromWif(config.walletWif) : fundKey
+const dstasWif = dstasKey.toWif([0xef])
+const dstasPkh = pkhOfKey(dstasKey)
+const dstasFunding = utxoFromSource(fakeSourceTx(p2pkh(dstasPkh), 20_000n), 0)
+const dstasFee = utxoFromSource(fakeSourceTx(p2pkh(dstasPkh), 5_000n), 0)
+const issued = buildDstasIssue({
+  fundingUtxos: [dstasFunding], wif: dstasWif, count: 2, satoshisEach: 100n,
+  tokenName: 'SELFTEST', feePerKb: 1,
 })
-const issuedTx = parseTx(issued.rawHex)
-assert.equal(issuedTx.outputs.length, 4)
-for (const output of issuedTx.outputs.slice(0, 3)) {
-  const issuedStas = parseStasScript(bytesToHex(output.script))
-  assert(eq(issuedStas.owner, pkhOfKey(fundKey)), 'issued STAS owner')
+assert(issued.contractRawHex && issued.contractEfHex && issued.contractTxid)
+const issueParsed = TransactionReader.readHex(issued.rawHex)
+assert.equal(issueParsed.Outputs.length >= 2, true)
+for (const output of issueParsed.Outputs.slice(0, 2)) {
+  const dstasOutput = LockingScriptReader.read(output.LockingScript).Dstas
+  assert(dstasOutput, 'issue output must parse as DSTAS')
+  assert(eq(dstasOutput.Owner, dstasPkh), 'issue output must be owned by wallet')
 }
-console.log('✓ multi-output STAS issue')
+console.log('✓ SDK DSTAS issue parses and recognizes wallet ownership')
 
-const engineTail = makeEngineTail(96, 7)
-assert.deepEqual(Array.from(engineTail.slice(0, 5)), [0x75, 0x78, 0xa9, 0x88, 0xac], 'synthetic engine prefix')
-assert.equal(engineTail.length, 96, 'synthetic engine tail size')
-assert.equal(engineTail.at(-23), 0x6a, 'synthetic engine trailer')
-console.log('✓ synthetic engine prefix and size')
-
-const transferred = buildStasTransferTx({
-  tokenUtxo: makerTokenUtxo, ownerWif: makerKey.toWif([0xef]),
-  fundingUtxo: fundingUtxo(50_000n), fundingWif: fundKey.toWif([0xef]),
-  toPkh: pkhOfKey(takerKey), amount: 7_000n, feePerKb: 50,
+const issueToken = utxoFromSource(issued.rawHex, 0)
+const transferred = buildDstasTransfer({
+  stasUtxo: issueToken, feeUtxo: dstasFee, wif: dstasWif, to: dstasPkh, feePerKb: 1,
 })
-const transferredOut = parseStasScript(bytesToHex(parseTx(transferred.rawHex).outputs[0].script))
-assert(eq(transferredOut.owner, pkhOfKey(takerKey)), 'STAS transfer out0 owner')
-assert(eq(transferredOut.tail, tailA), 'STAS transfer preserves tail')
-const transferPubKey = PrivateKey.fromWif(makerKey.toWif([0xef])).toPublicKey().toDER()
-assert.equal(transferred.tx.inputs[0].script.at(-1), transferPubKey.at(-1), 'synthetic unlock has no OP_TRUE suffix')
-const transferPushes: Uint8Array[] = []
-for (let pos = 0; pos < transferred.tx.inputs[0].script.length;) {
-  const opcode = transferred.tx.inputs[0].script[pos++]
-  if (opcode === 0) {
-    transferPushes.push(new Uint8Array(0))
-    continue
-  }
-  if (opcode >= 0x51 && opcode <= 0x60) continue
-  let length = opcode
-  if (opcode === 0x4c) length = transferred.tx.inputs[0].script[pos++]
-  else if (opcode === 0x4d) {
-    length = transferred.tx.inputs[0].script[pos] |
-      (transferred.tx.inputs[0].script[pos + 1] << 8)
-    pos += 2
-  } else if (opcode === 0x4e) {
-    length = transferred.tx.inputs[0].script[pos] |
-      (transferred.tx.inputs[0].script[pos + 1] << 8) |
-      (transferred.tx.inputs[0].script[pos + 2] << 16) |
-      (transferred.tx.inputs[0].script[pos + 3] << 24)
-    pos += 4
-  }
-  assert(opcode <= 75 || opcode === 0x4c || opcode === 0x4d || opcode === 0x4e,
-    `unexpected STAS unlock opcode ${opcode.toString(16)}`)
-  transferPushes.push(transferred.tx.inputs[0].script.slice(pos, pos + length))
-  pos += length
+const transferParsed = TransactionReader.readHex(transferred.rawHex)
+assert(transferParsed.Outputs.length >= 1)
+assert(LockingScriptReader.read(transferParsed.Outputs[0].LockingScript).Dstas, 'transfer output must parse as DSTAS')
+console.log('✓ SDK DSTAS transfer parses')
+
+if (config.walletWif) {
+  importTx(dstasFunding.sourceTxHex)
+  importTx(issued.contractRawHex!)
+  importTx(issued.rawHex)
+  const spentFunding = listUtxos({ unspentOnly: false }).find((u) => u.txid === dstasFunding.txid && u.vout === dstasFunding.vout)
+  assert.equal(spentFunding?.spentBy, issued.contractTxid)
+  importTx(dstasFee.sourceTxHex)
+  importTx(transferred.rawHex)
+  assert.equal(listUtxos({ unspentOnly: false }).find((u) => u.txid === issueToken.txid && u.vout === 0)?.spentBy, transferred.txid)
+  removeTx(transferred.txid)
+  removeTx(issued.txid)
+  removeTx(issued.contractTxid!)
+  removeTx(dstasFunding.txid)
+  removeTx(dstasFee.txid)
+  console.log('✓ DSTAS import reconciliation marks issue and transfer inputs spent')
 }
-const transferSigWithHashType = transferPushes.at(-2)!
-const transferSig = Signature.fromDER(Array.from(transferSigWithHashType.slice(0, -1)))
-const transferPreimage = sighashPreimage(transferred.tx, 0, SIGHASH_ALL_FORKID)
-const transferSingleHash = createHash('sha256').update(transferPreimage).digest()
-assert(
-  PublicKey.fromDER(Array.from(transferPushes.at(-1)!)).verify(
-    Array.from(transferSingleHash),
-    transferSig,
-  ),
-  'STAS owner signature verifies over BIP143 preimage hash',
-)
-console.log('✓ synthetic STAS transfer owner + tail')
 
 const benchUtxos = Array.from({ length: 200 }, (_, i) => {
   const script = p2pkh(pkhOfKey(fundKey))

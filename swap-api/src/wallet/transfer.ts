@@ -1,14 +1,9 @@
 import { PrivateKey } from '@bsv/sdk'
-import { bytesToHex, concat, hexToBytes } from '../bytes.js'
+import { bytesToHex, hexToBytes } from '../bytes.js'
 import { keyMaterialFromWif } from '../keys.js'
-import { serializeTx, Tx, txidOf } from '../tx.js'
-import { buildStasScript, p2pkh, parseStasScript } from '../stas/script.js'
-import { SPEND_TYPE, TX_TYPE } from '../stas/constants.js'
-import { buildStasUnlock, estimateUnlockSize, TokenOutputDecl, SIGHASH_STAS } from '../stas/unlock.js'
+import { serializeTx, Tx } from '../tx.js'
+import { p2pkh } from '../stas/script.js'
 import { BuiltTx, feeFor, finalize, p2pkhUnlock, toTxIn, Utxo } from '../stas/swap.js'
-import { makeTail } from '../bench/fixtures.js'
-import { compileStasTemplate } from '../stas/template.js'
-import { sighashPreimage, signPreimageRaw } from '../sighash.js'
 
 type Pkh = Uint8Array | string
 const pkhBytes = (pkh: Pkh): Uint8Array => typeof pkh === 'string' ? hexToBytes(pkh) : pkh
@@ -68,113 +63,3 @@ export const buildSplitTx = (p: SplitTxParams): BuiltTx => {
     feePerKb: p.feePerKb,
   })
 }
-
-export interface StasTransferParams {
-  tokenUtxo: Utxo
-  ownerWif: string
-  fundingUtxo: Utxo
-  fundingWif: string
-  toPkh: Pkh
-  amount?: bigint
-  feePerKb: number
-  noteHex?: string
-}
-
-const noteOutput = (note: Uint8Array) =>
-  ({ satoshis: 0n, script: concat(new Uint8Array([0x00, 0x6a]), new Uint8Array([note.length]), note) })
-
-export const buildStasTransferTx = (p: StasTransferParams): BuiltTx => {
-  const ownerKm = keyMaterialFromWif(p.ownerWif)
-  const fundingKm = keyMaterialFromWif(p.fundingWif)
-  const token = parseStasScript(p.tokenUtxo.script)
-  if (!Buffer.from(token.owner).equals(Buffer.from(ownerKm.pkh))) throw new Error('ownerWif does not match token owner')
-  const amount = p.amount ?? p.tokenUtxo.satoshis
-  if (amount <= 0n || amount > p.tokenUtxo.satoshis) throw new Error('amount out of range')
-  const remainder = p.tokenUtxo.satoshis - amount
-  const toPkh = pkhBytes(p.toPkh)
-  const plain = new Uint8Array(0)
-  const legs = [{ satoshis: amount, owner: toPkh, var2: plain, tail: token.tail }]
-  if (remainder > 0n) legs.push({ satoshis: remainder, owner: ownerKm.pkh, var2: plain, tail: token.tail })
-  const decl: TokenOutputDecl[] = legs.map((l) => ({ satoshis: l.satoshis, owner: l.owner, var2: l.var2 }))
-  const note = p.noteHex ? hexToBytes(p.noteHex) : undefined
-  const changePkh = fundingKm.pkh
-  const build = (change: bigint): Tx => ({
-    version: 2,
-    inputs: [toTxIn(p.tokenUtxo), toTxIn(p.fundingUtxo)],
-    outputs: [
-      ...legs.map((l) => ({ satoshis: l.satoshis, script: buildStasScript(l.owner, l.var2, l.tail) })),
-      ...(note ? [noteOutput(note)] : []),
-      ...(change > 0n ? [{ satoshis: change, script: p2pkh(changePkh) }] : []),
-    ],
-    lockTime: 0,
-  })
-  const unlockEst = estimateUnlockSize({
-    tokenOutputs: decl, note, change: { satoshis: 0n, pkh: changePkh }, fundingVin: 1,
-    spendType: SPEND_TYPE.REGULAR, txType: TX_TYPE.REGULAR, prevScriptLen: hexToBytes(p.tokenUtxo.script).length,
-  })
-  const fee = feeFor(serializeTx(build(1n)).length + unlockEst + 107, p.feePerKb)
-  const change = p.fundingUtxo.satoshis - fee
-  if (change < 0n) throw new Error(`funding UTXO too small: need ≥ ${fee} sats`)
-  const tx = build(change)
-  const unlockChange = change > 0n ? { satoshis: change, pkh: changePkh } : undefined
-  const preimage = sighashPreimage(tx, 0, SIGHASH_STAS)
-  const unlock = buildStasUnlock({
-    tokenOutputs: decl, note, change: unlockChange, fundingVin: 1,
-    spendType: SPEND_TYPE.REGULAR, txType: TX_TYPE.REGULAR, preimage,
-    signature: signPreimageRaw(preimage, ownerKm.priv, SIGHASH_STAS), pubKeyOrRedeemBuffer: ownerKm.pub,
-  })
-  tx.inputs[0].script = unlock
-  tx.inputs[1].script = p2pkhUnlock(tx, 1, fundingKm)
-  return finalize(tx)
-}
-
-export interface StasIssueParams {
-  fundingUtxos?: Utxo[]
-  fundingUtxo?: Utxo
-  wif: string
-  toPkh: Pkh
-  amount: bigint
-  tailBytes?: number
-  protoSeed?: number
-  engine?: 'synthetic' | 'template'
-  count?: number
-  feePerKb?: number
-}
-
-export const buildStasIssueTx = (p: StasIssueParams): BuiltTx => {
-  if (p.amount <= 0n) throw new Error('amount must be positive')
-  const count = p.count ?? 1
-  if (!Number.isInteger(count) || count <= 0 || count > 100000) throw new Error('count must be between 1 and 100000')
-  if (p.engine === 'template' && count !== 1) throw new Error('template STAS issuance supports count=1 only')
-  const fundingUtxos = p.fundingUtxos ?? (p.fundingUtxo ? [p.fundingUtxo] : [])
-  if (!fundingUtxos.length) throw new Error('at least one funding UTXO is required')
-  const km = keyMaterialFromWif(p.wif)
-  const owner = pkhBytes(p.toPkh)
-  const tail = p.engine === 'template'
-    ? compileStasTemplate(owner, new Uint8Array(0))
-    : makeTail(p.tailBytes ?? 96, p.protoSeed ?? 1)
-  const tokenScript = p.engine === 'template' ? tail : buildStasScript(owner, new Uint8Array(0), tail)
-  const totalIn = fundingUtxos.reduce((sum, utxo) => sum + utxo.satoshis, 0n)
-  const build = (change: bigint): Tx => ({
-    version: 2,
-    inputs: fundingUtxos.map(toTxIn),
-    outputs: [
-      ...Array.from({ length: count }, () => ({ satoshis: p.amount, script: tokenScript })),
-      ...(change > 0n ? [{ satoshis: change, script: p2pkh(km.pkh) }] : []),
-    ],
-    lockTime: 0,
-  })
-  const fee = feeFor(serializeTx(build(1n)).length + fundingUtxos.length * 107, p.feePerKb ?? 50)
-  const change = totalIn - p.amount * BigInt(count) - fee
-  if (change < 0n) throw new Error(`funding UTXOs too small: need ≥ ${p.amount * BigInt(count) + fee} sats`)
-  const tx = build(change)
-  tx.inputs.forEach((_, index) => { tx.inputs[index].script = p2pkhUnlock(tx, index, km) })
-  return finalize(tx)
-}
-
-export const addressForWif = (wif: string): string => {
-  const key = PrivateKey.fromWif(wif)
-  return key.toAddress('testnet').toString()
-}
-
-export const txidOfBuilt = (built: BuiltTx): string => txidOf(built.tx)

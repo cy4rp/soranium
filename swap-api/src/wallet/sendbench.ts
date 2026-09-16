@@ -54,7 +54,7 @@ const workerExecArgv = (): string[] => (import.meta.url.endsWith('.ts') ? ['--im
 
 const buildWithWorkers = async (p: SendBenchParams, onChunk?: (chunk: BuiltItem[]) => void): Promise<{ built: BuiltItem[]; elapsedMs: number }> => {
   const workers = Math.max(1, Math.min(p.workers ?? availableParallelism(), p.utxos.length || 1))
-  const compact = (utxo: Utxo): Utxo => ({ ...utxo, sourceTxHex: '' })
+  const compact = (utxo: Utxo): Utxo => ({ ...utxo, sourceTxHex: p.mode === 'stas' ? utxo.sourceTxHex : '' })
   const pairs = p.utxos.map((utxo, index) => ({
     index, utxo: compact(utxo), fundingUtxo: p.fundingUtxos?.[index] ? compact(p.fundingUtxos[index]) : undefined,
   }))
