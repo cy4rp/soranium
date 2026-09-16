@@ -23,7 +23,7 @@ export interface Utxo {
   sourceTxHex: string
 }
 
-const toTxIn = (u: Utxo): TxIn => ({
+export const toTxIn = (u: Utxo): TxIn => ({
   txid: u.txid,
   vout: u.vout,
   script: new Uint8Array(0),
@@ -43,13 +43,13 @@ const verifyUtxoAgainstSource = (u: Utxo): void => {
 
 import type { KeyMaterial } from '../keys.js'
 
-const p2pkhUnlock = (tx: Tx, vin: number, km: KeyMaterial): Uint8Array => {
+export const p2pkhUnlock = (tx: Tx, vin: number, km: KeyMaterial): Uint8Array => {
   const preimage = sighashPreimage(tx, vin, SIGHASH_STAS)
   const sig = signPreimageRaw(preimage, km.priv, SIGHASH_STAS)
   return concat(minimalPush(sig), minimalPush(km.pub))
 }
 
-const feeFor = (sizeBytes: number, feePerKb: number): bigint =>
+export const feeFor = (sizeBytes: number, feePerKb: number): bigint =>
   BigInt(Math.max(1, Math.ceil((sizeBytes * feePerKb) / 1000)))
 
 const noteOutput = (note: Uint8Array) =>
@@ -62,7 +62,7 @@ export interface BuiltTx {
   tx: Tx
 }
 
-const finalize = (tx: Tx): BuiltTx => ({
+export const finalize = (tx: Tx): BuiltTx => ({
   txid: txidOf(tx),
   rawHex: bytesToHex(serializeTx(tx)),
   efHex: bytesToHex(serializeTxEF(tx)),

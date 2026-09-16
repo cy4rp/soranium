@@ -24,10 +24,14 @@ export interface TokenInfo {
   balance: string
 }
 
-/** Synthetic engine tail of a given size with an OP_RETURN <protoID> <flags> trailer. */
+/** Synthetic P2PKH-guarded engine tail with an OP_RETURN <protoID> <flags> trailer. */
 export const makeTail = (size: number, protoSeed: number): Uint8Array => {
-  const engineLen = Math.max(8, size - 23)
-  const engine = new Uint8Array(engineLen).fill(0x61) // OP_NOP filler
+  const prefix = new Uint8Array([0x75, 0x78, 0xa9, 0x88, 0xac]) // DROP OVER HASH160 EQUALVERIFY CHECKSIG
+  const trailerLen = 23
+  if (!Number.isInteger(size) || size < prefix.length + trailerLen) {
+    throw new Error(`synthetic tail size must be at least ${prefix.length + trailerLen} bytes`)
+  }
+  const engine = concat(prefix, new Uint8Array(size - prefix.length - trailerLen).fill(0x61))
   const protoId = new Uint8Array(20)
   for (let i = 0; i < 20; i++) protoId[i] = (protoSeed * 31 + i * 7) & 0xff
   return concat(engine, new Uint8Array([0x6a, 0x14]), protoId, new Uint8Array([0x00]))

@@ -96,7 +96,7 @@ export const parseStasScript = (script: Uint8Array | string): StasScript => {
   if (v1.data.length !== 20) throw new Error('var1 is not a 20-byte owner hash — not a STAS locking script?')
   const v2 = readPush(s, v1.next)
   const tail = s.subarray(v2.next)
-  if (tail.length < 32) throw new Error('script tail too short — not a STAS locking script?')
+  if (tail.length < 8) throw new Error('script tail too short — not a STAS locking script?')
   const persistentHash = sha256(tail)
   return {
     owner: v1.data,

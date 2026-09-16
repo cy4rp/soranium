@@ -2,7 +2,7 @@
 
 STAS 3.0 ホルダー同士のオンチェーン交換(divisible swap)API。トランザクションはBIP-239 Extended Format(EF)で、自前BSV TestnetノードのARCにブロードキャストする。
 
-仕様根拠: STAS 3.0 spec v0.2.1(stastech.org/docs/stas, /docs/swap)+ 同梱の公式ロッキングスクリプトテンプレート(`assets/stas3-template.txt`)。
+交換APIは既存のSTAS swap descriptorと同梱テンプレートを使用します。TTNウォレットの発行・転送は、別経路として公式 `dxs-bsv-token-sdk@1.0.4` のDSTAS APIを使用します。
 
 ## フロー
 
@@ -32,6 +32,7 @@ npm install
 cp .env.example .env   # ARC_URL を自前ノードのARCに向ける
 npm run dev            # tsx 起動
 npm test               # オフライン自己テスト(ビルダーE2E)
+npm run mcp            # TTN MCP wallet (stdio)
 ```
 
 Node 22+(`node:sqlite`使用)。
@@ -81,9 +82,71 @@ Node 22+(`node:sqlite`使用)。
 ### GET /tx/:txid — ARCステータス
 ### GET /health
 
+## TTN MCP wallet
+
+Teranode Testnet (TTN) のArcade/WoCを使うウォレットMCPです。`.env` に `NETWORK=ttn`、`WOC_URL`、`WALLET_WIF` を設定すると、残高・UTXO確認、P2PKH送金、分割、公式SDKによるSTAS 3.0 DSTAS発行・転送、オフライン/送信ベンチを利用できます。DSTAS実装は `dxs-bsv-token-sdk@1.0.4` に固定し、Template STAS 3.1 patchでエンジンを差し替えています。WIFはツール結果に返しません。送信系は安全のため `broadcast: false` を指定して構築だけ確認できます。
+
+TTNではWoCのaddress indexが不安定なため、ウォレットUTXOは`DB_PATH`のSQLiteに保存します。faucetのEF JSONLまたはraw/EF hexを取り込むには次を使います。
+
+```bash
+npm run wallet:import -- /path/to/faucet-claims.jsonl
+npm run wallet:import -- /path/to/transactions.txt
+```
+
+`wallet_import_tx`は1件を取り込み、`wallet_sync`はWoCからbest-effort同期します。indexer障害時は`{ "synced": false, "reason": "..." }`を返します。
+
+stdio:
+
+```bash
+npm run mcp
+```
+
+Claude Desktop / Cursor の設定例(`mcp.json`):
+
+```json
+{
+  "mcpServers": {
+    "ttn-wallet": {
+      "command": "npm",
+      "args": ["--prefix", "/path/to/swap-api", "run", "mcp"]
+    }
+  }
+}
+```
+
+Express起動時はStreamable HTTPの `POST /mcp` も利用できます。
+
+STAS 3.0 spec v0.2.4 / engine Template STAS 3.1 (revision 0.0.11) via dxs-bsv-token-sdk 1.0.4 + patch
+
 ## ARC
 
-`POST {ARC_URL}/v1/tx` に `{ rawTx: <EF hex> }` を送信。EFは前出力(satoshis+script)を内包するため、ARCが他のインデクサに依存せず単独検証できる。`X-WaitFor` は既定 `SEEN_ON_NETWORK`。
+`ARC_FLAVOR=arc`（非TTN）は `POST {ARC_URL}/v1/tx` に `{ rawTx: <EF hex> }`、batchは`/v1/txs` JSONを使います。`ARC_FLAVOR=arcade`（TTN）は単体が`POST /tx`（text/plain EF hex）、状態が`GET /tx/:txid`、batchが`POST /txs`（application/octet-streamの連結EF bytes）、policyが`/policy`です。実TTNの2 tx試験では連結EFがHTTP 202（submitted=2）で受理され、raw連結を使う必要はありませんでした。Arcade batchは202ならチャンク全体を受理、400ならチャンク全体を拒否し、503はRetry-After（なければ1秒）で最大3回再試行します。EFは前出力(satoshis+script)を内包するため、単体送信ではARCが他のインデクサに依存せず検証できます。`X-WaitFor` は既定 `SEEN_ON_NETWORK`。
+
+### ウォレットベンチ
+
+`tps_bench`は`worker_threads`で構築を並列化します。`workers`（既定`os.availableParallelism()`）、`concurrency`、`batchSize`、`pipeline`を指定でき、`buildTps`/`buildP50us`/`buildP99us`、`broadcastTps`、`endToEndTps`、受理/拒否件数、10,000 TPSに対する`verdict`を返します。`broadcast: false`はオフライン構築のみを測定し、count上限は100,000です。
+
+## Results on Teratestnet
+
+実測日: 2026-09-16。マシン: `nproc=8`、`INTEL(R) XEON(R) PLATINUM 8559C`。設定は`NETWORK=ttn`、`FEE_PER_KB=1`、workers=8、batchSize=500、concurrency=16、count=10,000です。完全なJSONは[`docs/ttn-bench-2026-09-16.md`](docs/ttn-bench-2026-09-16.md)に保存しています。
+
+| mode | pipeline | build TPS | broadcast TPS | end-to-end TPS | accepted / rejected |
+|---|---:|---:|---:|---:|---:|
+| P2PKH | true | 14,075 | 886 | 886 | 10,000 / 0 |
+| P2PKH | false | 14,134 | 749 | 711 | 10,000 / 0 |
+| P2PKH sweep (batch 100, concurrency 64) | false | 13,242 | 866 | 813 | 10,000 / 0 |
+| P2PKH sweep (batch 2,000, concurrency 5) | false | 13,672 | 718 | 682 | 10,000 / 0 |
+| P2PKH sweep (batch 10,000, concurrency 1) | false | 14,616 | 404 | 393 | 10,000 / 0 |
+| Official DSTAS (Template STAS 3.1), corrected | true | 717.64 | 504.70 | 504.70 | 10,000 / 0 |
+| Official DSTAS (Template STAS 3.1), corrected | false | 647.62 | 676.20 | 330.72 | 10,000 / 0 |
+
+P2PKHのArcadeステータス検証サンプルは、pipeline=trueで`RECEIVED=19`、`SEEN_ON_NETWORK=1`、pipeline=falseで`RECEIVED=20`でした。P2PKH sweepの詳細は[`docs/ttn-bench-2026-09-16.md`](docs/ttn-bench-2026-09-16.md)を参照してください。
+
+P2PKH sweepのArcadeステータス検証サンプルは、batch 100で`RECEIVED=19`/`ACCEPTED_BY_NETWORK=1`、batch 2,000で`RECEIVED=20`、batch 10,000で`RECEIVED=20`でした。bench結果の全JSON、残高、各ステップのUTXO数は[`docs/ttn-bench-2026-09-16.md`](docs/ttn-bench-2026-09-16.md)を参照してください。
+
+公式DSTASの単件TTN検証は [`docs/evidence/dstas-validation.json`](docs/evidence/dstas-validation.json) に保存しています。unpatched Template STAS 3.0 と patched Template STAS 3.1 の issue → transfer はいずれも Arcade HTTP 202 を返し、3秒後のステータス取得に成功しました。発行バッチの証跡は [`docs/evidence/dstas-batches-100.json`](docs/evidence/dstas-batches-100.json)、ウォレット回収の証跡は [`docs/evidence/recovery.json`](docs/evidence/recovery.json) です。公式DSTASベンチは、Template STAS 3.1で10,000トークンを発行し、修正後のpipeline=true/falseとも10,000件をHTTP 202受理しました。2,000出力と500出力の発行リクエストはArcade HTTP 500（`{ "error": "failed to submit" }`）だったため、100出力×100トランザクションに分割しました。初回の6.06/32.56 build TPSは、pipelineループ内の同期SQLiteウォレット取込みと、SDKソース解析の重複で測定されたベンチマーク実装上の値として無効化しました。修正版は、受理スループット計測後にウォレット取込みを行い、workerごとにsource transaction、OutPoint、token reader、schemeをキャッシュしています。完全な修正版JSONは [`pipeline=true`](docs/evidence/dstas-bench-corrected.json) と [`pipeline=false`](docs/evidence/dstas-bench-corrected-false.json) で確認できます。旧pseudo-STASは公式DSTAS結果に含めていません。
+
+`wallet_split`の10,000 outputs（100 sats each）はtxid `8e8c205582abf718dc1429943d874f33a994a4ec54535171f4c661863b9af1aa`として受理され、3秒後に`SEEN_MULTIPLE_NODES`でした。なお、`broadcastTps`はArcade HTTP 202受理のスループットであり、ブロック取り込みやマイニングのスループットではありません。
 
 ## ⚠ 本番前に必ず検証すべき点
 
@@ -123,6 +186,8 @@ API: `POST /bench/wallet`(WIF→アドレス+トークン一覧)、`POST /bench/
 src/
   server.ts          Express API
   arc.ts             ARCクライアント(EF送信/ステータス)
+  wallet/store.ts    ローカルwallet_txs/wallet_utxos SQLiteストア
+  wallet/import-cli.ts faucet/raw/EF取り込みCLI
   orderbook.ts       node:sqlite オーダーブック
   tx.ts              最小txモデル(直列化・txid・EF・出力オフセット・pieces)
   sighash.ts         BIP143系preimage + ECDSA署名

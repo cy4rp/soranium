@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "ttn-wallet": {
+      "command": "npm",
+      "args": ["--prefix", "/path/to/swap-api", "run", "mcp"]
+    }
+  }
+}
