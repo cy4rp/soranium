@@ -54,7 +54,11 @@ const workerExecArgv = (): string[] => (import.meta.url.endsWith('.ts') ? ['--im
 
 const buildWithWorkers = async (p: SendBenchParams, onChunk?: (chunk: BuiltItem[]) => void): Promise<{ built: BuiltItem[]; elapsedMs: number }> => {
   const workers = Math.max(1, Math.min(p.workers ?? availableParallelism(), p.utxos.length || 1))
-  const compact = (utxo: Utxo): Utxo => ({ ...utxo, sourceTxHex: p.mode === 'stas' ? utxo.sourceTxHex : '' })
+  const sourceTxs = new Map<string, string>()
+  const compact = (utxo: Utxo): Utxo => {
+    if (p.mode === 'stas') sourceTxs.set(utxo.txid, utxo.sourceTxHex)
+    return { ...utxo, sourceTxHex: '' }
+  }
   const pairs = p.utxos.map((utxo, index) => ({
     index, utxo: compact(utxo), fundingUtxo: p.fundingUtxos?.[index] ? compact(p.fundingUtxos[index]) : undefined,
   }))
@@ -67,6 +71,9 @@ const buildWithWorkers = async (p: SendBenchParams, onChunk?: (chunk: BuiltItem[
       execArgv: workerExecArgv(),
       workerData: {
         wif: p.wif, pairs: slice, mode: p.mode,
+        sourceTxs: Object.fromEntries([...new Set(slice.flatMap((pair) =>
+          [pair.utxo.txid, pair.fundingUtxo?.txid].filter((txid): txid is string => Boolean(txid))))]
+          .map((txid) => [txid, sourceTxs.get(txid)!])),
         toPkh: typeof p.toPkh === 'string' ? Uint8Array.from(Buffer.from(p.toPkh, 'hex')) : p.toPkh,
         feePerKb: p.feePerKb, satoshisEach: p.satoshisEach, chunkSize: Math.max(1, p.batchSize),
       },

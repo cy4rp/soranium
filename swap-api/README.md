@@ -137,12 +137,14 @@ STAS 3.0 spec v0.2.4 / engine Template STAS 3.1 (revision 0.0.11) via dxs-bsv-to
 | P2PKH sweep (batch 100, concurrency 64) | false | 13,242 | 866 | 813 | 10,000 / 0 |
 | P2PKH sweep (batch 2,000, concurrency 5) | false | 13,672 | 718 | 682 | 10,000 / 0 |
 | P2PKH sweep (batch 10,000, concurrency 1) | false | 14,616 | 404 | 393 | 10,000 / 0 |
+| Official DSTAS (Template STAS 3.1) | true | 6.06 | 6.05 | 6.05 | 10,000 / 0 |
+| Official DSTAS (Template STAS 3.1) | false | 32.56 | 205.07 | 28.10 | 10,000 / 0 |
 
 P2PKHのArcadeステータス検証サンプルは、pipeline=trueで`RECEIVED=19`、`SEEN_ON_NETWORK=1`、pipeline=falseで`RECEIVED=20`でした。P2PKH sweepの詳細は[`docs/ttn-bench-2026-09-16.md`](docs/ttn-bench-2026-09-16.md)を参照してください。
 
 P2PKH sweepのArcadeステータス検証サンプルは、batch 100で`RECEIVED=19`/`ACCEPTED_BY_NETWORK=1`、batch 2,000で`RECEIVED=20`、batch 10,000で`RECEIVED=20`でした。bench結果の全JSON、残高、各ステップのUTXO数は[`docs/ttn-bench-2026-09-16.md`](docs/ttn-bench-2026-09-16.md)を参照してください。
 
-公式DSTASの単件TTN検証は [`/home/ubuntu/ttn/dstas-validation.json`](/home/ubuntu/ttn/dstas-validation.json) に保存しています。unpatched Template STAS 3.0 と patched Template STAS 3.1 の issue → transfer はいずれも Arcade HTTP 202 を返し、3秒後のステータス取得に成功しました。10,000件の公式DSTASベンチマークは、既存の旧pseudo-STAS UTXOを安全にP2PKHへ回収できず、発行資金と独立したfee UTXOが不足したため未実施です。旧pseudo-STASベンチマーク値を公式DSTASの結果として扱ってはいけません。
+公式DSTASの単件TTN検証は [`/home/ubuntu/ttn/dstas-validation.json`](/home/ubuntu/ttn/dstas-validation.json) に保存しています。unpatched Template STAS 3.0 と patched Template STAS 3.1 の issue → transfer はいずれも Arcade HTTP 202 を返し、3秒後のステータス取得に成功しました。公式DSTASベンチは、Template STAS 3.1で10,000トークンを発行し、pipeline=true/falseとも10,000件をHTTP 202受理しました。2,000出力と500出力の発行リクエストはArcade HTTP 500（`{ "error": "failed to submit" }`）だったため、100出力×100トランザクションに分割しました。SDKの公式DSTAS構築は重く、測定値の`buildTps`を最適化せずそのまま記録しています。旧pseudo-STASは公式DSTAS結果に含めていません。
 
 `wallet_split`の10,000 outputs（100 sats each）はtxid `8e8c205582abf718dc1429943d874f33a994a4ec54535171f4c661863b9af1aa`として受理され、3秒後に`SEEN_MULTIPLE_NODES`でした。なお、`broadcastTps`はArcade HTTP 202受理のスループットであり、ブロック取り込みやマイニングのスループットではありません。
 
