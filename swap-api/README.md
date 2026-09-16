@@ -134,10 +134,17 @@ Express起動時はStreamable HTTPの `POST /mcp` も利用できます。
 |---|---:|---:|---:|---:|---:|
 | P2PKH | true | 14,075 | 886 | 886 | 10,000 / 0 |
 | P2PKH | false | 14,134 | 749 | 711 | 10,000 / 0 |
-| STAS | true | 11,619 | 0 | 0 | 0 / 7,250 |
-| STAS | false | 12,151 | 0 | 0 | 0 / 8,000 |
+| P2PKH sweep (batch 100, concurrency 64) | false | 13,242 | 866 | 813 | 10,000 / 0 |
+| P2PKH sweep (batch 2,000, concurrency 5) | false | 13,672 | 718 | 682 | 10,000 / 0 |
+| P2PKH sweep (batch 10,000, concurrency 1) | false | 14,616 | 404 | 393 | 10,000 / 0 |
+| STAS | true | 11,487 | 694 | 694 | 10,000 / 0 |
+| STAS | false | 11,539 | 630 | 597 | 10,000 / 0 |
 
-P2PKHのArcadeステータス検証サンプルは、pipeline=trueで`RECEIVED=19`、`SEEN_ON_NETWORK=1`、pipeline=falseで`RECEIVED=20`でした。STAS転送はArcade HTTP 400（`TX_INVALID (31)`、unlocking scriptが無効）でチャンクが拒否されたため、報告された拒否理由を保持して後続チャンクの送信を停止しました。10,000-outputのSTAS issuance本体はArcade HTTP 524、補助的な大口入力での再試行はHTTP 500となりました。
+P2PKHのArcadeステータス検証サンプルは、pipeline=trueで`RECEIVED=19`、`SEEN_ON_NETWORK=1`、pipeline=falseで`RECEIVED=20`でした。新しいP2PKHガード付き疑似STASでは、pipeline=trueが`RECEIVED=8`、`SEEN_ON_NETWORK=4`、`SEEN_ON_MULTIPLE_NODES=8`、pipeline=falseが`RECEIVED=4`、`ACCEPTED_BY_NETWORK=8`、`SEEN_ON_NETWORK=8`でした。旧tailを含むSTAS UTXOを選んだ試行では、次の理由でHTTP 400となり、そのステップを停止しました: `TX_INVALID (31): GoBDK fail to ValidateTransaction -> UNKNOWN (0): Script evaluated without error but finished with a false/empty top stack element: TX_INVALID (31): GoBDK fail to ValidateTransaction -> UNKNOWN (0): Script evaluated without error but finished with a false/empty top stack element Transaction unlocking scripts are invalid`。
+
+P2PKH sweepのArcadeステータス検証サンプルは、batch 100で`RECEIVED=19`/`ACCEPTED_BY_NETWORK=1`、batch 2,000で`RECEIVED=20`、batch 10,000で`RECEIVED=20`でした。新tailのSTAS発行は2,000 outputs×2と1,000 outputs×6に分割し、各トランザクションを順番に送信してHTTP 202を確認しました。bench結果の全JSON、残高、各ステップのUTXO数は`/home/ubuntu/ttn/bench-results.md`を参照してください。
+
+合成エンジンは、STAS-3のレイアウト/サイズを保つP2PKHガード付き疑似STASです（実際のSTAS-3エンジンではありません）。TTN上では署名検証とトランザクションサイズを検証しますが、STAS-3トークンルールそのものは検証しません。
 
 `wallet_split`の10,000 outputs（100 sats each）はtxid `8e8c205582abf718dc1429943d874f33a994a4ec54535171f4c661863b9af1aa`として受理され、3秒後に`SEEN_MULTIPLE_NODES`でした。なお、`broadcastTps`はArcade HTTP 202受理のスループットであり、ブロック取り込みやマイニングのスループットではありません。
 

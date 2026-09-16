@@ -123,11 +123,7 @@ export const buildStasTransferTx = (p: StasTransferParams): BuiltTx => {
     spendType: SPEND_TYPE.REGULAR, txType: TX_TYPE.REGULAR, preimage,
     signature: signPreimageRaw(preimage, ownerKm.priv, SIGHASH_STAS), pubKeyOrRedeemBuffer: ownerKm.pub,
   })
-  const syntheticTail = token.tail.every((byte) => byte === 0x61) || (token.tail.length >= 23 &&
-    token.tail.slice(0, token.tail.length - 23).every((byte) => byte === 0x61) &&
-    token.tail[token.tail.length - 23] === 0x6a &&
-    token.tail[token.tail.length - 22] === 0x14)
-  tx.inputs[0].script = syntheticTail ? concat(unlock, new Uint8Array([0x51])) : unlock
+  tx.inputs[0].script = unlock
   tx.inputs[1].script = p2pkhUnlock(tx, 1, fundingKm)
   return finalize(tx)
 }
