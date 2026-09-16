@@ -1,0 +1,176 @@
+{
+  "network": "ttn",
+  "engine": "dxs-bsv-token-sdk@1.0.4",
+  "startedAt": "2026-09-16T06:52:32.057Z",
+  "issue": {
+    "txid": "93f678aaf9b2d6f327a59bb65698e0739aa17f111c3e570afa169ec9600a85e7",
+    "contractTxid": "aee23a70f441da7dbd9956e48aa5294e90cd21d509f3ee682defc1f57ad81ec7",
+    "rawHex": "<omitted>",
+    "contractRawHex": "<omitted>",
+    "contractEfHex": "<omitted>",
+    "efHex": "<omitted>",
+    "contractSubmit": {
+      "txid": "aee23a70f441da7dbd9956e48aa5294e90cd21d509f3ee682defc1f57ad81ec7",
+      "status": 202,
+      "txStatus": "RECEIVED"
+    },
+    "contractStatus": {
+      "txid": "aee23a70f441da7dbd9956e48aa5294e90cd21d509f3ee682defc1f57ad81ec7",
+      "txStatus": "ACCEPTED_BY_NETWORK",
+      "timestamp": "2026-09-16T06:52:32.437937Z",
+      "rawTx": "<omitted>",
+      "nextRetryAt": "0001-01-01T00:00:00Z",
+      "merkleRegisteredAt": "2026-09-16T06:52:32.42917Z"
+    },
+    "submit": {
+      "txid": "93f678aaf9b2d6f327a59bb65698e0739aa17f111c3e570afa169ec9600a85e7",
+      "status": 202,
+      "txStatus": "RECEIVED"
+    },
+    "status": {
+      "txid": "93f678aaf9b2d6f327a59bb65698e0739aa17f111c3e570afa169ec9600a85e7",
+      "txStatus": "RECEIVED",
+      "timestamp": "2026-09-16T06:52:32.793436Z",
+      "rawTx": "<omitted>",
+      "nextRetryAt": "0001-01-01T00:00:00Z",
+      "merkleRegisteredAt": "2026-09-16T06:52:32.829445Z"
+    }
+  },
+  "transfer": {
+    "txid": "c44f0cd2bbed0b1f5730956fa69d2cee6d1971c142c51d218d214b31366a3061",
+    "rawHex": "<omitted>",
+    "efHex": "<omitted>",
+    "submit": {
+      "txid": "c44f0cd2bbed0b1f5730956fa69d2cee6d1971c142c51d218d214b31366a3061",
+      "status": 202,
+      "txStatus": "RECEIVED"
+    },
+    "status": {
+      "txid": "c44f0cd2bbed0b1f5730956fa69d2cee6d1971c142c51d218d214b31366a3061",
+      "txStatus": "RECEIVED",
+      "timestamp": "2026-09-16T06:52:33.200227Z",
+      "rawTx": "<omitted>",
+      "nextRetryAt": "0001-01-01T00:00:00Z",
+      "merkleRegisteredAt": "2026-09-16T06:52:33.225017Z"
+    }
+  },
+  "finishedAt": "2026-09-16T06:52:33.350Z",
+  "engine_3_0": {
+    "engine": "3.0-unpatched",
+    "issue": {
+      "contract": {
+        "txid": "6477035911c95d1688a2aa231775172b2e884a7c6c36c624e6fbef96de211071",
+        "statusAfter3s": {
+          "txid": "6477035911c95d1688a2aa231775172b2e884a7c6c36c624e6fbef96de211071",
+          "txStatus": "SEEN_MULTIPLE_NODES",
+          "timestamp": "2026-09-16T06:59:12.897897Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T06:59:03.534242Z"
+        },
+        "rawHex": "<omitted>",
+        "response": {
+          "txid": "6477035911c95d1688a2aa231775172b2e884a7c6c36c624e6fbef96de211071",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "efHex": "<omitted>"
+      },
+      "issue": {
+        "txid": "387d998b820bfde69681cfda0ef052f68e5c19ff92841706eb6509846efad2b8",
+        "statusAfter3s": {
+          "txid": "387d998b820bfde69681cfda0ef052f68e5c19ff92841706eb6509846efad2b8",
+          "txStatus": "SEEN_MULTIPLE_NODES",
+          "timestamp": "2026-09-16T06:59:12.897897Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T06:59:06.727751Z"
+        },
+        "rawHex": "<omitted>",
+        "response": {
+          "txid": "387d998b820bfde69681cfda0ef052f68e5c19ff92841706eb6509846efad2b8",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "efHex": "<omitted>"
+      }
+    },
+    "transfer": {
+      "txid": "a4b8bf1ce11b9dceb30be505165f0d8cc8428e530636b00c097b8cec6047ee55",
+      "response": {
+        "txid": "a4b8bf1ce11b9dceb30be505165f0d8cc8428e530636b00c097b8cec6047ee55",
+        "status": 202,
+        "txStatus": "RECEIVED"
+      },
+      "statusAfter3s": {
+        "txid": "a4b8bf1ce11b9dceb30be505165f0d8cc8428e530636b00c097b8cec6047ee55",
+        "txStatus": "SEEN_ON_NETWORK",
+        "timestamp": "2026-09-16T06:59:57.686722Z",
+        "rawTx": "<omitted>",
+        "nextRetryAt": "0001-01-01T00:00:00Z",
+        "merkleRegisteredAt": "2026-09-16T06:59:55.932396Z"
+      },
+      "rawHex": "<omitted>",
+      "efHex": "<omitted>"
+    }
+  },
+  "engine_3_1_v0_2_4": {
+    "engine": "Template STAS 3.1 / revision 0.0.11",
+    "issue": {
+      "contract": {
+        "txid": "972e8feafe5938d3467cc195a464060cdf293bc6bb2751ce5fd7ea766c87e2a4",
+        "response": {
+          "txid": "972e8feafe5938d3467cc195a464060cdf293bc6bb2751ce5fd7ea766c87e2a4",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "972e8feafe5938d3467cc195a464060cdf293bc6bb2751ce5fd7ea766c87e2a4",
+          "txStatus": "SEEN_ON_NETWORK",
+          "timestamp": "2026-09-16T07:00:30.554422Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:00:30.12921Z"
+        },
+        "rawHex": "<omitted>",
+        "efHex": "<omitted>"
+      },
+      "issue": {
+        "txid": "0cfb70ac03c739637a92bbd6db7551e0d4f292ae612c834860ce2e8164aaaa11",
+        "response": {
+          "txid": "0cfb70ac03c739637a92bbd6db7551e0d4f292ae612c834860ce2e8164aaaa11",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "0cfb70ac03c739637a92bbd6db7551e0d4f292ae612c834860ce2e8164aaaa11",
+          "txStatus": "ACCEPTED_BY_NETWORK",
+          "timestamp": "2026-09-16T07:00:33.329714Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:00:33.328296Z"
+        },
+        "rawHex": "<omitted>",
+        "efHex": "<omitted>"
+      }
+    },
+    "transfer": {
+      "txid": "2f9c922bcabacb38fd9ab56f119508d757b65ae616935fb50b7417e1cee24896",
+      "response": {
+        "txid": "2f9c922bcabacb38fd9ab56f119508d757b65ae616935fb50b7417e1cee24896",
+        "status": 202,
+        "txStatus": "RECEIVED"
+      },
+      "statusAfter3s": {
+        "txid": "2f9c922bcabacb38fd9ab56f119508d757b65ae616935fb50b7417e1cee24896",
+        "txStatus": "SEEN_ON_NETWORK",
+        "timestamp": "2026-09-16T07:00:37.803783Z",
+        "rawTx": "<omitted>",
+        "nextRetryAt": "0001-01-01T00:00:00Z",
+        "merkleRegisteredAt": "2026-09-16T07:00:36.779408Z"
+      },
+      "rawHex": "<omitted>",
+      "efHex": "<omitted>"
+    }
+  }
+}

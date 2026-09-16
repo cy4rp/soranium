@@ -1,0 +1,50 @@
+{
+  "pipeline_true_corrected": {
+    "network": "ttn",
+    "mode": "stas",
+    "count": 10000,
+    "workers": 8,
+    "buildTps": 717.6439825615466,
+    "buildP50us": 7667.898,
+    "buildP99us": 22935.66,
+    "broadcastTps": 504.6967558552413,
+    "endToEndTps": 504.6967558552413,
+    "accepted": 10000,
+    "rejected": 0,
+    "elapsedMs": 19814,
+    "errors": [],
+    "txids": [
+      "36b15dc7a0186857125f5d8139450bb4237f2e05c31cc2fbe07316b15691b453",
+      "1aa76d544d8dddcc98d6313838470f021b9bfc08ee191519aa5abfbe5f902236",
+      "15bf6206cdccd34d206c7d63ee5e15fdd039fc47c1a82e3c0c997a290f714b4e",
+      "8eda348401cf8950e61678aa9198a353596ed6a9fdfcdfd4ee751e960c7b1494",
+      "e82ca3fb71ef3ec2a56d96717e24a9d78609d15ee9dcb00182d7c36e157fbc11",
+      "bba3a60b6087729863d6b8399183734b5756b4204d0babacd0451d64fd1de87b",
+      "db6c5ac6503acfb50d5a37dc57c027a20e1a0211c16da696979e800e57b5d308",
+      "e937b7ca71b057a62ab626e6f1395a35e5580f0472ff9647f4f940cbc466930d",
+      "453fc225adcf20f4afa587aee6a64ab7cf7d4bf6a1fae9e9e8909e7bcfa5a849",
+      "36143696ff3a6f50f691e82f72f81d725557ac38471cb510e90e00db8fb4195f",
+      "3a3e94624187022b85733ba536fe41cb0f8d3be4e4855ed42a06229c38562980",
+      "7963a9af05d6d51f264fb51baeba97c7b401cda829bb4d119ce1217f31b616b8",
+      "6cfd485fa664953ac03db120e1ca38347dc10fffeb8e642c05a19afb9ad66344",
+      "e84e7f5b879277f77f78c08065b80fcb4d602d13bbed34a531c710e53836a412",
+      "64c2c5430cb4e54df8acc340be126fd5e7b456ffcc6982599f96ca6ce3684a6a",
+      "ec19bad4f821a7d96bc383476acfac14c6e2978dec8fd6386335f845804f44b8",
+      "66a00ef0632480502054fea12073ce970ccca02cc9235ee3070be2fb7c901633",
+      "5d21b1a18b9226391f1c7d0c6d26414ba27397a4d09cfc297c245ef911a49659",
+      "fb6d58b078e42aecf672940ec8b94fc45d2d24480e88d4dde790b8285bee54d7",
+      "f5df96eb8840e0f7e740b1b93dd3c912e51e9752c09de3ade6b4271f5b49005d"
+    ],
+    "verdict": {
+      "target": 10000,
+      "buildMeetsTarget": false,
+      "broadcastMeetsTarget": false
+    },
+    "verificationSample": {
+      "SEEN_MULTIPLE_NODES": 11,
+      "SEEN_ON_NETWORK": 7,
+      "RECEIVED": 2
+    },
+    "pipeline": true
+  }
+}

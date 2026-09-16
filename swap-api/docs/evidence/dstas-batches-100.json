@@ -1,0 +1,4308 @@
+{
+  "engine": "Template STAS 3.1 / revision 0.0.11",
+  "countPerBatch": 100,
+  "totalTarget": 10000,
+  "tokenSatoshis": "1",
+  "batches": [
+    {
+      "index": 1,
+      "funding": {
+        "txid": "44a8ad1b852d0b74a7cb3b0056681892cf2a735c3f3dd035374fd70661f698a8",
+        "vout": 0,
+        "satoshis": "49925"
+      },
+      "contract": {
+        "txid": "1c43df7f32b1e731a2f924545e80f4aec7780abbdc680429d526d1f4c557c0f1",
+        "response": {
+          "txid": "1c43df7f32b1e731a2f924545e80f4aec7780abbdc680429d526d1f4c557c0f1",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "1c43df7f32b1e731a2f924545e80f4aec7780abbdc680429d526d1f4c557c0f1",
+          "txStatus": "SEEN_ON_NETWORK",
+          "timestamp": "2026-09-16T07:08:55.096795Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:08:54.278506Z"
+        }
+      },
+      "issue": {
+        "txid": "c1997191c514d5a8b0ba80688c11dd5d757264c6b97e629ce8fbec2488395d3a",
+        "response": {
+          "txid": "c1997191c514d5a8b0ba80688c11dd5d757264c6b97e629ce8fbec2488395d3a",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "c1997191c514d5a8b0ba80688c11dd5d757264c6b97e629ce8fbec2488395d3a",
+          "txStatus": "SEEN_ON_NETWORK",
+          "timestamp": "2026-09-16T07:09:00.384263Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:08:57.575099Z"
+        }
+      },
+      "rawBytes": 324740,
+      "efBytes": 325206,
+      "elapsedMs": 7062
+    },
+    {
+      "index": 2,
+      "funding": {
+        "txid": "187b3c6bebf54189f44c3768e1e9f08497d3659c8f7dbbb1e5e1c74587eb55ca",
+        "vout": 0,
+        "satoshis": "49925"
+      },
+      "contract": {
+        "txid": "6633e21fdad197ce2f540af877791338e8e9609915a366f03a2cb198d47a0b46",
+        "response": {
+          "txid": "6633e21fdad197ce2f540af877791338e8e9609915a366f03a2cb198d47a0b46",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "6633e21fdad197ce2f540af877791338e8e9609915a366f03a2cb198d47a0b46",
+          "txStatus": "SEEN_ON_NETWORK",
+          "timestamp": "2026-09-16T07:09:01.823886Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:09:01.22713Z"
+        }
+      },
+      "issue": {
+        "txid": "8c639abdd350766ece03854c3624c7efe3fb849a27a55192e72903b1add7b6a3",
+        "response": {
+          "txid": "8c639abdd350766ece03854c3624c7efe3fb849a27a55192e72903b1add7b6a3",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "8c639abdd350766ece03854c3624c7efe3fb849a27a55192e72903b1add7b6a3",
+          "txStatus": "SEEN_ON_NETWORK",
+          "timestamp": "2026-09-16T07:09:05.090192Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:09:04.474726Z"
+        }
+      },
+      "rawBytes": 324738,
+      "efBytes": 325204,
+      "elapsedMs": 6773
+    },
+    {
+      "index": 3,
+      "funding": {
+        "txid": "ade11f9ebdab9d796803cdfa100e3cfca900106a841314b52f4ce58e24f25ec4",
+        "vout": 0,
+        "satoshis": "49925"
+      },
+      "contract": {
+        "txid": "eefba2cd2f14dfbe3c1107f6295c3c1bf64f90126621acb98745e019db22dd4e",
+        "response": {
+          "txid": "eefba2cd2f14dfbe3c1107f6295c3c1bf64f90126621acb98745e019db22dd4e",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "eefba2cd2f14dfbe3c1107f6295c3c1bf64f90126621acb98745e019db22dd4e",
+          "txStatus": "SEEN_ON_NETWORK",
+          "timestamp": "2026-09-16T07:09:10.44842Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:09:07.977412Z"
+        }
+      },
+      "issue": {
+        "txid": "9c23e20d5c10a859e4e837439a3623cc37c07b736a488ffde398220ce95b590d",
+        "response": {
+          "txid": "9c23e20d5c10a859e4e837439a3623cc37c07b736a488ffde398220ce95b590d",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "9c23e20d5c10a859e4e837439a3623cc37c07b736a488ffde398220ce95b590d",
+          "txStatus": "SEEN_ON_NETWORK",
+          "timestamp": "2026-09-16T07:09:12.707825Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:09:11.276125Z"
+        }
+      },
+      "rawBytes": 324740,
+      "efBytes": 325206,
+      "elapsedMs": 6744
+    },
+    {
+      "index": 4,
+      "funding": {
+        "txid": "45a961e42d85a21d75f11c97e79c541f8546fb9dbba8a2bb24da02bf6563b8cf",
+        "vout": 0,
+        "satoshis": "49925"
+      },
+      "contract": {
+        "txid": "7601e87c6c73efc5ce94676c855a600750de5b5d1fb1e322eb95314acb8fa787",
+        "response": {
+          "txid": "7601e87c6c73efc5ce94676c855a600750de5b5d1fb1e322eb95314acb8fa787",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "7601e87c6c73efc5ce94676c855a600750de5b5d1fb1e322eb95314acb8fa787",
+          "txStatus": "SEEN_ON_NETWORK",
+          "timestamp": "2026-09-16T07:09:15.47623Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:09:14.775698Z"
+        }
+      },
+      "issue": {
+        "txid": "dc75bbed509d66d6cbdc68ab9c3eb57c9ff41ae74dc40e9ff223b22b16d1951f",
+        "response": {
+          "txid": "dc75bbed509d66d6cbdc68ab9c3eb57c9ff41ae74dc40e9ff223b22b16d1951f",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "dc75bbed509d66d6cbdc68ab9c3eb57c9ff41ae74dc40e9ff223b22b16d1951f",
+          "txStatus": "SEEN_ON_NETWORK",
+          "timestamp": "2026-09-16T07:09:20.502792Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:09:18.02386Z"
+        }
+      },
+      "rawBytes": 324738,
+      "efBytes": 325204,
+      "elapsedMs": 6742
+    },
+    {
+      "index": 5,
+      "funding": {
+        "txid": "2f1dd9d7ebeb15ff588a9fc0c4d8429647a179e6a206546251e6168b0a1b6a5e",
+        "vout": 0,
+        "satoshis": "49925"
+      },
+      "contract": {
+        "txid": "42750a3199f2a4aa8fb6bc12bb881d553242025272b54e4da01026e3fddc7ba4",
+        "response": {
+          "txid": "42750a3199f2a4aa8fb6bc12bb881d553242025272b54e4da01026e3fddc7ba4",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "42750a3199f2a4aa8fb6bc12bb881d553242025272b54e4da01026e3fddc7ba4",
+          "txStatus": "SEEN_ON_NETWORK",
+          "timestamp": "2026-09-16T07:09:21.830322Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:09:21.525967Z"
+        }
+      },
+      "issue": {
+        "txid": "80c978c3a75d03b2ed154544ea95053faab866f19143929396cf9a81645569d2",
+        "response": {
+          "txid": "80c978c3a75d03b2ed154544ea95053faab866f19143929396cf9a81645569d2",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "80c978c3a75d03b2ed154544ea95053faab866f19143929396cf9a81645569d2",
+          "txStatus": "SEEN_ON_NETWORK",
+          "timestamp": "2026-09-16T07:09:25.541241Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:09:24.77476Z"
+        }
+      },
+      "rawBytes": 324738,
+      "efBytes": 325204,
+      "elapsedMs": 6790
+    },
+    {
+      "index": 6,
+      "funding": {
+        "txid": "3fe63a877019784f9f0bcf076aef423aa846ad78c74cc4f921425dbc7a3a4f4d",
+        "vout": 0,
+        "satoshis": "49925"
+      },
+      "contract": {
+        "txid": "057d70e09325b687677ebef6f084d8bcda2775af9ac6a7de0f3c5dffed8279dd",
+        "response": {
+          "txid": "057d70e09325b687677ebef6f084d8bcda2775af9ac6a7de0f3c5dffed8279dd",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "057d70e09325b687677ebef6f084d8bcda2775af9ac6a7de0f3c5dffed8279dd",
+          "txStatus": "SEEN_ON_NETWORK",
+          "timestamp": "2026-09-16T07:09:30.538336Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:09:28.323457Z"
+        }
+      },
+      "issue": {
+        "txid": "8013c791d645f5f516869a25d9016c1acf55ea627f108fade70b62f3e94d9d0c",
+        "response": {
+          "txid": "8013c791d645f5f516869a25d9016c1acf55ea627f108fade70b62f3e94d9d0c",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "8013c791d645f5f516869a25d9016c1acf55ea627f108fade70b62f3e94d9d0c",
+          "txStatus": "SEEN_ON_NETWORK",
+          "timestamp": "2026-09-16T07:09:32.589277Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:09:31.576735Z"
+        }
+      },
+      "rawBytes": 324738,
+      "efBytes": 325204,
+      "elapsedMs": 6727
+    },
+    {
+      "index": 7,
+      "funding": {
+        "txid": "a80f5e13f004cc94a2b0df0261d5c580300939274b0e9fa3aedb4d3b7cface08",
+        "vout": 0,
+        "satoshis": "49925"
+      },
+      "contract": {
+        "txid": "de1a6e19882dcfc5a2f8915efb04601094524f4a81bafec6ab7174daa2a328a1",
+        "response": {
+          "txid": "de1a6e19882dcfc5a2f8915efb04601094524f4a81bafec6ab7174daa2a328a1",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "de1a6e19882dcfc5a2f8915efb04601094524f4a81bafec6ab7174daa2a328a1",
+          "txStatus": "SEEN_ON_NETWORK",
+          "timestamp": "2026-09-16T07:09:35.629275Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:09:35.075648Z"
+        }
+      },
+      "issue": {
+        "txid": "0ff8730f54f489e462e49cebb48284aa055efb89bc7d52fe4a4bce7d84196e07",
+        "response": {
+          "txid": "0ff8730f54f489e462e49cebb48284aa055efb89bc7d52fe4a4bce7d84196e07",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "0ff8730f54f489e462e49cebb48284aa055efb89bc7d52fe4a4bce7d84196e07",
+          "txStatus": "SEEN_ON_NETWORK",
+          "timestamp": "2026-09-16T07:09:40.637713Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:09:38.324347Z"
+        }
+      },
+      "rawBytes": 324740,
+      "efBytes": 325206,
+      "elapsedMs": 6740
+    },
+    {
+      "index": 8,
+      "funding": {
+        "txid": "4f37a304552988a46613fb4758fe52525841f54130e8f3bf5a7d6502537a0196",
+        "vout": 0,
+        "satoshis": "49925"
+      },
+      "contract": {
+        "txid": "3e56b925d6be8efc9c3db978e50edf9fdec18335f59fd8ab9982e57799435ecc",
+        "response": {
+          "txid": "3e56b925d6be8efc9c3db978e50edf9fdec18335f59fd8ab9982e57799435ecc",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "3e56b925d6be8efc9c3db978e50edf9fdec18335f59fd8ab9982e57799435ecc",
+          "txStatus": "SEEN_ON_NETWORK",
+          "timestamp": "2026-09-16T07:09:42.600895Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:09:41.87624Z"
+        }
+      },
+      "issue": {
+        "txid": "73c35e38ba832fc156eb38d602c82a7ce35c056043411e78b6bb97d99b6b0275",
+        "response": {
+          "txid": "73c35e38ba832fc156eb38d602c82a7ce35c056043411e78b6bb97d99b6b0275",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "73c35e38ba832fc156eb38d602c82a7ce35c056043411e78b6bb97d99b6b0275",
+          "txStatus": "ACCEPTED_BY_NETWORK",
+          "timestamp": "2026-09-16T07:09:45.12841Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:09:45.126884Z"
+        }
+      },
+      "rawBytes": 324739,
+      "efBytes": 325205,
+      "elapsedMs": 6752
+    },
+    {
+      "index": 9,
+      "funding": {
+        "txid": "e9811bebc3f4b4a5024d5ab5131e4dba770bdb851c0aeb6e04b316335cbb168c",
+        "vout": 0,
+        "satoshis": "49925"
+      },
+      "contract": {
+        "txid": "7d3f92324e0b7abe830fde266ae491b9c659d0e98dda8b91fd6349b88878eebb",
+        "response": {
+          "txid": "7d3f92324e0b7abe830fde266ae491b9c659d0e98dda8b91fd6349b88878eebb",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "7d3f92324e0b7abe830fde266ae491b9c659d0e98dda8b91fd6349b88878eebb",
+          "txStatus": "SEEN_ON_NETWORK",
+          "timestamp": "2026-09-16T07:09:50.635552Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:09:48.626209Z"
+        }
+      },
+      "issue": {
+        "txid": "27f05a1903168395583220423d4d3981f4ba9979bd31b07f8ad832950007d767",
+        "response": {
+          "txid": "27f05a1903168395583220423d4d3981f4ba9979bd31b07f8ad832950007d767",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "27f05a1903168395583220423d4d3981f4ba9979bd31b07f8ad832950007d767",
+          "txStatus": "ACCEPTED_BY_NETWORK",
+          "timestamp": "2026-09-16T07:09:51.878264Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:09:51.876768Z"
+        }
+      },
+      "rawBytes": 324739,
+      "efBytes": 325205,
+      "elapsedMs": 6734
+    },
+    {
+      "index": 10,
+      "funding": {
+        "txid": "8a2ad328d22cb606ad099b0c395e9ae5080027a19acffd84ce1092608fb224d4",
+        "vout": 0,
+        "satoshis": "49925"
+      },
+      "contract": {
+        "txid": "db674a17c9fad14f25919b8d4c846f1c5c98d8b9fe215a4a9a77146a2daafa6a",
+        "response": {
+          "txid": "db674a17c9fad14f25919b8d4c846f1c5c98d8b9fe215a4a9a77146a2daafa6a",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "db674a17c9fad14f25919b8d4c846f1c5c98d8b9fe215a4a9a77146a2daafa6a",
+          "txStatus": "ACCEPTED_BY_NETWORK",
+          "timestamp": "2026-09-16T07:09:55.42566Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:09:55.424089Z"
+        }
+      },
+      "issue": {
+        "txid": "f051e30effdba9db602a827b86336ae09b0eea8f2eb40e900e2bba07064321a4",
+        "response": {
+          "txid": "f051e30effdba9db602a827b86336ae09b0eea8f2eb40e900e2bba07064321a4",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "f051e30effdba9db602a827b86336ae09b0eea8f2eb40e900e2bba07064321a4",
+          "txStatus": "SEEN_ON_NETWORK",
+          "timestamp": "2026-09-16T07:10:00.801428Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:09:58.675228Z"
+        }
+      },
+      "rawBytes": 324738,
+      "efBytes": 325204,
+      "elapsedMs": 6744
+    },
+    {
+      "index": 11,
+      "funding": {
+        "txid": "bb205c7039a2908b53b259dc0560cd9eae609e3d8633481cd004a11d8f4f69e2",
+        "vout": 0,
+        "satoshis": "49925"
+      },
+      "contract": {
+        "txid": "8998288163ebe892413185547e99ef5b274857a5b6b8505e415a71f4c13a9966",
+        "response": {
+          "txid": "8998288163ebe892413185547e99ef5b274857a5b6b8505e415a71f4c13a9966",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "8998288163ebe892413185547e99ef5b274857a5b6b8505e415a71f4c13a9966",
+          "txStatus": "SEEN_ON_NETWORK",
+          "timestamp": "2026-09-16T07:10:02.595659Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:10:02.1778Z"
+        }
+      },
+      "issue": {
+        "txid": "e50c565d43816b7248020f4916ce51e5ff1893efbf9c62a921eea5e739529ff5",
+        "response": {
+          "txid": "e50c565d43816b7248020f4916ce51e5ff1893efbf9c62a921eea5e739529ff5",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "e50c565d43816b7248020f4916ce51e5ff1893efbf9c62a921eea5e739529ff5",
+          "txStatus": "ACCEPTED_BY_NETWORK",
+          "timestamp": "2026-09-16T07:10:05.437531Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:10:05.427583Z"
+        }
+      },
+      "rawBytes": 324738,
+      "efBytes": 325204,
+      "elapsedMs": 6750
+    },
+    {
+      "index": 12,
+      "funding": {
+        "txid": "a5fcb642286028455a27774393625190ac4e2de1c29f37a49a868aa917ec1d40",
+        "vout": 0,
+        "satoshis": "49925"
+      },
+      "contract": {
+        "txid": "3abc8e0d2edc74875a20e8438e67d9021dcbaed4d7012d866be0affcdd9f0039",
+        "response": {
+          "txid": "3abc8e0d2edc74875a20e8438e67d9021dcbaed4d7012d866be0affcdd9f0039",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "3abc8e0d2edc74875a20e8438e67d9021dcbaed4d7012d866be0affcdd9f0039",
+          "txStatus": "SEEN_ON_NETWORK",
+          "timestamp": "2026-09-16T07:10:10.869927Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:10:08.97611Z"
+        }
+      },
+      "issue": {
+        "txid": "d0493cb141db9dcb64655e4fe23fb86d79db314483b1afe23445f1cd6a574c6a",
+        "response": {
+          "txid": "d0493cb141db9dcb64655e4fe23fb86d79db314483b1afe23445f1cd6a574c6a",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "d0493cb141db9dcb64655e4fe23fb86d79db314483b1afe23445f1cd6a574c6a",
+          "txStatus": "SEEN_ON_NETWORK",
+          "timestamp": "2026-09-16T07:10:15.093121Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:10:12.233082Z"
+        }
+      },
+      "rawBytes": 324738,
+      "efBytes": 325204,
+      "elapsedMs": 6742
+    },
+    {
+      "index": 13,
+      "funding": {
+        "txid": "01a93a596b45b71cbbae353019730243e3929760b59789045176a6d85ad52638",
+        "vout": 0,
+        "satoshis": "49925"
+      },
+      "contract": {
+        "txid": "96bcecd49732a0daba5c573444eae7ed4b904e1ece1790ff8dbe0e4cb441809e",
+        "response": {
+          "txid": "96bcecd49732a0daba5c573444eae7ed4b904e1ece1790ff8dbe0e4cb441809e",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "96bcecd49732a0daba5c573444eae7ed4b904e1ece1790ff8dbe0e4cb441809e",
+          "txStatus": "ACCEPTED_BY_NETWORK",
+          "timestamp": "2026-09-16T07:10:15.72866Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:10:15.726992Z"
+        }
+      },
+      "issue": {
+        "txid": "ac371a0d37a4cf755233f2b24d72e51fbae67b3549c7ae38327598f2aaf25085",
+        "response": {
+          "txid": "ac371a0d37a4cf755233f2b24d72e51fbae67b3549c7ae38327598f2aaf25085",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "ac371a0d37a4cf755233f2b24d72e51fbae67b3549c7ae38327598f2aaf25085",
+          "txStatus": "SEEN_ON_NETWORK",
+          "timestamp": "2026-09-16T07:10:20.845941Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:10:18.97522Z"
+        }
+      },
+      "rawBytes": 324739,
+      "efBytes": 325205,
+      "elapsedMs": 6736
+    },
+    {
+      "index": 14,
+      "funding": {
+        "txid": "efae9891d5551a47e5c0a08adbf756a566c704d944db8e8026f5f74b6e6feaf9",
+        "vout": 0,
+        "satoshis": "49925"
+      },
+      "contract": {
+        "txid": "78b8db63174245c2f4b0734e8f079a896d59d47d726d52477c693e764a930ea5",
+        "response": {
+          "txid": "78b8db63174245c2f4b0734e8f079a896d59d47d726d52477c693e764a930ea5",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "78b8db63174245c2f4b0734e8f079a896d59d47d726d52477c693e764a930ea5",
+          "txStatus": "SEEN_ON_NETWORK",
+          "timestamp": "2026-09-16T07:10:22.912481Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:10:22.526198Z"
+        }
+      },
+      "issue": {
+        "txid": "f4aa116609d99ecc44f64ade92219766f7b2a1c494fec57d1fc70872d39512b3",
+        "response": {
+          "txid": "f4aa116609d99ecc44f64ade92219766f7b2a1c494fec57d1fc70872d39512b3",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "f4aa116609d99ecc44f64ade92219766f7b2a1c494fec57d1fc70872d39512b3",
+          "txStatus": "ACCEPTED_BY_NETWORK",
+          "timestamp": "2026-09-16T07:10:25.778514Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:10:25.776807Z"
+        }
+      },
+      "rawBytes": 324740,
+      "efBytes": 325206,
+      "elapsedMs": 6746
+    },
+    {
+      "index": 15,
+      "funding": {
+        "txid": "557de3e399a0871c95d7ee034b514cc760201c4f4738b03bc9f34f4add1750ff",
+        "vout": 0,
+        "satoshis": "49925"
+      },
+      "contract": {
+        "txid": "8e7ae39a3463c36b511a0e94add1579877e2486b9f28df9db12727723fa0fff2",
+        "response": {
+          "txid": "8e7ae39a3463c36b511a0e94add1579877e2486b9f28df9db12727723fa0fff2",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "8e7ae39a3463c36b511a0e94add1579877e2486b9f28df9db12727723fa0fff2",
+          "txStatus": "SEEN_ON_NETWORK",
+          "timestamp": "2026-09-16T07:10:30.910039Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:10:29.325825Z"
+        }
+      },
+      "issue": {
+        "txid": "aa7258cba88b2276f9b08ac04628ea734b7f36d982ce30c766527957a76380e0",
+        "response": {
+          "txid": "aa7258cba88b2276f9b08ac04628ea734b7f36d982ce30c766527957a76380e0",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "aa7258cba88b2276f9b08ac04628ea734b7f36d982ce30c766527957a76380e0",
+          "txStatus": "SEEN_ON_NETWORK",
+          "timestamp": "2026-09-16T07:10:35.090525Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:10:32.590232Z"
+        }
+      },
+      "rawBytes": 324740,
+      "efBytes": 325206,
+      "elapsedMs": 6731
+    },
+    {
+      "index": 16,
+      "funding": {
+        "txid": "6a2954c7914e207d33b5a9f7f0cf02e603e04399bac12c66da540623f29c6b19",
+        "vout": 0,
+        "satoshis": "49925"
+      },
+      "contract": {
+        "txid": "ce32603a814cf9375f8fb82faec47f82f559cd5457d8f3d1f4fa4c0a8d97505a",
+        "response": {
+          "txid": "ce32603a814cf9375f8fb82faec47f82f559cd5457d8f3d1f4fa4c0a8d97505a",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "ce32603a814cf9375f8fb82faec47f82f559cd5457d8f3d1f4fa4c0a8d97505a",
+          "txStatus": "ACCEPTED_BY_NETWORK",
+          "timestamp": "2026-09-16T07:10:36.126174Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:10:36.1247Z"
+        }
+      },
+      "issue": {
+        "txid": "2fd46c90d1312239d124e67bf62c7b7869d1ef49142e6315a27cf0e91965cc46",
+        "response": {
+          "txid": "2fd46c90d1312239d124e67bf62c7b7869d1ef49142e6315a27cf0e91965cc46",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "2fd46c90d1312239d124e67bf62c7b7869d1ef49142e6315a27cf0e91965cc46",
+          "txStatus": "SEEN_ON_NETWORK",
+          "timestamp": "2026-09-16T07:10:40.994947Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:10:39.375873Z"
+        }
+      },
+      "rawBytes": 324738,
+      "efBytes": 325204,
+      "elapsedMs": 6756
+    },
+    {
+      "index": 17,
+      "funding": {
+        "txid": "dcbd70ccfc54ae08dfdb28e9d8ad4fd5a4ef0e4dcc0e0207fb7e7ed16c66c956",
+        "vout": 0,
+        "satoshis": "49925"
+      },
+      "contract": {
+        "txid": "934f091a795d11238944101a5c02a08dc706a3f4d396535eed94e6f817e390ec",
+        "response": {
+          "txid": "934f091a795d11238944101a5c02a08dc706a3f4d396535eed94e6f817e390ec",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "934f091a795d11238944101a5c02a08dc706a3f4d396535eed94e6f817e390ec",
+          "txStatus": "SEEN_ON_NETWORK",
+          "timestamp": "2026-09-16T07:10:45.096337Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:10:42.929595Z"
+        }
+      },
+      "issue": {
+        "txid": "619fd5c12a952a669c53ed45a69e8d98d3bcc2287ed4ae28a50df4d5a91a895c",
+        "response": {
+          "txid": "619fd5c12a952a669c53ed45a69e8d98d3bcc2287ed4ae28a50df4d5a91a895c",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "619fd5c12a952a669c53ed45a69e8d98d3bcc2287ed4ae28a50df4d5a91a895c",
+          "txStatus": "ACCEPTED_BY_NETWORK",
+          "timestamp": "2026-09-16T07:10:46.176667Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:10:46.175091Z"
+        }
+      },
+      "rawBytes": 324739,
+      "efBytes": 325205,
+      "elapsedMs": 6740
+    },
+    {
+      "index": 18,
+      "funding": {
+        "txid": "d2d6ee15a9b3a06ebd5f1784f99483d3ab2fbfe8e35cc565f62d61b4cc88af54",
+        "vout": 100,
+        "satoshis": "49499"
+      },
+      "contract": {
+        "txid": "86e94728671251cac194fa1c2922456c4fe0c72294eb02caf482a7386f9832d0",
+        "response": {
+          "txid": "86e94728671251cac194fa1c2922456c4fe0c72294eb02caf482a7386f9832d0",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "86e94728671251cac194fa1c2922456c4fe0c72294eb02caf482a7386f9832d0",
+          "txStatus": "SEEN_ON_NETWORK",
+          "timestamp": "2026-09-16T07:10:51.049804Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:10:49.824431Z"
+        }
+      },
+      "issue": {
+        "txid": "527d84556a0bb07a40888165adb9271c3505f50a27d6a60107c9a9d67872d990",
+        "response": {
+          "txid": "527d84556a0bb07a40888165adb9271c3505f50a27d6a60107c9a9d67872d990",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "527d84556a0bb07a40888165adb9271c3505f50a27d6a60107c9a9d67872d990",
+          "txStatus": "SEEN_ON_NETWORK",
+          "timestamp": "2026-09-16T07:10:55.092178Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:10:53.075171Z"
+        }
+      },
+      "rawBytes": 324739,
+      "efBytes": 325205,
+      "elapsedMs": 6874
+    },
+    {
+      "index": 19,
+      "funding": {
+        "txid": "c1997191c514d5a8b0ba80688c11dd5d757264c6b97e629ce8fbec2488395d3a",
+        "vout": 100,
+        "satoshis": "49499"
+      },
+      "contract": {
+        "txid": "4e2f5d0ec0e1e833adcb16f3da960ab3b463155ba899292f216c5be497b258cb",
+        "response": {
+          "txid": "4e2f5d0ec0e1e833adcb16f3da960ab3b463155ba899292f216c5be497b258cb",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "4e2f5d0ec0e1e833adcb16f3da960ab3b463155ba899292f216c5be497b258cb",
+          "txStatus": "ACCEPTED_BY_NETWORK",
+          "timestamp": "2026-09-16T07:10:56.678585Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:10:56.676926Z"
+        }
+      },
+      "issue": {
+        "txid": "be873706f39aec48e860d4a4d50ffdc3aad3ff09d5fc6aca9237f232f35ebe29",
+        "response": {
+          "txid": "be873706f39aec48e860d4a4d50ffdc3aad3ff09d5fc6aca9237f232f35ebe29",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "be873706f39aec48e860d4a4d50ffdc3aad3ff09d5fc6aca9237f232f35ebe29",
+          "txStatus": "SEEN_ON_NETWORK",
+          "timestamp": "2026-09-16T07:11:01.112026Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:10:59.974355Z"
+        }
+      },
+      "rawBytes": 324739,
+      "efBytes": 325205,
+      "elapsedMs": 6805
+    },
+    {
+      "index": 20,
+      "funding": {
+        "txid": "8c639abdd350766ece03854c3624c7efe3fb849a27a55192e72903b1add7b6a3",
+        "vout": 100,
+        "satoshis": "49499"
+      },
+      "contract": {
+        "txid": "4b920b83626104dc1792f19b98ae05a7759bf98ab1b4e59773d556e8a8a64ce4",
+        "response": {
+          "txid": "4b920b83626104dc1792f19b98ae05a7759bf98ab1b4e59773d556e8a8a64ce4",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "4b920b83626104dc1792f19b98ae05a7759bf98ab1b4e59773d556e8a8a64ce4",
+          "txStatus": "SEEN_ON_NETWORK",
+          "timestamp": "2026-09-16T07:11:05.092961Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:11:03.57779Z"
+        }
+      },
+      "issue": {
+        "txid": "c0a44efd21e30713839057e441c0763e660281b2b3f61669c3f49c967fb7a3da",
+        "response": {
+          "txid": "c0a44efd21e30713839057e441c0763e660281b2b3f61669c3f49c967fb7a3da",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "c0a44efd21e30713839057e441c0763e660281b2b3f61669c3f49c967fb7a3da",
+          "txStatus": "ACCEPTED_BY_NETWORK",
+          "timestamp": "2026-09-16T07:11:06.828178Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:11:06.826554Z"
+        }
+      },
+      "rawBytes": 324739,
+      "efBytes": 325205,
+      "elapsedMs": 6839
+    },
+    {
+      "index": 21,
+      "funding": {
+        "txid": "9c23e20d5c10a859e4e837439a3623cc37c07b736a488ffde398220ce95b590d",
+        "vout": 100,
+        "satoshis": "49499"
+      },
+      "contract": {
+        "txid": "151e57d54a0f7e5af3056b8da61cc8c657c1e450d74b5650b9a0d1be157255d3",
+        "response": {
+          "txid": "151e57d54a0f7e5af3056b8da61cc8c657c1e450d74b5650b9a0d1be157255d3",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "151e57d54a0f7e5af3056b8da61cc8c657c1e450d74b5650b9a0d1be157255d3",
+          "txStatus": "SEEN_ON_NETWORK",
+          "timestamp": "2026-09-16T07:11:11.234658Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:11:10.475234Z"
+        }
+      },
+      "issue": {
+        "txid": "9c298f284e15af5c2d4fc3f4fe34b538df91aad9c26d01b490bd6b9d6cff3b8b",
+        "response": {
+          "txid": "9c298f284e15af5c2d4fc3f4fe34b538df91aad9c26d01b490bd6b9d6cff3b8b",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "9c298f284e15af5c2d4fc3f4fe34b538df91aad9c26d01b490bd6b9d6cff3b8b",
+          "txStatus": "SEEN_ON_NETWORK",
+          "timestamp": "2026-09-16T07:11:15.119042Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:11:13.724674Z"
+        }
+      },
+      "rawBytes": 324739,
+      "efBytes": 325205,
+      "elapsedMs": 6844
+    },
+    {
+      "index": 22,
+      "funding": {
+        "txid": "dc75bbed509d66d6cbdc68ab9c3eb57c9ff41ae74dc40e9ff223b22b16d1951f",
+        "vout": 100,
+        "satoshis": "49499"
+      },
+      "contract": {
+        "txid": "2fdc5f0ca94a9a3f6590155e8a17d4a705781ef0af803a1802aa159553d1c64f",
+        "response": {
+          "txid": "2fdc5f0ca94a9a3f6590155e8a17d4a705781ef0af803a1802aa159553d1c64f",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "2fdc5f0ca94a9a3f6590155e8a17d4a705781ef0af803a1802aa159553d1c64f",
+          "txStatus": "ACCEPTED_BY_NETWORK",
+          "timestamp": "2026-09-16T07:11:17.42695Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:11:17.425217Z"
+        }
+      },
+      "issue": {
+        "txid": "f3e1d0abfa033b9c90e5bb49c48a992361f06a98cab3fbcad330df17aef4e366",
+        "response": {
+          "txid": "f3e1d0abfa033b9c90e5bb49c48a992361f06a98cab3fbcad330df17aef4e366",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "f3e1d0abfa033b9c90e5bb49c48a992361f06a98cab3fbcad330df17aef4e366",
+          "txStatus": "SEEN_ON_NETWORK",
+          "timestamp": "2026-09-16T07:11:21.53379Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:11:20.674067Z"
+        }
+      },
+      "rawBytes": 324739,
+      "efBytes": 325205,
+      "elapsedMs": 6846
+    },
+    {
+      "index": 23,
+      "funding": {
+        "txid": "80c978c3a75d03b2ed154544ea95053faab866f19143929396cf9a81645569d2",
+        "vout": 100,
+        "satoshis": "49499"
+      },
+      "contract": {
+        "txid": "500c7d8d527510cc70b83c9de07ca796cb0292237c129eec29b429918aac5020",
+        "response": {
+          "txid": "500c7d8d527510cc70b83c9de07ca796cb0292237c129eec29b429918aac5020",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "500c7d8d527510cc70b83c9de07ca796cb0292237c129eec29b429918aac5020",
+          "txStatus": "SEEN_ON_NETWORK",
+          "timestamp": "2026-09-16T07:11:25.305451Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:11:24.325303Z"
+        }
+      },
+      "issue": {
+        "txid": "bef4666475983ca19244f99932007178aa2d109fe02978d4979afb08b0615db6",
+        "response": {
+          "txid": "bef4666475983ca19244f99932007178aa2d109fe02978d4979afb08b0615db6",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "bef4666475983ca19244f99932007178aa2d109fe02978d4979afb08b0615db6",
+          "txStatus": "ACCEPTED_BY_NETWORK",
+          "timestamp": "2026-09-16T07:11:27.577456Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:11:27.576047Z"
+        }
+      },
+      "rawBytes": 324738,
+      "efBytes": 325204,
+      "elapsedMs": 6859
+    },
+    {
+      "index": 24,
+      "funding": {
+        "txid": "8013c791d645f5f516869a25d9016c1acf55ea627f108fade70b62f3e94d9d0c",
+        "vout": 100,
+        "satoshis": "49499"
+      },
+      "contract": {
+        "txid": "dc50d67c0bb75533b0e3cede59c1f82098de4f0761b2b62fc48a3c6063c1574e",
+        "response": {
+          "txid": "dc50d67c0bb75533b0e3cede59c1f82098de4f0761b2b62fc48a3c6063c1574e",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "dc50d67c0bb75533b0e3cede59c1f82098de4f0761b2b62fc48a3c6063c1574e",
+          "txStatus": "SEEN_ON_NETWORK",
+          "timestamp": "2026-09-16T07:11:31.792602Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:11:31.274985Z"
+        }
+      },
+      "issue": {
+        "txid": "7ddfc6b8697173b668637bb0113b540cd808bbd2fbc146de577461ffaec7eef2",
+        "response": {
+          "txid": "7ddfc6b8697173b668637bb0113b540cd808bbd2fbc146de577461ffaec7eef2",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "7ddfc6b8697173b668637bb0113b540cd808bbd2fbc146de577461ffaec7eef2",
+          "txStatus": "ACCEPTED_BY_NETWORK",
+          "timestamp": "2026-09-16T07:11:34.526651Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:11:34.525082Z"
+        }
+      },
+      "rawBytes": 324740,
+      "efBytes": 325206,
+      "elapsedMs": 6857
+    },
+    {
+      "index": 25,
+      "funding": {
+        "txid": "0ff8730f54f489e462e49cebb48284aa055efb89bc7d52fe4a4bce7d84196e07",
+        "vout": 100,
+        "satoshis": "49499"
+      },
+      "contract": {
+        "txid": "bba95f8dae481959b936b2d95b1b53cb9392225cfbab72e841fd43b034fd78fa",
+        "response": {
+          "txid": "bba95f8dae481959b936b2d95b1b53cb9392225cfbab72e841fd43b034fd78fa",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "bba95f8dae481959b936b2d95b1b53cb9392225cfbab72e841fd43b034fd78fa",
+          "txStatus": "ACCEPTED_BY_NETWORK",
+          "timestamp": "2026-09-16T07:11:38.17712Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:11:38.175563Z"
+        }
+      },
+      "issue": {
+        "txid": "c0e62026c39d0a36c78071c56601e26cbca9e0e20282f7bcbb9cfbac144bfa54",
+        "response": {
+          "txid": "c0e62026c39d0a36c78071c56601e26cbca9e0e20282f7bcbb9cfbac144bfa54",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "c0e62026c39d0a36c78071c56601e26cbca9e0e20282f7bcbb9cfbac144bfa54",
+          "txStatus": "SEEN_ON_NETWORK",
+          "timestamp": "2026-09-16T07:11:42.320666Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:11:41.424542Z"
+        }
+      },
+      "rawBytes": 324738,
+      "efBytes": 325204,
+      "elapsedMs": 6820
+    },
+    {
+      "index": 26,
+      "funding": {
+        "txid": "73c35e38ba832fc156eb38d602c82a7ce35c056043411e78b6bb97d99b6b0275",
+        "vout": 100,
+        "satoshis": "49499"
+      },
+      "contract": {
+        "txid": "0380f91f232b45ba9f4aadb2ba93216de02d9bf327740155cbc49c0721b21a20",
+        "response": {
+          "txid": "0380f91f232b45ba9f4aadb2ba93216de02d9bf327740155cbc49c0721b21a20",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "0380f91f232b45ba9f4aadb2ba93216de02d9bf327740155cbc49c0721b21a20",
+          "txStatus": "SEEN_ON_NETWORK",
+          "timestamp": "2026-09-16T07:11:46.73039Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:11:45.030362Z"
+        }
+      },
+      "issue": {
+        "txid": "e23f4a6cdc3dc55a6433fdae109ea02eea5e2608e1a5b3b77852e2bf34889567",
+        "response": {
+          "txid": "e23f4a6cdc3dc55a6433fdae109ea02eea5e2608e1a5b3b77852e2bf34889567",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "e23f4a6cdc3dc55a6433fdae109ea02eea5e2608e1a5b3b77852e2bf34889567",
+          "txStatus": "ACCEPTED_BY_NETWORK",
+          "timestamp": "2026-09-16T07:11:48.326943Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:11:48.325242Z"
+        }
+      },
+      "rawBytes": 324739,
+      "efBytes": 325205,
+      "elapsedMs": 6822
+    },
+    {
+      "index": 27,
+      "funding": {
+        "txid": "27f05a1903168395583220423d4d3981f4ba9979bd31b07f8ad832950007d767",
+        "vout": 100,
+        "satoshis": "49499"
+      },
+      "contract": {
+        "txid": "c83a64ca5507d7f5badf61ce6dfba25d272dd2c563a03085e4eb03017f18653d",
+        "response": {
+          "txid": "c83a64ca5507d7f5badf61ce6dfba25d272dd2c563a03085e4eb03017f18653d",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "c83a64ca5507d7f5badf61ce6dfba25d272dd2c563a03085e4eb03017f18653d",
+          "txStatus": "ACCEPTED_BY_NETWORK",
+          "timestamp": "2026-09-16T07:11:51.976693Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:11:51.975104Z"
+        }
+      },
+      "issue": {
+        "txid": "11bd1377449a40a845ce6ada79fbd3a2e2f0d1c19e8070b1790c5f786ad9c47f",
+        "response": {
+          "txid": "11bd1377449a40a845ce6ada79fbd3a2e2f0d1c19e8070b1790c5f786ad9c47f",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "11bd1377449a40a845ce6ada79fbd3a2e2f0d1c19e8070b1790c5f786ad9c47f",
+          "txStatus": "ACCEPTED_BY_NETWORK",
+          "timestamp": "2026-09-16T07:11:55.226486Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:11:55.224847Z"
+        }
+      },
+      "rawBytes": 324738,
+      "efBytes": 325204,
+      "elapsedMs": 6852
+    },
+    {
+      "index": 28,
+      "funding": {
+        "txid": "f051e30effdba9db602a827b86336ae09b0eea8f2eb40e900e2bba07064321a4",
+        "vout": 100,
+        "satoshis": "49499"
+      },
+      "contract": {
+        "txid": "af7826745fd60f768ff38a5fe01714c8c9b5a34afc8b7642b74597678f5e2805",
+        "response": {
+          "txid": "af7826745fd60f768ff38a5fe01714c8c9b5a34afc8b7642b74597678f5e2805",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "af7826745fd60f768ff38a5fe01714c8c9b5a34afc8b7642b74597678f5e2805",
+          "txStatus": "SEEN_ON_NETWORK",
+          "timestamp": "2026-09-16T07:12:01.535022Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:11:58.976256Z"
+        }
+      },
+      "issue": {
+        "txid": "420387a693f0f21685f251bf5dc6dfa2eac61e1ba6117d6052cc5e1ad21f8133",
+        "response": {
+          "txid": "420387a693f0f21685f251bf5dc6dfa2eac61e1ba6117d6052cc5e1ad21f8133",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "420387a693f0f21685f251bf5dc6dfa2eac61e1ba6117d6052cc5e1ad21f8133",
+          "txStatus": "ACCEPTED_BY_NETWORK",
+          "timestamp": "2026-09-16T07:12:02.227535Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:12:02.225886Z"
+        }
+      },
+      "rawBytes": 324739,
+      "efBytes": 325205,
+      "elapsedMs": 6899
+    },
+    {
+      "index": 29,
+      "funding": {
+        "txid": "e50c565d43816b7248020f4916ce51e5ff1893efbf9c62a921eea5e739529ff5",
+        "vout": 100,
+        "satoshis": "49499"
+      },
+      "contract": {
+        "txid": "3b51fe670369ad6fdcf3c9f0128fb5cda119d34173bd86d1ab5b8236e1584057",
+        "response": {
+          "txid": "3b51fe670369ad6fdcf3c9f0128fb5cda119d34173bd86d1ab5b8236e1584057",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "3b51fe670369ad6fdcf3c9f0128fb5cda119d34173bd86d1ab5b8236e1584057",
+          "txStatus": "SEEN_ON_NETWORK",
+          "timestamp": "2026-09-16T07:12:07.001939Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:12:05.923555Z"
+        }
+      },
+      "issue": {
+        "txid": "cf4ae85aa7159b63c7bf4c8b315ed9432880c1fd937f26e499895be58a22a4e3",
+        "response": {
+          "txid": "cf4ae85aa7159b63c7bf4c8b315ed9432880c1fd937f26e499895be58a22a4e3",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "cf4ae85aa7159b63c7bf4c8b315ed9432880c1fd937f26e499895be58a22a4e3",
+          "txStatus": "SEEN_ON_NETWORK",
+          "timestamp": "2026-09-16T07:12:11.91856Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:12:09.173483Z"
+        }
+      },
+      "rawBytes": 324738,
+      "efBytes": 325204,
+      "elapsedMs": 6836
+    },
+    {
+      "index": 30,
+      "funding": {
+        "txid": "d0493cb141db9dcb64655e4fe23fb86d79db314483b1afe23445f1cd6a574c6a",
+        "vout": 100,
+        "satoshis": "49499"
+      },
+      "contract": {
+        "txid": "6d94f7597af67d98799bbdb03c9755028794dd8156c6bfa91539ff7474b6fef0",
+        "response": {
+          "txid": "6d94f7597af67d98799bbdb03c9755028794dd8156c6bfa91539ff7474b6fef0",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "6d94f7597af67d98799bbdb03c9755028794dd8156c6bfa91539ff7474b6fef0",
+          "txStatus": "SEEN_ON_NETWORK",
+          "timestamp": "2026-09-16T07:12:15.276934Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:12:12.82668Z"
+        }
+      },
+      "issue": {
+        "txid": "bafb6af86a44fc95f852f03178d71b2c8ff709d7aa118a71140a01197f832a3f",
+        "response": {
+          "txid": "bafb6af86a44fc95f852f03178d71b2c8ff709d7aa118a71140a01197f832a3f",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "bafb6af86a44fc95f852f03178d71b2c8ff709d7aa118a71140a01197f832a3f",
+          "txStatus": "ACCEPTED_BY_NETWORK",
+          "timestamp": "2026-09-16T07:12:16.124759Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:12:16.123384Z"
+        }
+      },
+      "rawBytes": 324740,
+      "efBytes": 325206,
+      "elapsedMs": 6854
+    },
+    {
+      "index": 31,
+      "funding": {
+        "txid": "ac371a0d37a4cf755233f2b24d72e51fbae67b3549c7ae38327598f2aaf25085",
+        "vout": 100,
+        "satoshis": "49499"
+      },
+      "contract": {
+        "txid": "24d17b682d09ae0ed825362c2eab5235747adfba6bf51db1ed57b8f18f9d489c",
+        "response": {
+          "txid": "24d17b682d09ae0ed825362c2eab5235747adfba6bf51db1ed57b8f18f9d489c",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "24d17b682d09ae0ed825362c2eab5235747adfba6bf51db1ed57b8f18f9d489c",
+          "txStatus": "SEEN_ON_NETWORK",
+          "timestamp": "2026-09-16T07:12:21.916615Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:12:19.77465Z"
+        }
+      },
+      "issue": {
+        "txid": "e0e239a1b0e1a86daac3fe05b935902835145838db6866697b5060dd7de5e0d8",
+        "response": {
+          "txid": "e0e239a1b0e1a86daac3fe05b935902835145838db6866697b5060dd7de5e0d8",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "e0e239a1b0e1a86daac3fe05b935902835145838db6866697b5060dd7de5e0d8",
+          "txStatus": "SEEN_ON_NETWORK",
+          "timestamp": "2026-09-16T07:12:25.53786Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:12:23.024521Z"
+        }
+      },
+      "rawBytes": 324739,
+      "efBytes": 325205,
+      "elapsedMs": 6845
+    },
+    {
+      "index": 32,
+      "funding": {
+        "txid": "f4aa116609d99ecc44f64ade92219766f7b2a1c494fec57d1fc70872d39512b3",
+        "vout": 100,
+        "satoshis": "49499"
+      },
+      "contract": {
+        "txid": "2e29fa1720f4e4bd3a8484963ce1fb8476bd8713f688e8aee02f44d923933ef2",
+        "response": {
+          "txid": "2e29fa1720f4e4bd3a8484963ce1fb8476bd8713f688e8aee02f44d923933ef2",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "2e29fa1720f4e4bd3a8484963ce1fb8476bd8713f688e8aee02f44d923933ef2",
+          "txStatus": "ACCEPTED_BY_NETWORK",
+          "timestamp": "2026-09-16T07:12:26.728568Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:12:26.72699Z"
+        }
+      },
+      "issue": {
+        "txid": "f2a8fde24da8bbc7498b198e9564b0e2360e1f51483b0077d5caf7fa9f44a357",
+        "response": {
+          "txid": "f2a8fde24da8bbc7498b198e9564b0e2360e1f51483b0077d5caf7fa9f44a357",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "f2a8fde24da8bbc7498b198e9564b0e2360e1f51483b0077d5caf7fa9f44a357",
+          "txStatus": "SEEN_ON_NETWORK",
+          "timestamp": "2026-09-16T07:12:31.916247Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:12:29.994621Z"
+        }
+      },
+      "rawBytes": 324740,
+      "efBytes": 325206,
+      "elapsedMs": 6828
+    },
+    {
+      "index": 33,
+      "funding": {
+        "txid": "aa7258cba88b2276f9b08ac04628ea734b7f36d982ce30c766527957a76380e0",
+        "vout": 100,
+        "satoshis": "49499"
+      },
+      "contract": {
+        "txid": "b7ee8d51958542736e6d748f57c1cc321d43170024b88b5ec25b1436b54a8a9d",
+        "response": {
+          "txid": "b7ee8d51958542736e6d748f57c1cc321d43170024b88b5ec25b1436b54a8a9d",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "b7ee8d51958542736e6d748f57c1cc321d43170024b88b5ec25b1436b54a8a9d",
+          "txStatus": "SEEN_ON_NETWORK",
+          "timestamp": "2026-09-16T07:12:35.281778Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:12:33.62613Z"
+        }
+      },
+      "issue": {
+        "txid": "72d62d0a225c3b13532fc3a2ae5ba3e7c249e4f1b7dfddfcfdf50dbb1f4103d6",
+        "response": {
+          "txid": "72d62d0a225c3b13532fc3a2ae5ba3e7c249e4f1b7dfddfcfdf50dbb1f4103d6",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "72d62d0a225c3b13532fc3a2ae5ba3e7c249e4f1b7dfddfcfdf50dbb1f4103d6",
+          "txStatus": "ACCEPTED_BY_NETWORK",
+          "timestamp": "2026-09-16T07:12:36.878206Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:12:36.876559Z"
+        }
+      },
+      "rawBytes": 324739,
+      "efBytes": 325205,
+      "elapsedMs": 6805
+    },
+    {
+      "index": 34,
+      "funding": {
+        "txid": "2fd46c90d1312239d124e67bf62c7b7869d1ef49142e6315a27cf0e91965cc46",
+        "vout": 100,
+        "satoshis": "49499"
+      },
+      "contract": {
+        "txid": "842b58170dc5c516450c8eef1d2b809e60d74942388893b38299b07f07ee68b9",
+        "response": {
+          "txid": "842b58170dc5c516450c8eef1d2b809e60d74942388893b38299b07f07ee68b9",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "842b58170dc5c516450c8eef1d2b809e60d74942388893b38299b07f07ee68b9",
+          "txStatus": "SEEN_ON_NETWORK",
+          "timestamp": "2026-09-16T07:12:41.821509Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:12:40.625361Z"
+        }
+      },
+      "issue": {
+        "txid": "24852b2d12c59632b70c2dc948a604c4336ade5887593e50c5b2ffb27ec039d2",
+        "response": {
+          "txid": "24852b2d12c59632b70c2dc948a604c4336ade5887593e50c5b2ffb27ec039d2",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "24852b2d12c59632b70c2dc948a604c4336ade5887593e50c5b2ffb27ec039d2",
+          "txStatus": "SEEN_ON_NETWORK",
+          "timestamp": "2026-09-16T07:12:45.108187Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:12:43.874413Z"
+        }
+      },
+      "rawBytes": 324739,
+      "efBytes": 325205,
+      "elapsedMs": 6886
+    },
+    {
+      "index": 35,
+      "funding": {
+        "txid": "619fd5c12a952a669c53ed45a69e8d98d3bcc2287ed4ae28a50df4d5a91a895c",
+        "vout": 100,
+        "satoshis": "49499"
+      },
+      "contract": {
+        "txid": "425d1d752605d9607676b452f2fd3c7c18dd92929602045fb9827d19d20315c0",
+        "response": {
+          "txid": "425d1d752605d9607676b452f2fd3c7c18dd92929602045fb9827d19d20315c0",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "425d1d752605d9607676b452f2fd3c7c18dd92929602045fb9827d19d20315c0",
+          "txStatus": "ACCEPTED_BY_NETWORK",
+          "timestamp": "2026-09-16T07:12:47.579344Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:12:47.577361Z"
+        }
+      },
+      "issue": {
+        "txid": "184663009da565728596b3da0a2ca168ff0cd72d0a7291e2ec919edc305a7314",
+        "response": {
+          "txid": "184663009da565728596b3da0a2ca168ff0cd72d0a7291e2ec919edc305a7314",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "184663009da565728596b3da0a2ca168ff0cd72d0a7291e2ec919edc305a7314",
+          "txStatus": "SEEN_MULTIPLE_NODES",
+          "timestamp": "2026-09-16T07:12:52.110796Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:12:50.826531Z"
+        }
+      },
+      "rawBytes": 324739,
+      "efBytes": 325205,
+      "elapsedMs": 6849
+    },
+    {
+      "index": 36,
+      "funding": {
+        "txid": "0839a98132d84449eabf119214cbc8e0a9b6902dc1fc6dbc5627a4668d99c05f",
+        "vout": 1,
+        "satoshis": "49424"
+      },
+      "contract": {
+        "txid": "8a92cc49dd17ca2b0d0fbf262d2eec9f7fb4383ae7b1c9df0287038870cdbcc9",
+        "response": {
+          "txid": "8a92cc49dd17ca2b0d0fbf262d2eec9f7fb4383ae7b1c9df0287038870cdbcc9",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "8a92cc49dd17ca2b0d0fbf262d2eec9f7fb4383ae7b1c9df0287038870cdbcc9",
+          "txStatus": "SEEN_ON_NETWORK",
+          "timestamp": "2026-09-16T07:12:55.090773Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:12:54.374836Z"
+        }
+      },
+      "issue": {
+        "txid": "e226cd5ec823ad195645a1226341319ca3437c96e7718d4d3a73eca29f1b7e85",
+        "response": {
+          "txid": "e226cd5ec823ad195645a1226341319ca3437c96e7718d4d3a73eca29f1b7e85",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "e226cd5ec823ad195645a1226341319ca3437c96e7718d4d3a73eca29f1b7e85",
+          "txStatus": "ACCEPTED_BY_NETWORK",
+          "timestamp": "2026-09-16T07:12:57.626045Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:12:57.624398Z"
+        }
+      },
+      "rawBytes": 324739,
+      "efBytes": 325205,
+      "elapsedMs": 6700
+    },
+    {
+      "index": 37,
+      "funding": {
+        "txid": "527d84556a0bb07a40888165adb9271c3505f50a27d6a60107c9a9d67872d990",
+        "vout": 100,
+        "satoshis": "49073"
+      },
+      "contract": {
+        "txid": "27064f9847887e7b1668fee0520c7762e2def17e4139439ab307619d81897f2a",
+        "response": {
+          "txid": "27064f9847887e7b1668fee0520c7762e2def17e4139439ab307619d81897f2a",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "27064f9847887e7b1668fee0520c7762e2def17e4139439ab307619d81897f2a",
+          "txStatus": "SEEN_ON_NETWORK",
+          "timestamp": "2026-09-16T07:13:01.757619Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:13:01.324149Z"
+        }
+      },
+      "issue": {
+        "txid": "7e2e3340b8024a3e0c6fac471d5936ecfbc478989924b4bc1ed1545aec161fb4",
+        "response": {
+          "txid": "7e2e3340b8024a3e0c6fac471d5936ecfbc478989924b4bc1ed1545aec161fb4",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "7e2e3340b8024a3e0c6fac471d5936ecfbc478989924b4bc1ed1545aec161fb4",
+          "txStatus": "SEEN_ON_NETWORK",
+          "timestamp": "2026-09-16T07:13:06.890536Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:13:04.576666Z"
+        }
+      },
+      "rawBytes": 324739,
+      "efBytes": 325205,
+      "elapsedMs": 6840
+    },
+    {
+      "index": 38,
+      "funding": {
+        "txid": "be873706f39aec48e860d4a4d50ffdc3aad3ff09d5fc6aca9237f232f35ebe29",
+        "vout": 100,
+        "satoshis": "49073"
+      },
+      "contract": {
+        "txid": "299005a52889a9dc849fc862315934f7e79056e1058a8eb629c121a7f13bef89",
+        "response": {
+          "txid": "299005a52889a9dc849fc862315934f7e79056e1058a8eb629c121a7f13bef89",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "299005a52889a9dc849fc862315934f7e79056e1058a8eb629c121a7f13bef89",
+          "txStatus": "ACCEPTED_BY_NETWORK",
+          "timestamp": "2026-09-16T07:13:08.325646Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:13:08.324193Z"
+        }
+      },
+      "issue": {
+        "txid": "2c48bfa9626dc7493d9281f15c380d226061cf5428f1c19d093ef80b1c68770c",
+        "response": {
+          "txid": "2c48bfa9626dc7493d9281f15c380d226061cf5428f1c19d093ef80b1c68770c",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "2c48bfa9626dc7493d9281f15c380d226061cf5428f1c19d093ef80b1c68770c",
+          "txStatus": "SEEN_ON_NETWORK",
+          "timestamp": "2026-09-16T07:13:12.760667Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:13:11.576385Z"
+        }
+      },
+      "rawBytes": 324740,
+      "efBytes": 325206,
+      "elapsedMs": 6866
+    },
+    {
+      "index": 39,
+      "funding": {
+        "txid": "c0a44efd21e30713839057e441c0763e660281b2b3f61669c3f49c967fb7a3da",
+        "vout": 100,
+        "satoshis": "49073"
+      },
+      "contract": {
+        "txid": "6eac35b21f1b1c5199adb1091e31bb173550b552f2fbf3b098e9312a67f627a5",
+        "response": {
+          "txid": "6eac35b21f1b1c5199adb1091e31bb173550b552f2fbf3b098e9312a67f627a5",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "6eac35b21f1b1c5199adb1091e31bb173550b552f2fbf3b098e9312a67f627a5",
+          "txStatus": "SEEN_ON_NETWORK",
+          "timestamp": "2026-09-16T07:13:16.875391Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:13:15.273887Z"
+        }
+      },
+      "issue": {
+        "txid": "43edba1f66c3917dd26a88151436a42efd4d94426e21e56d0b77cf1a3a2422af",
+        "response": {
+          "txid": "43edba1f66c3917dd26a88151436a42efd4d94426e21e56d0b77cf1a3a2422af",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "43edba1f66c3917dd26a88151436a42efd4d94426e21e56d0b77cf1a3a2422af",
+          "txStatus": "ACCEPTED_BY_NETWORK",
+          "timestamp": "2026-09-16T07:13:18.531192Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:13:18.529665Z"
+        }
+      },
+      "rawBytes": 324738,
+      "efBytes": 325204,
+      "elapsedMs": 6825
+    },
+    {
+      "index": 40,
+      "funding": {
+        "txid": "9c298f284e15af5c2d4fc3f4fe34b538df91aad9c26d01b490bd6b9d6cff3b8b",
+        "vout": 100,
+        "satoshis": "49073"
+      },
+      "contract": {
+        "txid": "a2ed70cda54063d72bfaa92e4aac0cb1ff432b18021751f43d3d85b39a6bebd0",
+        "response": {
+          "txid": "a2ed70cda54063d72bfaa92e4aac0cb1ff432b18021751f43d3d85b39a6bebd0",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "a2ed70cda54063d72bfaa92e4aac0cb1ff432b18021751f43d3d85b39a6bebd0",
+          "txStatus": "SEEN_ON_NETWORK",
+          "timestamp": "2026-09-16T07:13:22.653929Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:13:22.225154Z"
+        }
+      },
+      "issue": {
+        "txid": "bf90da2641c4855ab56e4bada9d1df3429d667031c18c4d1c7bfd682657d4e31",
+        "response": {
+          "txid": "bf90da2641c4855ab56e4bada9d1df3429d667031c18c4d1c7bfd682657d4e31",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "bf90da2641c4855ab56e4bada9d1df3429d667031c18c4d1c7bfd682657d4e31",
+          "txStatus": "ACCEPTED_BY_NETWORK",
+          "timestamp": "2026-09-16T07:13:25.479705Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:13:25.478182Z"
+        }
+      },
+      "rawBytes": 324739,
+      "efBytes": 325205,
+      "elapsedMs": 6857
+    },
+    {
+      "index": 41,
+      "funding": {
+        "txid": "f3e1d0abfa033b9c90e5bb49c48a992361f06a98cab3fbcad330df17aef4e366",
+        "vout": 100,
+        "satoshis": "49073"
+      },
+      "contract": {
+        "txid": "8410ce7ae29602708b875d81e3abf2023bbe7ab642a7bd15be177c45a3cd00e2",
+        "response": {
+          "txid": "8410ce7ae29602708b875d81e3abf2023bbe7ab642a7bd15be177c45a3cd00e2",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "8410ce7ae29602708b875d81e3abf2023bbe7ab642a7bd15be177c45a3cd00e2",
+          "txStatus": "SEEN_MULTIPLE_NODES",
+          "timestamp": "2026-09-16T07:13:32.317255Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:13:29.275674Z"
+        }
+      },
+      "issue": {
+        "txid": "b9a2354f08e3bdb024b90a289d89f176a846103e94919abae51cedfc8dba1a86",
+        "response": {
+          "txid": "b9a2354f08e3bdb024b90a289d89f176a846103e94919abae51cedfc8dba1a86",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "b9a2354f08e3bdb024b90a289d89f176a846103e94919abae51cedfc8dba1a86",
+          "txStatus": "ACCEPTED_BY_NETWORK",
+          "timestamp": "2026-09-16T07:13:32.528409Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:13:32.526815Z"
+        }
+      },
+      "rawBytes": 324738,
+      "efBytes": 325204,
+      "elapsedMs": 6883
+    },
+    {
+      "index": 42,
+      "funding": {
+        "txid": "bef4666475983ca19244f99932007178aa2d109fe02978d4979afb08b0615db6",
+        "vout": 100,
+        "satoshis": "49073"
+      },
+      "contract": {
+        "txid": "c7f35d704c49cd2d0eb4d0a14806cbd98674042ddb4fa9c5024c05c1eef7fd7f",
+        "response": {
+          "txid": "c7f35d704c49cd2d0eb4d0a14806cbd98674042ddb4fa9c5024c05c1eef7fd7f",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "c7f35d704c49cd2d0eb4d0a14806cbd98674042ddb4fa9c5024c05c1eef7fd7f",
+          "txStatus": "SEEN_ON_NETWORK",
+          "timestamp": "2026-09-16T07:13:36.890215Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:13:36.22633Z"
+        }
+      },
+      "issue": {
+        "txid": "4453a19fd103abf984e3e2476c170584e6bb73344264d49e57e6c503d2e9d074",
+        "response": {
+          "txid": "4453a19fd103abf984e3e2476c170584e6bb73344264d49e57e6c503d2e9d074",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "4453a19fd103abf984e3e2476c170584e6bb73344264d49e57e6c503d2e9d074",
+          "txStatus": "SEEN_ON_NETWORK",
+          "timestamp": "2026-09-16T07:13:41.8897Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:13:39.474367Z"
+        }
+      },
+      "rawBytes": 324740,
+      "efBytes": 325206,
+      "elapsedMs": 6817
+    },
+    {
+      "index": 43,
+      "funding": {
+        "txid": "7ddfc6b8697173b668637bb0113b540cd808bbd2fbc146de577461ffaec7eef2",
+        "vout": 100,
+        "satoshis": "49073"
+      },
+      "contract": {
+        "txid": "f971d04d92ee8816304c384f33892a13aa1bb72a7a972c56a54398f34443fdaa",
+        "response": {
+          "txid": "f971d04d92ee8816304c384f33892a13aa1bb72a7a972c56a54398f34443fdaa",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "f971d04d92ee8816304c384f33892a13aa1bb72a7a972c56a54398f34443fdaa",
+          "txStatus": "ACCEPTED_BY_NETWORK",
+          "timestamp": "2026-09-16T07:13:43.180755Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:13:43.179166Z"
+        }
+      },
+      "issue": {
+        "txid": "44bdc14c2d249c0fc45cfc3442c07ee281413339f5d5b938c87b994d3ed8fff4",
+        "response": {
+          "txid": "44bdc14c2d249c0fc45cfc3442c07ee281413339f5d5b938c87b994d3ed8fff4",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "44bdc14c2d249c0fc45cfc3442c07ee281413339f5d5b938c87b994d3ed8fff4",
+          "txStatus": "ACCEPTED_BY_NETWORK",
+          "timestamp": "2026-09-16T07:13:46.526156Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:13:46.524761Z"
+        }
+      },
+      "rawBytes": 324740,
+      "efBytes": 325206,
+      "elapsedMs": 6961
+    },
+    {
+      "index": 44,
+      "funding": {
+        "txid": "c0e62026c39d0a36c78071c56601e26cbca9e0e20282f7bcbb9cfbac144bfa54",
+        "vout": 100,
+        "satoshis": "49073"
+      },
+      "contract": {
+        "txid": "8df1e7814fae54e2bfee43ba1779a0a83d8d0bd480897e92bde973dd6e0da9ad",
+        "response": {
+          "txid": "8df1e7814fae54e2bfee43ba1779a0a83d8d0bd480897e92bde973dd6e0da9ad",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "8df1e7814fae54e2bfee43ba1779a0a83d8d0bd480897e92bde973dd6e0da9ad",
+          "txStatus": "SEEN_ON_NETWORK",
+          "timestamp": "2026-09-16T07:13:51.87795Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:13:50.225227Z"
+        }
+      },
+      "issue": {
+        "txid": "43ab1dcf8a45966bdca39aa06c7d967c17f30a7a2dbb7af15ca5ef315d1c7591",
+        "response": {
+          "txid": "43ab1dcf8a45966bdca39aa06c7d967c17f30a7a2dbb7af15ca5ef315d1c7591",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "43ab1dcf8a45966bdca39aa06c7d967c17f30a7a2dbb7af15ca5ef315d1c7591",
+          "txStatus": "ACCEPTED_BY_NETWORK",
+          "timestamp": "2026-09-16T07:13:53.476991Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:13:53.475534Z"
+        }
+      },
+      "rawBytes": 324738,
+      "efBytes": 325204,
+      "elapsedMs": 6809
+    },
+    {
+      "index": 45,
+      "funding": {
+        "txid": "e23f4a6cdc3dc55a6433fdae109ea02eea5e2608e1a5b3b77852e2bf34889567",
+        "vout": 100,
+        "satoshis": "49073"
+      },
+      "contract": {
+        "txid": "fae65f4d1e41d775fd62d0f7738f95cdaebe951a7d510ce9bc073bf1ece32c66",
+        "response": {
+          "txid": "fae65f4d1e41d775fd62d0f7738f95cdaebe951a7d510ce9bc073bf1ece32c66",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "fae65f4d1e41d775fd62d0f7738f95cdaebe951a7d510ce9bc073bf1ece32c66",
+          "txStatus": "SEEN_ON_NETWORK",
+          "timestamp": "2026-09-16T07:14:00.295214Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:13:57.229157Z"
+        }
+      },
+      "issue": {
+        "txid": "2ed328228a0e1a3e884e9b847fb07d61949ac76fa3a33fbcb3f48d2af0f537d3",
+        "response": {
+          "txid": "2ed328228a0e1a3e884e9b847fb07d61949ac76fa3a33fbcb3f48d2af0f537d3",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "2ed328228a0e1a3e884e9b847fb07d61949ac76fa3a33fbcb3f48d2af0f537d3",
+          "txStatus": "SEEN_ON_NETWORK",
+          "timestamp": "2026-09-16T07:14:01.500386Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:14:00.477253Z"
+        }
+      },
+      "rawBytes": 324739,
+      "efBytes": 325205,
+      "elapsedMs": 6878
+    },
+    {
+      "index": 46,
+      "funding": {
+        "txid": "11bd1377449a40a845ce6ada79fbd3a2e2f0d1c19e8070b1790c5f786ad9c47f",
+        "vout": 100,
+        "satoshis": "49073"
+      },
+      "contract": {
+        "txid": "5111484bdf6a1d1e3d85f674206c822c5e7fb4fa69c74b63fa09400a61e80d42",
+        "response": {
+          "txid": "5111484bdf6a1d1e3d85f674206c822c5e7fb4fa69c74b63fa09400a61e80d42",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "5111484bdf6a1d1e3d85f674206c822c5e7fb4fa69c74b63fa09400a61e80d42",
+          "txStatus": "SEEN_ON_NETWORK",
+          "timestamp": "2026-09-16T07:14:07.228548Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:14:04.225125Z"
+        }
+      },
+      "issue": {
+        "txid": "56bb2a1c8c19d51d2d78bb73f7b1ad6cac69e0e0c079e60d8b5e769698f94011",
+        "response": {
+          "txid": "56bb2a1c8c19d51d2d78bb73f7b1ad6cac69e0e0c079e60d8b5e769698f94011",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "56bb2a1c8c19d51d2d78bb73f7b1ad6cac69e0e0c079e60d8b5e769698f94011",
+          "txStatus": "SEEN_ON_NETWORK",
+          "timestamp": "2026-09-16T07:14:10.308736Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:14:07.476823Z"
+        }
+      },
+      "rawBytes": 324738,
+      "efBytes": 325204,
+      "elapsedMs": 6838
+    },
+    {
+      "index": 47,
+      "funding": {
+        "txid": "420387a693f0f21685f251bf5dc6dfa2eac61e1ba6117d6052cc5e1ad21f8133",
+        "vout": 100,
+        "satoshis": "49073"
+      },
+      "contract": {
+        "txid": "b54eb9f286e822510e0c44d88a49aea33a8fece9ef5d0a54ec4181b2bcd481ff",
+        "response": {
+          "txid": "b54eb9f286e822510e0c44d88a49aea33a8fece9ef5d0a54ec4181b2bcd481ff",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "b54eb9f286e822510e0c44d88a49aea33a8fece9ef5d0a54ec4181b2bcd481ff",
+          "txStatus": "SEEN_ON_NETWORK",
+          "timestamp": "2026-09-16T07:14:11.62859Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:14:11.175287Z"
+        }
+      },
+      "issue": {
+        "txid": "6d63e22eeac4e726444fd47eabac6da295a9bbd8bdfc8e8d9040062e954468ea",
+        "response": {
+          "txid": "6d63e22eeac4e726444fd47eabac6da295a9bbd8bdfc8e8d9040062e954468ea",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "6d63e22eeac4e726444fd47eabac6da295a9bbd8bdfc8e8d9040062e954468ea",
+          "txStatus": "SEEN_ON_NETWORK",
+          "timestamp": "2026-09-16T07:14:17.211776Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:14:14.475985Z"
+        }
+      },
+      "rawBytes": 324738,
+      "efBytes": 325204,
+      "elapsedMs": 6830
+    },
+    {
+      "index": 48,
+      "funding": {
+        "txid": "cf4ae85aa7159b63c7bf4c8b315ed9432880c1fd937f26e499895be58a22a4e3",
+        "vout": 100,
+        "satoshis": "49073"
+      },
+      "contract": {
+        "txid": "84ef8a5e0e5a4f5b6ab71fc2baab4c8a5ebce24d07cbc3222e90f3d22848893c",
+        "response": {
+          "txid": "84ef8a5e0e5a4f5b6ab71fc2baab4c8a5ebce24d07cbc3222e90f3d22848893c",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "84ef8a5e0e5a4f5b6ab71fc2baab4c8a5ebce24d07cbc3222e90f3d22848893c",
+          "txStatus": "SEEN_ON_NETWORK",
+          "timestamp": "2026-09-16T07:14:20.302023Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:14:18.274845Z"
+        }
+      },
+      "issue": {
+        "txid": "c26006e91a9d31a840070d90b09f411f8d680d4cab047e513558cd39fc6a4a2e",
+        "response": {
+          "txid": "c26006e91a9d31a840070d90b09f411f8d680d4cab047e513558cd39fc6a4a2e",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "c26006e91a9d31a840070d90b09f411f8d680d4cab047e513558cd39fc6a4a2e",
+          "txStatus": "SEEN_ON_NETWORK",
+          "timestamp": "2026-09-16T07:14:22.213534Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:14:21.524211Z"
+        }
+      },
+      "rawBytes": 324739,
+      "efBytes": 325205,
+      "elapsedMs": 6936
+    },
+    {
+      "index": 49,
+      "funding": {
+        "txid": "bafb6af86a44fc95f852f03178d71b2c8ff709d7aa118a71140a01197f832a3f",
+        "vout": 100,
+        "satoshis": "49073"
+      },
+      "contract": {
+        "txid": "b31d99663b988813d5f4af8f65742d096a609d4df54f0afa4bbf64ffaea5c732",
+        "response": {
+          "txid": "b31d99663b988813d5f4af8f65742d096a609d4df54f0afa4bbf64ffaea5c732",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "b31d99663b988813d5f4af8f65742d096a609d4df54f0afa4bbf64ffaea5c732",
+          "txStatus": "SEEN_ON_NETWORK",
+          "timestamp": "2026-09-16T07:14:27.246201Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:14:25.274818Z"
+        }
+      },
+      "issue": {
+        "txid": "455a8e6349ae984550167f87ab8a8969024c313ed00260ff395221bb5ea4e919",
+        "response": {
+          "txid": "455a8e6349ae984550167f87ab8a8969024c313ed00260ff395221bb5ea4e919",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "455a8e6349ae984550167f87ab8a8969024c313ed00260ff395221bb5ea4e919",
+          "txStatus": "SEEN_ON_NETWORK",
+          "timestamp": "2026-09-16T07:14:30.295002Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:14:28.527746Z"
+        }
+      },
+      "rawBytes": 324738,
+      "efBytes": 325204,
+      "elapsedMs": 6832
+    },
+    {
+      "index": 50,
+      "funding": {
+        "txid": "e0e239a1b0e1a86daac3fe05b935902835145838db6866697b5060dd7de5e0d8",
+        "vout": 100,
+        "satoshis": "49073"
+      },
+      "contract": {
+        "txid": "0a6ed7fe0fa303be8b29e63ba74e77728dabad5b830f381e861cdbd9a7ffa95e",
+        "response": {
+          "txid": "0a6ed7fe0fa303be8b29e63ba74e77728dabad5b830f381e861cdbd9a7ffa95e",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "0a6ed7fe0fa303be8b29e63ba74e77728dabad5b830f381e861cdbd9a7ffa95e",
+          "txStatus": "SEEN_ON_NETWORK",
+          "timestamp": "2026-09-16T07:14:32.948489Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:14:32.324307Z"
+        }
+      },
+      "issue": {
+        "txid": "688d04ccb4c68cec60af8c2405b6e152cb78159cd834a15bef6c6877675057f9",
+        "response": {
+          "txid": "688d04ccb4c68cec60af8c2405b6e152cb78159cd834a15bef6c6877675057f9",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "688d04ccb4c68cec60af8c2405b6e152cb78159cd834a15bef6c6877675057f9",
+          "txStatus": "SEEN_ON_NETWORK",
+          "timestamp": "2026-09-16T07:14:37.278908Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:14:35.579834Z"
+        }
+      },
+      "rawBytes": 324740,
+      "efBytes": 325206,
+      "elapsedMs": 6898
+    },
+    {
+      "index": 51,
+      "funding": {
+        "txid": "f2a8fde24da8bbc7498b198e9564b0e2360e1f51483b0077d5caf7fa9f44a357",
+        "vout": 100,
+        "satoshis": "49073"
+      },
+      "contract": {
+        "txid": "286dd1ad1ef82b790cc38935163837c675328f164f353ab641fb2979fbf89028",
+        "response": {
+          "txid": "286dd1ad1ef82b790cc38935163837c675328f164f353ab641fb2979fbf89028",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "286dd1ad1ef82b790cc38935163837c675328f164f353ab641fb2979fbf89028",
+          "txStatus": "SEEN_MULTIPLE_NODES",
+          "timestamp": "2026-09-16T07:14:41.702158Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:14:39.32605Z"
+        }
+      },
+      "issue": {
+        "txid": "ec1ba9a88e2fe2dcaad28a3ca6bb883907ab1b3f13da75ed92b3c42ceb1af5f4",
+        "response": {
+          "txid": "ec1ba9a88e2fe2dcaad28a3ca6bb883907ab1b3f13da75ed92b3c42ceb1af5f4",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "ec1ba9a88e2fe2dcaad28a3ca6bb883907ab1b3f13da75ed92b3c42ceb1af5f4",
+          "txStatus": "ACCEPTED_BY_NETWORK",
+          "timestamp": "2026-09-16T07:14:42.578526Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:14:42.576854Z"
+        }
+      },
+      "rawBytes": 324739,
+      "efBytes": 325205,
+      "elapsedMs": 6822
+    },
+    {
+      "index": 52,
+      "funding": {
+        "txid": "72d62d0a225c3b13532fc3a2ae5ba3e7c249e4f1b7dfddfcfdf50dbb1f4103d6",
+        "vout": 100,
+        "satoshis": "49073"
+      },
+      "contract": {
+        "txid": "fb680542d2534cb95b976fb6cb114075048127e1d7919c7f5fa10279b946e07f",
+        "response": {
+          "txid": "fb680542d2534cb95b976fb6cb114075048127e1d7919c7f5fa10279b946e07f",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "fb680542d2534cb95b976fb6cb114075048127e1d7919c7f5fa10279b946e07f",
+          "txStatus": "SEEN_ON_NETWORK",
+          "timestamp": "2026-09-16T07:14:47.312848Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:14:46.325822Z"
+        }
+      },
+      "issue": {
+        "txid": "2f4286d9ed5f5ab8a2ae71459ea45e4be3f3d45db354382c7aac2d94f13b38b4",
+        "response": {
+          "txid": "2f4286d9ed5f5ab8a2ae71459ea45e4be3f3d45db354382c7aac2d94f13b38b4",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "2f4286d9ed5f5ab8a2ae71459ea45e4be3f3d45db354382c7aac2d94f13b38b4",
+          "txStatus": "SEEN_MULTIPLE_NODES",
+          "timestamp": "2026-09-16T07:14:51.721131Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:14:49.575846Z"
+        }
+      },
+      "rawBytes": 324739,
+      "efBytes": 325205,
+      "elapsedMs": 6824
+    },
+    {
+      "index": 53,
+      "funding": {
+        "txid": "24852b2d12c59632b70c2dc948a604c4336ade5887593e50c5b2ffb27ec039d2",
+        "vout": 100,
+        "satoshis": "49073"
+      },
+      "contract": {
+        "txid": "09669786cf089af02eb402a77136ae14f04bf7b8fc42f366c5151e8e6bc9cbb6",
+        "response": {
+          "txid": "09669786cf089af02eb402a77136ae14f04bf7b8fc42f366c5151e8e6bc9cbb6",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "09669786cf089af02eb402a77136ae14f04bf7b8fc42f366c5151e8e6bc9cbb6",
+          "txStatus": "ACCEPTED_BY_NETWORK",
+          "timestamp": "2026-09-16T07:14:53.327263Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:14:53.325504Z"
+        }
+      },
+      "issue": {
+        "txid": "98c6e3928c2843f4efa4d7c89b600695fd862593c2a4eea5df93da7f3592c7fc",
+        "response": {
+          "txid": "98c6e3928c2843f4efa4d7c89b600695fd862593c2a4eea5df93da7f3592c7fc",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "98c6e3928c2843f4efa4d7c89b600695fd862593c2a4eea5df93da7f3592c7fc",
+          "txStatus": "SEEN_ON_NETWORK",
+          "timestamp": "2026-09-16T07:14:57.368081Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:14:56.624184Z"
+        }
+      },
+      "rawBytes": 324739,
+      "efBytes": 325205,
+      "elapsedMs": 6839
+    },
+    {
+      "index": 54,
+      "funding": {
+        "txid": "184663009da565728596b3da0a2ca168ff0cd72d0a7291e2ec919edc305a7314",
+        "vout": 100,
+        "satoshis": "49073"
+      },
+      "contract": {
+        "txid": "dd6f5775f092dcfb287c295a38923f024becdf424226def3cc3948b034c6749c",
+        "response": {
+          "txid": "dd6f5775f092dcfb287c295a38923f024becdf424226def3cc3948b034c6749c",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "dd6f5775f092dcfb287c295a38923f024becdf424226def3cc3948b034c6749c",
+          "txStatus": "SEEN_ON_NETWORK",
+          "timestamp": "2026-09-16T07:15:01.630752Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:15:00.3748Z"
+        }
+      },
+      "issue": {
+        "txid": "463d9e06cbe305535794d9941d6b39a7ffd8c14e11ecf45af1901a7c607fe2fb",
+        "response": {
+          "txid": "463d9e06cbe305535794d9941d6b39a7ffd8c14e11ecf45af1901a7c607fe2fb",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "463d9e06cbe305535794d9941d6b39a7ffd8c14e11ecf45af1901a7c607fe2fb",
+          "txStatus": "ACCEPTED_BY_NETWORK",
+          "timestamp": "2026-09-16T07:15:03.62594Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:15:03.624468Z"
+        }
+      },
+      "rawBytes": 324738,
+      "efBytes": 325204,
+      "elapsedMs": 6824
+    },
+    {
+      "index": 55,
+      "funding": {
+        "txid": "e226cd5ec823ad195645a1226341319ca3437c96e7718d4d3a73eca29f1b7e85",
+        "vout": 100,
+        "satoshis": "48998"
+      },
+      "contract": {
+        "txid": "573a28672e1603b06c7c1c2a5741f770b52a6e7d0ab7c2ef4ebc5e872385054a",
+        "response": {
+          "txid": "573a28672e1603b06c7c1c2a5741f770b52a6e7d0ab7c2ef4ebc5e872385054a",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "573a28672e1603b06c7c1c2a5741f770b52a6e7d0ab7c2ef4ebc5e872385054a",
+          "txStatus": "SEEN_ON_NETWORK",
+          "timestamp": "2026-09-16T07:15:10.305249Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:15:07.376854Z"
+        }
+      },
+      "issue": {
+        "txid": "06027e8f6401344892a133db1daaed1ab2022c3d17df96aecb6b9d6c857136e1",
+        "response": {
+          "txid": "06027e8f6401344892a133db1daaed1ab2022c3d17df96aecb6b9d6c857136e1",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "06027e8f6401344892a133db1daaed1ab2022c3d17df96aecb6b9d6c857136e1",
+          "txStatus": "SEEN_ON_NETWORK",
+          "timestamp": "2026-09-16T07:15:11.779177Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:15:10.626302Z"
+        }
+      },
+      "rawBytes": 324740,
+      "efBytes": 325206,
+      "elapsedMs": 6813
+    },
+    {
+      "index": 56,
+      "funding": {
+        "txid": "7e2e3340b8024a3e0c6fac471d5936ecfbc478989924b4bc1ed1545aec161fb4",
+        "vout": 100,
+        "satoshis": "48647"
+      },
+      "contract": {
+        "txid": "d784440e7a9b7c1f4de7027cbade609f2e5f222284d65e77698379b929db3006",
+        "response": {
+          "txid": "d784440e7a9b7c1f4de7027cbade609f2e5f222284d65e77698379b929db3006",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "d784440e7a9b7c1f4de7027cbade609f2e5f222284d65e77698379b929db3006",
+          "txStatus": "SEEN_ON_NETWORK",
+          "timestamp": "2026-09-16T07:15:17.426225Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:15:14.47566Z"
+        }
+      },
+      "issue": {
+        "txid": "711dd9de8dc0967b1817a3afb98b3f9947fd7d1ab5f3b90724482b08fa1db0c5",
+        "response": {
+          "txid": "711dd9de8dc0967b1817a3afb98b3f9947fd7d1ab5f3b90724482b08fa1db0c5",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "711dd9de8dc0967b1817a3afb98b3f9947fd7d1ab5f3b90724482b08fa1db0c5",
+          "txStatus": "SEEN_ON_NETWORK",
+          "timestamp": "2026-09-16T07:15:20.3048Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:15:17.723095Z"
+        }
+      },
+      "rawBytes": 324738,
+      "efBytes": 325204,
+      "elapsedMs": 6860
+    },
+    {
+      "index": 57,
+      "funding": {
+        "txid": "2c48bfa9626dc7493d9281f15c380d226061cf5428f1c19d093ef80b1c68770c",
+        "vout": 100,
+        "satoshis": "48647"
+      },
+      "contract": {
+        "txid": "8f6b338f2d4b61618e048ad60b08df5d63c3cdc2c69121b6c59e3934c2d77a83",
+        "response": {
+          "txid": "8f6b338f2d4b61618e048ad60b08df5d63c3cdc2c69121b6c59e3934c2d77a83",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "8f6b338f2d4b61618e048ad60b08df5d63c3cdc2c69121b6c59e3934c2d77a83",
+          "txStatus": "SEEN_ON_NETWORK",
+          "timestamp": "2026-09-16T07:15:22.052881Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:15:21.474193Z"
+        }
+      },
+      "issue": {
+        "txid": "e9155aa47f28320e9b93b42cfdd1933a417ea0206b12a204d2fb55a81e56c492",
+        "response": {
+          "txid": "e9155aa47f28320e9b93b42cfdd1933a417ea0206b12a204d2fb55a81e56c492",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "e9155aa47f28320e9b93b42cfdd1933a417ea0206b12a204d2fb55a81e56c492",
+          "txStatus": "SEEN_ON_NETWORK",
+          "timestamp": "2026-09-16T07:15:27.519422Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:15:24.727625Z"
+        }
+      },
+      "rawBytes": 324739,
+      "efBytes": 325205,
+      "elapsedMs": 6810
+    },
+    {
+      "index": 58,
+      "funding": {
+        "txid": "43edba1f66c3917dd26a88151436a42efd4d94426e21e56d0b77cf1a3a2422af",
+        "vout": 100,
+        "satoshis": "48647"
+      },
+      "contract": {
+        "txid": "b0c9532481eb7b2dda9801da4cd80ce36f906207c3d7e517624be5639a890859",
+        "response": {
+          "txid": "b0c9532481eb7b2dda9801da4cd80ce36f906207c3d7e517624be5639a890859",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "b0c9532481eb7b2dda9801da4cd80ce36f906207c3d7e517624be5639a890859",
+          "txStatus": "SEEN_ON_NETWORK",
+          "timestamp": "2026-09-16T07:15:30.31956Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:15:28.525227Z"
+        }
+      },
+      "issue": {
+        "txid": "d979e0a8c0a75a3783c881ad1daa0ccc4dc94dca6183cce981b6e51408378f2a",
+        "response": {
+          "txid": "d979e0a8c0a75a3783c881ad1daa0ccc4dc94dca6183cce981b6e51408378f2a",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "d979e0a8c0a75a3783c881ad1daa0ccc4dc94dca6183cce981b6e51408378f2a",
+          "txStatus": "SEEN_ON_NETWORK",
+          "timestamp": "2026-09-16T07:15:32.53982Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:15:31.781683Z"
+        }
+      },
+      "rawBytes": 324739,
+      "efBytes": 325205,
+      "elapsedMs": 6823
+    },
+    {
+      "index": 59,
+      "funding": {
+        "txid": "bf90da2641c4855ab56e4bada9d1df3429d667031c18c4d1c7bfd682657d4e31",
+        "vout": 100,
+        "satoshis": "48647"
+      },
+      "contract": {
+        "txid": "04e2ef28ae117bfa4e070485836eb82a38413465c6451022be7fc98253c53d9c",
+        "response": {
+          "txid": "04e2ef28ae117bfa4e070485836eb82a38413465c6451022be7fc98253c53d9c",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "04e2ef28ae117bfa4e070485836eb82a38413465c6451022be7fc98253c53d9c",
+          "txStatus": "SEEN_ON_NETWORK",
+          "timestamp": "2026-09-16T07:15:37.623878Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:15:35.523766Z"
+        }
+      },
+      "issue": {
+        "txid": "2c264d054d522896423caab118f9d2b45acd3cdc8fbc7f2d7eda9938989ec5b9",
+        "response": {
+          "txid": "2c264d054d522896423caab118f9d2b45acd3cdc8fbc7f2d7eda9938989ec5b9",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "2c264d054d522896423caab118f9d2b45acd3cdc8fbc7f2d7eda9938989ec5b9",
+          "txStatus": "SEEN_ON_NETWORK",
+          "timestamp": "2026-09-16T07:15:40.306572Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:15:38.774073Z"
+        }
+      },
+      "rawBytes": 324739,
+      "efBytes": 325205,
+      "elapsedMs": 6813
+    },
+    {
+      "index": 60,
+      "funding": {
+        "txid": "b9a2354f08e3bdb024b90a289d89f176a846103e94919abae51cedfc8dba1a86",
+        "vout": 100,
+        "satoshis": "48647"
+      },
+      "contract": {
+        "txid": "eb2f724db4f59d209f36005c6fbf048b75e33e94a372cd0683aca3e6276aff1d",
+        "response": {
+          "txid": "eb2f724db4f59d209f36005c6fbf048b75e33e94a372cd0683aca3e6276aff1d",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "eb2f724db4f59d209f36005c6fbf048b75e33e94a372cd0683aca3e6276aff1d",
+          "txStatus": "ACCEPTED_BY_NETWORK",
+          "timestamp": "2026-09-16T07:15:42.578965Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:15:42.577292Z"
+        }
+      },
+      "issue": {
+        "txid": "c32e449538f2fff74e4f0564ceced292d2aa068795bf7b2126290303b705986f",
+        "response": {
+          "txid": "c32e449538f2fff74e4f0564ceced292d2aa068795bf7b2126290303b705986f",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "c32e449538f2fff74e4f0564ceced292d2aa068795bf7b2126290303b705986f",
+          "txStatus": "SEEN_ON_NETWORK",
+          "timestamp": "2026-09-16T07:15:47.596869Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:15:45.881908Z"
+        }
+      },
+      "rawBytes": 324739,
+      "efBytes": 325205,
+      "elapsedMs": 6831
+    },
+    {
+      "index": 61,
+      "funding": {
+        "txid": "4453a19fd103abf984e3e2476c170584e6bb73344264d49e57e6c503d2e9d074",
+        "vout": 100,
+        "satoshis": "48647"
+      },
+      "contract": {
+        "txid": "68b797e2e90bc43ec95e115a84c31461359fca999eada9bbdf11dcbdb842e846",
+        "response": {
+          "txid": "68b797e2e90bc43ec95e115a84c31461359fca999eada9bbdf11dcbdb842e846",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "68b797e2e90bc43ec95e115a84c31461359fca999eada9bbdf11dcbdb842e846",
+          "txStatus": "SEEN_MULTIPLE_NODES",
+          "timestamp": "2026-09-16T07:15:52.121784Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:15:49.625179Z"
+        }
+      },
+      "issue": {
+        "txid": "51540202c821e44f9f66f360b45036d26ef667b73b8c3524bb86bfffbb5423f1",
+        "response": {
+          "txid": "51540202c821e44f9f66f360b45036d26ef667b73b8c3524bb86bfffbb5423f1",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "51540202c821e44f9f66f360b45036d26ef667b73b8c3524bb86bfffbb5423f1",
+          "txStatus": "ACCEPTED_BY_NETWORK",
+          "timestamp": "2026-09-16T07:15:52.876359Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:15:52.874654Z"
+        }
+      },
+      "rawBytes": 324738,
+      "efBytes": 325204,
+      "elapsedMs": 6826
+    },
+    {
+      "index": 62,
+      "funding": {
+        "txid": "44bdc14c2d249c0fc45cfc3442c07ee281413339f5d5b938c87b994d3ed8fff4",
+        "vout": 100,
+        "satoshis": "48647"
+      },
+      "contract": {
+        "txid": "e308263d19e491e9e2c7e693c1368385e3b05fb852137660fda71e0fc35a6ee4",
+        "response": {
+          "txid": "e308263d19e491e9e2c7e693c1368385e3b05fb852137660fda71e0fc35a6ee4",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "e308263d19e491e9e2c7e693c1368385e3b05fb852137660fda71e0fc35a6ee4",
+          "txStatus": "SEEN_ON_NETWORK",
+          "timestamp": "2026-09-16T07:15:57.750857Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:15:56.724302Z"
+        }
+      },
+      "issue": {
+        "txid": "0dcef47bcd9098aa9de2d5aae96d16e8ae5c2d46ffcd5c0aa5e1010bafba5c80",
+        "response": {
+          "txid": "0dcef47bcd9098aa9de2d5aae96d16e8ae5c2d46ffcd5c0aa5e1010bafba5c80",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "0dcef47bcd9098aa9de2d5aae96d16e8ae5c2d46ffcd5c0aa5e1010bafba5c80",
+          "txStatus": "SEEN_ON_NETWORK",
+          "timestamp": "2026-09-16T07:16:01.421328Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:15:59.974024Z"
+        }
+      },
+      "rawBytes": 324738,
+      "efBytes": 325204,
+      "elapsedMs": 6851
+    },
+    {
+      "index": 63,
+      "funding": {
+        "txid": "43ab1dcf8a45966bdca39aa06c7d967c17f30a7a2dbb7af15ca5ef315d1c7591",
+        "vout": 100,
+        "satoshis": "48647"
+      },
+      "contract": {
+        "txid": "9e408b136be0148dbfab3538e97667d17c4b14dde3ba8ad59d7a431414a8d7f4",
+        "response": {
+          "txid": "9e408b136be0148dbfab3538e97667d17c4b14dde3ba8ad59d7a431414a8d7f4",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "9e408b136be0148dbfab3538e97667d17c4b14dde3ba8ad59d7a431414a8d7f4",
+          "txStatus": "ACCEPTED_BY_NETWORK",
+          "timestamp": "2026-09-16T07:16:03.827866Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:16:03.826081Z"
+        }
+      },
+      "issue": {
+        "txid": "e6493f9214ba0c0ca3a41d505110f97734ac5fe90d089343baf6722215c7891e",
+        "response": {
+          "txid": "e6493f9214ba0c0ca3a41d505110f97734ac5fe90d089343baf6722215c7891e",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "e6493f9214ba0c0ca3a41d505110f97734ac5fe90d089343baf6722215c7891e",
+          "txStatus": "SEEN_ON_NETWORK",
+          "timestamp": "2026-09-16T07:16:07.785472Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:16:07.074084Z"
+        }
+      },
+      "rawBytes": 324739,
+      "efBytes": 325205,
+      "elapsedMs": 6875
+    },
+    {
+      "index": 64,
+      "funding": {
+        "txid": "2ed328228a0e1a3e884e9b847fb07d61949ac76fa3a33fbcb3f48d2af0f537d3",
+        "vout": 100,
+        "satoshis": "48647"
+      },
+      "contract": {
+        "txid": "aca78e86c2db3aa0804483314baefced8139874343623e213273619a2639cba9",
+        "response": {
+          "txid": "aca78e86c2db3aa0804483314baefced8139874343623e213273619a2639cba9",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "aca78e86c2db3aa0804483314baefced8139874343623e213273619a2639cba9",
+          "txStatus": "SEEN_ON_NETWORK",
+          "timestamp": "2026-09-16T07:16:11.433976Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:16:10.874253Z"
+        }
+      },
+      "issue": {
+        "txid": "1195b156734f17437d60456e184a10db3d28c0b98b40e4be5ee873653d0144ee",
+        "response": {
+          "txid": "1195b156734f17437d60456e184a10db3d28c0b98b40e4be5ee873653d0144ee",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "1195b156734f17437d60456e184a10db3d28c0b98b40e4be5ee873653d0144ee",
+          "txStatus": "ACCEPTED_BY_NETWORK",
+          "timestamp": "2026-09-16T07:16:14.131272Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:16:14.129598Z"
+        }
+      },
+      "rawBytes": 324739,
+      "efBytes": 325205,
+      "elapsedMs": 6851
+    },
+    {
+      "index": 65,
+      "funding": {
+        "txid": "56bb2a1c8c19d51d2d78bb73f7b1ad6cac69e0e0c079e60d8b5e769698f94011",
+        "vout": 100,
+        "satoshis": "48647"
+      },
+      "contract": {
+        "txid": "3fb34bae67f08c791a5255d0a5b20960499439d54f2df76c117d2a253202a2e4",
+        "response": {
+          "txid": "3fb34bae67f08c791a5255d0a5b20960499439d54f2df76c117d2a253202a2e4",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "3fb34bae67f08c791a5255d0a5b20960499439d54f2df76c117d2a253202a2e4",
+          "txStatus": "SEEN_ON_NETWORK",
+          "timestamp": "2026-09-16T07:16:20.306699Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:16:17.978845Z"
+        }
+      },
+      "issue": {
+        "txid": "7076db71613d6b7926b7e20506b58fce70ba954689e65265b6a1030fff020c8b",
+        "response": {
+          "txid": "7076db71613d6b7926b7e20506b58fce70ba954689e65265b6a1030fff020c8b",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "7076db71613d6b7926b7e20506b58fce70ba954689e65265b6a1030fff020c8b",
+          "txStatus": "SEEN_ON_NETWORK",
+          "timestamp": "2026-09-16T07:16:22.63889Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:16:21.224989Z"
+        }
+      },
+      "rawBytes": 324740,
+      "efBytes": 325206,
+      "elapsedMs": 6842
+    },
+    {
+      "index": 66,
+      "funding": {
+        "txid": "6d63e22eeac4e726444fd47eabac6da295a9bbd8bdfc8e8d9040062e954468ea",
+        "vout": 100,
+        "satoshis": "48647"
+      },
+      "contract": {
+        "txid": "265e2d908b9399152315c792e5f436917b235c1f5f7326dd1eea6c0a4edbd9b8",
+        "response": {
+          "txid": "265e2d908b9399152315c792e5f436917b235c1f5f7326dd1eea6c0a4edbd9b8",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "265e2d908b9399152315c792e5f436917b235c1f5f7326dd1eea6c0a4edbd9b8",
+          "txStatus": "SEEN_ON_NETWORK",
+          "timestamp": "2026-09-16T07:16:27.802689Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:16:25.024018Z"
+        }
+      },
+      "issue": {
+        "txid": "6a931f684b23cb9c75d425bcedd8a0e11940eb3d98b18550d1eb28fd32f536a3",
+        "response": {
+          "txid": "6a931f684b23cb9c75d425bcedd8a0e11940eb3d98b18550d1eb28fd32f536a3",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "6a931f684b23cb9c75d425bcedd8a0e11940eb3d98b18550d1eb28fd32f536a3",
+          "txStatus": "SEEN_ON_NETWORK",
+          "timestamp": "2026-09-16T07:16:30.415964Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:16:28.277186Z"
+        }
+      },
+      "rawBytes": 324739,
+      "efBytes": 325205,
+      "elapsedMs": 6826
+    },
+    {
+      "index": 67,
+      "funding": {
+        "txid": "c26006e91a9d31a840070d90b09f411f8d680d4cab047e513558cd39fc6a4a2e",
+        "vout": 100,
+        "satoshis": "48647"
+      },
+      "contract": {
+        "txid": "b07b0336953c90093b84c3d72e69e2c4fbc608142c68fa31127225d7d541d9df",
+        "response": {
+          "txid": "b07b0336953c90093b84c3d72e69e2c4fbc608142c68fa31127225d7d541d9df",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "b07b0336953c90093b84c3d72e69e2c4fbc608142c68fa31127225d7d541d9df",
+          "txStatus": "SEEN_ON_NETWORK",
+          "timestamp": "2026-09-16T07:16:32.641888Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:16:32.076344Z"
+        }
+      },
+      "issue": {
+        "txid": "cbfa3d42694cb00823f0ef1d3a01dc7e965f326b2e1af01cbce456b1b07d5480",
+        "response": {
+          "txid": "cbfa3d42694cb00823f0ef1d3a01dc7e965f326b2e1af01cbce456b1b07d5480",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "cbfa3d42694cb00823f0ef1d3a01dc7e965f326b2e1af01cbce456b1b07d5480",
+          "txStatus": "SEEN_ON_NETWORK",
+          "timestamp": "2026-09-16T07:16:37.862724Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:16:35.375396Z"
+        }
+      },
+      "rawBytes": 324738,
+      "efBytes": 325204,
+      "elapsedMs": 6831
+    },
+    {
+      "index": 68,
+      "funding": {
+        "txid": "455a8e6349ae984550167f87ab8a8969024c313ed00260ff395221bb5ea4e919",
+        "vout": 100,
+        "satoshis": "48647"
+      },
+      "contract": {
+        "txid": "291364b5742332a0b282f9c0baa12b31f4eddf1b19d7c46d9fffbeb5b4d5a8ef",
+        "response": {
+          "txid": "291364b5742332a0b282f9c0baa12b31f4eddf1b19d7c46d9fffbeb5b4d5a8ef",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "291364b5742332a0b282f9c0baa12b31f4eddf1b19d7c46d9fffbeb5b4d5a8ef",
+          "txStatus": "SEEN_MULTIPLE_NODES",
+          "timestamp": "2026-09-16T07:16:42.013558Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:16:39.127198Z"
+        }
+      },
+      "issue": {
+        "txid": "1b7e6ccafc4cf435641a0dd36c78deebf676002032d4256b0d817a06f48f8fa1",
+        "response": {
+          "txid": "1b7e6ccafc4cf435641a0dd36c78deebf676002032d4256b0d817a06f48f8fa1",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "1b7e6ccafc4cf435641a0dd36c78deebf676002032d4256b0d817a06f48f8fa1",
+          "txStatus": "ACCEPTED_BY_NETWORK",
+          "timestamp": "2026-09-16T07:16:42.379315Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:16:42.377781Z"
+        }
+      },
+      "rawBytes": 324738,
+      "efBytes": 325204,
+      "elapsedMs": 6817
+    },
+    {
+      "index": 69,
+      "funding": {
+        "txid": "688d04ccb4c68cec60af8c2405b6e152cb78159cd834a15bef6c6877675057f9",
+        "vout": 100,
+        "satoshis": "48647"
+      },
+      "contract": {
+        "txid": "f5bb57d8ba2bf1817b92a6ec9d304f66e966442f3e9b08bc0feb560393b2ddfd",
+        "response": {
+          "txid": "f5bb57d8ba2bf1817b92a6ec9d304f66e966442f3e9b08bc0feb560393b2ddfd",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "f5bb57d8ba2bf1817b92a6ec9d304f66e966442f3e9b08bc0feb560393b2ddfd",
+          "txStatus": "SEEN_ON_NETWORK",
+          "timestamp": "2026-09-16T07:16:47.897479Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:16:46.225296Z"
+        }
+      },
+      "issue": {
+        "txid": "4eab3a7a5bfc788e2d8a5cc3e36699dcd40a304837bfebb03614890825a2979e",
+        "response": {
+          "txid": "4eab3a7a5bfc788e2d8a5cc3e36699dcd40a304837bfebb03614890825a2979e",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "4eab3a7a5bfc788e2d8a5cc3e36699dcd40a304837bfebb03614890825a2979e",
+          "txStatus": "SEEN_MULTIPLE_NODES",
+          "timestamp": "2026-09-16T07:16:52.017342Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:16:49.475463Z"
+        }
+      },
+      "rawBytes": 324739,
+      "efBytes": 325205,
+      "elapsedMs": 6830
+    },
+    {
+      "index": 70,
+      "funding": {
+        "txid": "ec1ba9a88e2fe2dcaad28a3ca6bb883907ab1b3f13da75ed92b3c42ceb1af5f4",
+        "vout": 100,
+        "satoshis": "48647"
+      },
+      "contract": {
+        "txid": "cc62285f576b59ba2a3bb9395b6133f5dd95c6da1921e67b7f0e186d381127d5",
+        "response": {
+          "txid": "cc62285f576b59ba2a3bb9395b6133f5dd95c6da1921e67b7f0e186d381127d5",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "cc62285f576b59ba2a3bb9395b6133f5dd95c6da1921e67b7f0e186d381127d5",
+          "txStatus": "ACCEPTED_BY_NETWORK",
+          "timestamp": "2026-09-16T07:16:53.327908Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:16:53.32626Z"
+        }
+      },
+      "issue": {
+        "txid": "734674421559d729ae0143758ce52173675cf9522665a5b22fdf99ba5050d064",
+        "response": {
+          "txid": "734674421559d729ae0143758ce52173675cf9522665a5b22fdf99ba5050d064",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "734674421559d729ae0143758ce52173675cf9522665a5b22fdf99ba5050d064",
+          "txStatus": "SEEN_ON_NETWORK",
+          "timestamp": "2026-09-16T07:16:57.933204Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:16:56.575862Z"
+        }
+      },
+      "rawBytes": 324740,
+      "efBytes": 325206,
+      "elapsedMs": 6860
+    },
+    {
+      "index": 71,
+      "funding": {
+        "txid": "2f4286d9ed5f5ab8a2ae71459ea45e4be3f3d45db354382c7aac2d94f13b38b4",
+        "vout": 100,
+        "satoshis": "48647"
+      },
+      "contract": {
+        "txid": "8250ca806ca471e3f4970b54c6956dc4d0f4092c87368fccfe5122a8c48e9099",
+        "response": {
+          "txid": "8250ca806ca471e3f4970b54c6956dc4d0f4092c87368fccfe5122a8c48e9099",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "8250ca806ca471e3f4970b54c6956dc4d0f4092c87368fccfe5122a8c48e9099",
+          "txStatus": "SEEN_ON_NETWORK",
+          "timestamp": "2026-09-16T07:17:01.436755Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:17:00.42678Z"
+        }
+      },
+      "issue": {
+        "txid": "86130ff69c508046d61195a9e9e50d4dac5d2e61f9ba5cb07465ae0a4754535f",
+        "response": {
+          "txid": "86130ff69c508046d61195a9e9e50d4dac5d2e61f9ba5cb07465ae0a4754535f",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "86130ff69c508046d61195a9e9e50d4dac5d2e61f9ba5cb07465ae0a4754535f",
+          "txStatus": "ACCEPTED_BY_NETWORK",
+          "timestamp": "2026-09-16T07:17:03.676527Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:17:03.675043Z"
+        }
+      },
+      "rawBytes": 324739,
+      "efBytes": 325205,
+      "elapsedMs": 6835
+    },
+    {
+      "index": 72,
+      "funding": {
+        "txid": "98c6e3928c2843f4efa4d7c89b600695fd862593c2a4eea5df93da7f3592c7fc",
+        "vout": 100,
+        "satoshis": "48647"
+      },
+      "contract": {
+        "txid": "d5063ed41b6b574396509b4952fd5b71d5a6c43a301c431bc6e118e0aa504cea",
+        "response": {
+          "txid": "d5063ed41b6b574396509b4952fd5b71d5a6c43a301c431bc6e118e0aa504cea",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "d5063ed41b6b574396509b4952fd5b71d5a6c43a301c431bc6e118e0aa504cea",
+          "txStatus": "SEEN_ON_NETWORK",
+          "timestamp": "2026-09-16T07:17:07.98809Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:17:07.524402Z"
+        }
+      },
+      "issue": {
+        "txid": "3f48da4f43fa99d0e3e25ab48ca2398970bf4a763f9e5ee8db2c9e5f0c26506d",
+        "response": {
+          "txid": "3f48da4f43fa99d0e3e25ab48ca2398970bf4a763f9e5ee8db2c9e5f0c26506d",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "3f48da4f43fa99d0e3e25ab48ca2398970bf4a763f9e5ee8db2c9e5f0c26506d",
+          "txStatus": "SEEN_ON_NETWORK",
+          "timestamp": "2026-09-16T07:17:11.812501Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:17:10.777051Z"
+        }
+      },
+      "rawBytes": 324738,
+      "efBytes": 325204,
+      "elapsedMs": 6852
+    },
+    {
+      "index": 73,
+      "funding": {
+        "txid": "463d9e06cbe305535794d9941d6b39a7ffd8c14e11ecf45af1901a7c607fe2fb",
+        "vout": 100,
+        "satoshis": "48647"
+      },
+      "contract": {
+        "txid": "63d69ff10a9cb427b5dee24ba48956389af53b18a54886c7588d53bee1ce8bd7",
+        "response": {
+          "txid": "63d69ff10a9cb427b5dee24ba48956389af53b18a54886c7588d53bee1ce8bd7",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "63d69ff10a9cb427b5dee24ba48956389af53b18a54886c7588d53bee1ce8bd7",
+          "txStatus": "ACCEPTED_BY_NETWORK",
+          "timestamp": "2026-09-16T07:17:14.62826Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:17:14.626647Z"
+        }
+      },
+      "issue": {
+        "txid": "7738b6c51792a535545d325471f0a183d72e80a412a7d80870b0c570293c79ca",
+        "response": {
+          "txid": "7738b6c51792a535545d325471f0a183d72e80a412a7d80870b0c570293c79ca",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "7738b6c51792a535545d325471f0a183d72e80a412a7d80870b0c570293c79ca",
+          "txStatus": "SEEN_ON_NETWORK",
+          "timestamp": "2026-09-16T07:17:20.301403Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:17:17.875448Z"
+        }
+      },
+      "rawBytes": 324739,
+      "efBytes": 325205,
+      "elapsedMs": 6830
+    },
+    {
+      "index": 74,
+      "funding": {
+        "txid": "06027e8f6401344892a133db1daaed1ab2022c3d17df96aecb6b9d6c857136e1",
+        "vout": 100,
+        "satoshis": "48572"
+      },
+      "contract": {
+        "txid": "f78034bdc495662b664fd1713414c0739be6eb620d0c7f83c9d680cb479cda97",
+        "response": {
+          "txid": "f78034bdc495662b664fd1713414c0739be6eb620d0c7f83c9d680cb479cda97",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "f78034bdc495662b664fd1713414c0739be6eb620d0c7f83c9d680cb479cda97",
+          "txStatus": "SEEN_ON_NETWORK",
+          "timestamp": "2026-09-16T07:17:22.951439Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:17:21.774714Z"
+        }
+      },
+      "issue": {
+        "txid": "c02f7c6dbff2ce8e248365ec77bd158ad6d7462b7418d0593abab34866ddbb5c",
+        "response": {
+          "txid": "c02f7c6dbff2ce8e248365ec77bd158ad6d7462b7418d0593abab34866ddbb5c",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "c02f7c6dbff2ce8e248365ec77bd158ad6d7462b7418d0593abab34866ddbb5c",
+          "txStatus": "SEEN_ON_NETWORK",
+          "timestamp": "2026-09-16T07:17:27.979112Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:17:25.026557Z"
+        }
+      },
+      "rawBytes": 324740,
+      "efBytes": 325206,
+      "elapsedMs": 6864
+    },
+    {
+      "index": 75,
+      "funding": {
+        "txid": "711dd9de8dc0967b1817a3afb98b3f9947fd7d1ab5f3b90724482b08fa1db0c5",
+        "vout": 100,
+        "satoshis": "48221"
+      },
+      "contract": {
+        "txid": "d49ff13709a8c9848d4f7ce0c7800ed82adacebdff3a180ee647de4e04584c23",
+        "response": {
+          "txid": "d49ff13709a8c9848d4f7ce0c7800ed82adacebdff3a180ee647de4e04584c23",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "d49ff13709a8c9848d4f7ce0c7800ed82adacebdff3a180ee647de4e04584c23",
+          "txStatus": "SEEN_MULTIPLE_NODES",
+          "timestamp": "2026-09-16T07:17:31.84605Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:17:28.875267Z"
+        }
+      },
+      "issue": {
+        "txid": "ae55e183f8d14f11dcc610ab28a7206b522a9056ba7a9e6c0fb2b4d06448a171",
+        "response": {
+          "txid": "ae55e183f8d14f11dcc610ab28a7206b522a9056ba7a9e6c0fb2b4d06448a171",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "ae55e183f8d14f11dcc610ab28a7206b522a9056ba7a9e6c0fb2b4d06448a171",
+          "txStatus": "SEEN_ON_NETWORK",
+          "timestamp": "2026-09-16T07:17:32.943096Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:17:32.141962Z"
+        }
+      },
+      "rawBytes": 324740,
+      "efBytes": 325206,
+      "elapsedMs": 6846
+    },
+    {
+      "index": 76,
+      "funding": {
+        "txid": "e9155aa47f28320e9b93b42cfdd1933a417ea0206b12a204d2fb55a81e56c492",
+        "vout": 100,
+        "satoshis": "48221"
+      },
+      "contract": {
+        "txid": "b4e81806a860a2a19046d9ed3d189462df2d1a873696926720210669d791ea39",
+        "response": {
+          "txid": "b4e81806a860a2a19046d9ed3d189462df2d1a873696926720210669d791ea39",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "b4e81806a860a2a19046d9ed3d189462df2d1a873696926720210669d791ea39",
+          "txStatus": "SEEN_ON_NETWORK",
+          "timestamp": "2026-09-16T07:17:38.135101Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:17:35.986957Z"
+        }
+      },
+      "issue": {
+        "txid": "3850099ccb12f52f511963b246ee035310e254edc4217f43604c36ef44116b9e",
+        "response": {
+          "txid": "3850099ccb12f52f511963b246ee035310e254edc4217f43604c36ef44116b9e",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "3850099ccb12f52f511963b246ee035310e254edc4217f43604c36ef44116b9e",
+          "txStatus": "SEEN_ON_NETWORK",
+          "timestamp": "2026-09-16T07:17:41.800442Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:17:39.230099Z"
+        }
+      },
+      "rawBytes": 324740,
+      "efBytes": 325206,
+      "elapsedMs": 6834
+    },
+    {
+      "index": 77,
+      "funding": {
+        "txid": "d979e0a8c0a75a3783c881ad1daa0ccc4dc94dca6183cce981b6e51408378f2a",
+        "vout": 100,
+        "satoshis": "48221"
+      },
+      "contract": {
+        "txid": "2969352ceb86a98472e4184bf44e1407b5cce9772383cd6f4824dfda44ff1c27",
+        "response": {
+          "txid": "2969352ceb86a98472e4184bf44e1407b5cce9772383cd6f4824dfda44ff1c27",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "2969352ceb86a98472e4184bf44e1407b5cce9772383cd6f4824dfda44ff1c27",
+          "txStatus": "ACCEPTED_BY_NETWORK",
+          "timestamp": "2026-09-16T07:17:43.078264Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:17:43.076659Z"
+        }
+      },
+      "issue": {
+        "txid": "71b028fe84fbba99bcc15684a496685fc19256cdba1cbed9b4b8e32ad567aac4",
+        "response": {
+          "txid": "71b028fe84fbba99bcc15684a496685fc19256cdba1cbed9b4b8e32ad567aac4",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "71b028fe84fbba99bcc15684a496685fc19256cdba1cbed9b4b8e32ad567aac4",
+          "txStatus": "SEEN_ON_NETWORK",
+          "timestamp": "2026-09-16T07:17:48.080401Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:17:46.325694Z"
+        }
+      },
+      "rawBytes": 324739,
+      "efBytes": 325205,
+      "elapsedMs": 6823
+    },
+    {
+      "index": 78,
+      "funding": {
+        "txid": "2c264d054d522896423caab118f9d2b45acd3cdc8fbc7f2d7eda9938989ec5b9",
+        "vout": 100,
+        "satoshis": "48221"
+      },
+      "contract": {
+        "txid": "5d776748a9d65e0553da19fe676b4db30e1a65d640d5edca83e31ee6daa258f9",
+        "response": {
+          "txid": "5d776748a9d65e0553da19fe676b4db30e1a65d640d5edca83e31ee6daa258f9",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "5d776748a9d65e0553da19fe676b4db30e1a65d640d5edca83e31ee6daa258f9",
+          "txStatus": "SEEN_ON_NETWORK",
+          "timestamp": "2026-09-16T07:17:51.81032Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:17:50.173311Z"
+        }
+      },
+      "issue": {
+        "txid": "acba9a23c132c7443ba3d2c603687de0edc9c8f1947cc950ec43401fa6753d21",
+        "response": {
+          "txid": "acba9a23c132c7443ba3d2c603687de0edc9c8f1947cc950ec43401fa6753d21",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "acba9a23c132c7443ba3d2c603687de0edc9c8f1947cc950ec43401fa6753d21",
+          "txStatus": "ACCEPTED_BY_NETWORK",
+          "timestamp": "2026-09-16T07:17:53.424487Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:17:53.422973Z"
+        }
+      },
+      "rawBytes": 324739,
+      "efBytes": 325205,
+      "elapsedMs": 6819
+    },
+    {
+      "index": 79,
+      "funding": {
+        "txid": "c32e449538f2fff74e4f0564ceced292d2aa068795bf7b2126290303b705986f",
+        "vout": 100,
+        "satoshis": "48221"
+      },
+      "contract": {
+        "txid": "1931c73979ee77c4bfdf834a7e8d4e49886222031e3a5fe30705ec3286a1826f",
+        "response": {
+          "txid": "1931c73979ee77c4bfdf834a7e8d4e49886222031e3a5fe30705ec3286a1826f",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "1931c73979ee77c4bfdf834a7e8d4e49886222031e3a5fe30705ec3286a1826f",
+          "txStatus": "SEEN_ON_NETWORK",
+          "timestamp": "2026-09-16T07:17:58.202986Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:17:57.27255Z"
+        }
+      },
+      "issue": {
+        "txid": "42efed9295a72880e8f21b4db7cf636637fd97a560890639fc3c0721852211bf",
+        "response": {
+          "txid": "42efed9295a72880e8f21b4db7cf636637fd97a560890639fc3c0721852211bf",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "42efed9295a72880e8f21b4db7cf636637fd97a560890639fc3c0721852211bf",
+          "txStatus": "SEEN_MULTIPLE_NODES",
+          "timestamp": "2026-09-16T07:18:03.487398Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:18:00.524106Z"
+        }
+      },
+      "rawBytes": 324740,
+      "efBytes": 325206,
+      "elapsedMs": 6836
+    },
+    {
+      "index": 80,
+      "funding": {
+        "txid": "51540202c821e44f9f66f360b45036d26ef667b73b8c3524bb86bfffbb5423f1",
+        "vout": 100,
+        "satoshis": "48221"
+      },
+      "contract": {
+        "txid": "995cc873dfbc7561dcf33ffb57d10dff640d8c57182c517fe43fae691318c6bc",
+        "response": {
+          "txid": "995cc873dfbc7561dcf33ffb57d10dff640d8c57182c517fe43fae691318c6bc",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "995cc873dfbc7561dcf33ffb57d10dff640d8c57182c517fe43fae691318c6bc",
+          "txStatus": "ACCEPTED_BY_NETWORK",
+          "timestamp": "2026-09-16T07:18:04.434305Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:18:04.432638Z"
+        }
+      },
+      "issue": {
+        "txid": "bbd8869eafc79e659483bdb045f3fdc91cb870b09b335468b57dda55c16ae862",
+        "response": {
+          "txid": "bbd8869eafc79e659483bdb045f3fdc91cb870b09b335468b57dda55c16ae862",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "bbd8869eafc79e659483bdb045f3fdc91cb870b09b335468b57dda55c16ae862",
+          "txStatus": "ACCEPTED_BY_NETWORK",
+          "timestamp": "2026-09-16T07:18:07.68151Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:18:07.679857Z"
+        }
+      },
+      "rawBytes": 324739,
+      "efBytes": 325205,
+      "elapsedMs": 6852
+    },
+    {
+      "index": 81,
+      "funding": {
+        "txid": "0dcef47bcd9098aa9de2d5aae96d16e8ae5c2d46ffcd5c0aa5e1010bafba5c80",
+        "vout": 100,
+        "satoshis": "48221"
+      },
+      "contract": {
+        "txid": "f86bd1e34bd544d9f9b189ee18ab3c9320a8616aa7d4d3486c004d4d24f89236",
+        "response": {
+          "txid": "f86bd1e34bd544d9f9b189ee18ab3c9320a8616aa7d4d3486c004d4d24f89236",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "f86bd1e34bd544d9f9b189ee18ab3c9320a8616aa7d4d3486c004d4d24f89236",
+          "txStatus": "SEEN_MULTIPLE_NODES",
+          "timestamp": "2026-09-16T07:18:13.325459Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:18:11.573227Z"
+        }
+      },
+      "issue": {
+        "txid": "0b4f6e87e02dcaabbdba6e04688943ee0fb35b4b90abdc04a7f21e3d0bf84e01",
+        "response": {
+          "txid": "0b4f6e87e02dcaabbdba6e04688943ee0fb35b4b90abdc04a7f21e3d0bf84e01",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "0b4f6e87e02dcaabbdba6e04688943ee0fb35b4b90abdc04a7f21e3d0bf84e01",
+          "txStatus": "ACCEPTED_BY_NETWORK",
+          "timestamp": "2026-09-16T07:18:14.827645Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:18:14.825908Z"
+        }
+      },
+      "rawBytes": 324739,
+      "efBytes": 325205,
+      "elapsedMs": 6872
+    },
+    {
+      "index": 82,
+      "funding": {
+        "txid": "e6493f9214ba0c0ca3a41d505110f97734ac5fe90d089343baf6722215c7891e",
+        "vout": 100,
+        "satoshis": "48221"
+      },
+      "contract": {
+        "txid": "d69a259ac324ca2ed9eef44c7463f05fc25d0bfec1cbfdc735e964744cc5a39c",
+        "response": {
+          "txid": "d69a259ac324ca2ed9eef44c7463f05fc25d0bfec1cbfdc735e964744cc5a39c",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "d69a259ac324ca2ed9eef44c7463f05fc25d0bfec1cbfdc735e964744cc5a39c",
+          "txStatus": "ACCEPTED_BY_NETWORK",
+          "timestamp": "2026-09-16T07:18:18.675547Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:18:18.67383Z"
+        }
+      },
+      "issue": {
+        "txid": "73809cdaaafc43e5f52706aa8638fd761f26f6500268090543d9c16ec0c30040",
+        "response": {
+          "txid": "73809cdaaafc43e5f52706aa8638fd761f26f6500268090543d9c16ec0c30040",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "73809cdaaafc43e5f52706aa8638fd761f26f6500268090543d9c16ec0c30040",
+          "txStatus": "SEEN_ON_NETWORK",
+          "timestamp": "2026-09-16T07:18:23.234017Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:18:21.975822Z"
+        }
+      },
+      "rawBytes": 324740,
+      "efBytes": 325206,
+      "elapsedMs": 6856
+    },
+    {
+      "index": 83,
+      "funding": {
+        "txid": "1195b156734f17437d60456e184a10db3d28c0b98b40e4be5ee873653d0144ee",
+        "vout": 100,
+        "satoshis": "48221"
+      },
+      "contract": {
+        "txid": "b0585286c1693d0cd2fb405dab8e3fa5920a3af16c0a4c70692ad2bc56d422c5",
+        "response": {
+          "txid": "b0585286c1693d0cd2fb405dab8e3fa5920a3af16c0a4c70692ad2bc56d422c5",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "b0585286c1693d0cd2fb405dab8e3fa5920a3af16c0a4c70692ad2bc56d422c5",
+          "txStatus": "SEEN_ON_NETWORK",
+          "timestamp": "2026-09-16T07:18:28.250844Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:18:25.825635Z"
+        }
+      },
+      "issue": {
+        "txid": "ddd55c77199ff671464e3c27148b3844ed219a83748d7eb4cf7f6f548db8a59e",
+        "response": {
+          "txid": "ddd55c77199ff671464e3c27148b3844ed219a83748d7eb4cf7f6f548db8a59e",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "ddd55c77199ff671464e3c27148b3844ed219a83748d7eb4cf7f6f548db8a59e",
+          "txStatus": "SEEN_ON_NETWORK",
+          "timestamp": "2026-09-16T07:18:31.921658Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:18:29.125768Z"
+        }
+      },
+      "rawBytes": 324738,
+      "efBytes": 325204,
+      "elapsedMs": 6864
+    },
+    {
+      "index": 84,
+      "funding": {
+        "txid": "7076db71613d6b7926b7e20506b58fce70ba954689e65265b6a1030fff020c8b",
+        "vout": 100,
+        "satoshis": "48221"
+      },
+      "contract": {
+        "txid": "6fe700a87bb90070fac8c76b5781b091af5f89edd157d6c75e0c1a0f6c0f5a21",
+        "response": {
+          "txid": "6fe700a87bb90070fac8c76b5781b091af5f89edd157d6c75e0c1a0f6c0f5a21",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "6fe700a87bb90070fac8c76b5781b091af5f89edd157d6c75e0c1a0f6c0f5a21",
+          "txStatus": "ACCEPTED_BY_NETWORK",
+          "timestamp": "2026-09-16T07:18:32.97749Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:18:32.97572Z"
+        }
+      },
+      "issue": {
+        "txid": "279c27a76b3ee5a5819c8ce6a4a4b7478d25c2c9a2b4040c6c2027298dbf85c2",
+        "response": {
+          "txid": "279c27a76b3ee5a5819c8ce6a4a4b7478d25c2c9a2b4040c6c2027298dbf85c2",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "279c27a76b3ee5a5819c8ce6a4a4b7478d25c2c9a2b4040c6c2027298dbf85c2",
+          "txStatus": "SEEN_ON_NETWORK",
+          "timestamp": "2026-09-16T07:18:38.304324Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:18:36.224652Z"
+        }
+      },
+      "rawBytes": 324739,
+      "efBytes": 325205,
+      "elapsedMs": 6830
+    },
+    {
+      "index": 85,
+      "funding": {
+        "txid": "6a931f684b23cb9c75d425bcedd8a0e11940eb3d98b18550d1eb28fd32f536a3",
+        "vout": 100,
+        "satoshis": "48221"
+      },
+      "contract": {
+        "txid": "0d167f10fe19548ca01573429afa557a5c34b48e95e0fa642e2e7d59353f483e",
+        "response": {
+          "txid": "0d167f10fe19548ca01573429afa557a5c34b48e95e0fa642e2e7d59353f483e",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "0d167f10fe19548ca01573429afa557a5c34b48e95e0fa642e2e7d59353f483e",
+          "txStatus": "SEEN_ON_NETWORK",
+          "timestamp": "2026-09-16T07:18:41.912092Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:18:40.123453Z"
+        }
+      },
+      "issue": {
+        "txid": "512c11dc218e90acbdb0b4d9a63d9eb2cb6c7be5770c8ff5569843849fa4e521",
+        "response": {
+          "txid": "512c11dc218e90acbdb0b4d9a63d9eb2cb6c7be5770c8ff5569843849fa4e521",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "512c11dc218e90acbdb0b4d9a63d9eb2cb6c7be5770c8ff5569843849fa4e521",
+          "txStatus": "ACCEPTED_BY_NETWORK",
+          "timestamp": "2026-09-16T07:18:43.375787Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:18:43.374064Z"
+        }
+      },
+      "rawBytes": 324739,
+      "efBytes": 325205,
+      "elapsedMs": 6829
+    },
+    {
+      "index": 86,
+      "funding": {
+        "txid": "cbfa3d42694cb00823f0ef1d3a01dc7e965f326b2e1af01cbce456b1b07d5480",
+        "vout": 100,
+        "satoshis": "48221"
+      },
+      "contract": {
+        "txid": "20e1c8a3ff4f6770a228a47d6037b607b459d46f038c0802d8d5cdcc313dfd10",
+        "response": {
+          "txid": "20e1c8a3ff4f6770a228a47d6037b607b459d46f038c0802d8d5cdcc313dfd10",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "20e1c8a3ff4f6770a228a47d6037b607b459d46f038c0802d8d5cdcc313dfd10",
+          "txStatus": "SEEN_ON_NETWORK",
+          "timestamp": "2026-09-16T07:18:48.3563Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:18:47.277949Z"
+        }
+      },
+      "issue": {
+        "txid": "557e40a282e3a730f0c39769c9b14d0ebce0200b5128c99b582f920bb3ee6aff",
+        "response": {
+          "txid": "557e40a282e3a730f0c39769c9b14d0ebce0200b5128c99b582f920bb3ee6aff",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "557e40a282e3a730f0c39769c9b14d0ebce0200b5128c99b582f920bb3ee6aff",
+          "txStatus": "SEEN_MULTIPLE_NODES",
+          "timestamp": "2026-09-16T07:18:53.352462Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:18:50.523105Z"
+        }
+      },
+      "rawBytes": 324738,
+      "efBytes": 325204,
+      "elapsedMs": 6893
+    },
+    {
+      "index": 87,
+      "funding": {
+        "txid": "1b7e6ccafc4cf435641a0dd36c78deebf676002032d4256b0d817a06f48f8fa1",
+        "vout": 100,
+        "satoshis": "48221"
+      },
+      "contract": {
+        "txid": "698b037f79968b2aaf83b65611bbb54048789a78f58dd1a0981095546ea96481",
+        "response": {
+          "txid": "698b037f79968b2aaf83b65611bbb54048789a78f58dd1a0981095546ea96481",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "698b037f79968b2aaf83b65611bbb54048789a78f58dd1a0981095546ea96481",
+          "txStatus": "ACCEPTED_BY_NETWORK",
+          "timestamp": "2026-09-16T07:18:54.426187Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:18:54.424705Z"
+        }
+      },
+      "issue": {
+        "txid": "6cb140fc4b0d210fc0bdbcafc6fc9fa95bd837381f2b8b999e912a42977374c0",
+        "response": {
+          "txid": "6cb140fc4b0d210fc0bdbcafc6fc9fa95bd837381f2b8b999e912a42977374c0",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "6cb140fc4b0d210fc0bdbcafc6fc9fa95bd837381f2b8b999e912a42977374c0",
+          "txStatus": "SEEN_ON_NETWORK",
+          "timestamp": "2026-09-16T07:18:58.381246Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:18:57.723759Z"
+        }
+      },
+      "rawBytes": 324740,
+      "efBytes": 325206,
+      "elapsedMs": 6834
+    },
+    {
+      "index": 88,
+      "funding": {
+        "txid": "4eab3a7a5bfc788e2d8a5cc3e36699dcd40a304837bfebb03614890825a2979e",
+        "vout": 100,
+        "satoshis": "48221"
+      },
+      "contract": {
+        "txid": "bee60654468cdebfd28b0a3f21ea5d8efffbaebf1028ecebdeff3fe964b78bcb",
+        "response": {
+          "txid": "bee60654468cdebfd28b0a3f21ea5d8efffbaebf1028ecebdeff3fe964b78bcb",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "bee60654468cdebfd28b0a3f21ea5d8efffbaebf1028ecebdeff3fe964b78bcb",
+          "txStatus": "SEEN_ON_NETWORK",
+          "timestamp": "2026-09-16T07:19:02.109775Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:19:01.576383Z"
+        }
+      },
+      "issue": {
+        "txid": "423a306796bad53b23f85c668625d06c25c82a1696eef58220a02e9e7126d014",
+        "response": {
+          "txid": "423a306796bad53b23f85c668625d06c25c82a1696eef58220a02e9e7126d014",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "423a306796bad53b23f85c668625d06c25c82a1696eef58220a02e9e7126d014",
+          "txStatus": "ACCEPTED_BY_NETWORK",
+          "timestamp": "2026-09-16T07:19:04.824612Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:19:04.823197Z"
+        }
+      },
+      "rawBytes": 324739,
+      "efBytes": 325205,
+      "elapsedMs": 6834
+    },
+    {
+      "index": 89,
+      "funding": {
+        "txid": "734674421559d729ae0143758ce52173675cf9522665a5b22fdf99ba5050d064",
+        "vout": 100,
+        "satoshis": "48221"
+      },
+      "contract": {
+        "txid": "ee653756c9b88c7c509f307f358117c4d3b93bf5f4ce52fbb70f3afd428bc303",
+        "response": {
+          "txid": "ee653756c9b88c7c509f307f358117c4d3b93bf5f4ce52fbb70f3afd428bc303",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "ee653756c9b88c7c509f307f358117c4d3b93bf5f4ce52fbb70f3afd428bc303",
+          "txStatus": "SEEN_ON_NETWORK",
+          "timestamp": "2026-09-16T07:19:11.554253Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:19:08.72375Z"
+        }
+      },
+      "issue": {
+        "txid": "1aeca6fc0bcc0c155cb75ce94680a58bd5156f25070a89dce02371d9366c8b38",
+        "response": {
+          "txid": "1aeca6fc0bcc0c155cb75ce94680a58bd5156f25070a89dce02371d9366c8b38",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "1aeca6fc0bcc0c155cb75ce94680a58bd5156f25070a89dce02371d9366c8b38",
+          "txStatus": "SEEN_ON_NETWORK",
+          "timestamp": "2026-09-16T07:19:13.296118Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:19:11.977829Z"
+        }
+      },
+      "rawBytes": 324740,
+      "efBytes": 325206,
+      "elapsedMs": 6869
+    },
+    {
+      "index": 90,
+      "funding": {
+        "txid": "86130ff69c508046d61195a9e9e50d4dac5d2e61f9ba5cb07465ae0a4754535f",
+        "vout": 100,
+        "satoshis": "48221"
+      },
+      "contract": {
+        "txid": "93f3e5526fec39133451120a31a4534e515e9985426a01781326babc1d6f44a3",
+        "response": {
+          "txid": "93f3e5526fec39133451120a31a4534e515e9985426a01781326babc1d6f44a3",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "93f3e5526fec39133451120a31a4534e515e9985426a01781326babc1d6f44a3",
+          "txStatus": "SEEN_ON_NETWORK",
+          "timestamp": "2026-09-16T07:19:18.46096Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:19:15.922454Z"
+        }
+      },
+      "issue": {
+        "txid": "d16221e93de61429aca7c00df989d6119b08921a5756d2c5a7e685f18e64992a",
+        "response": {
+          "txid": "d16221e93de61429aca7c00df989d6119b08921a5756d2c5a7e685f18e64992a",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "d16221e93de61429aca7c00df989d6119b08921a5756d2c5a7e685f18e64992a",
+          "txStatus": "SEEN_ON_NETWORK",
+          "timestamp": "2026-09-16T07:19:21.549678Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:19:19.176448Z"
+        }
+      },
+      "rawBytes": 324738,
+      "efBytes": 325204,
+      "elapsedMs": 6839
+    },
+    {
+      "index": 91,
+      "funding": {
+        "txid": "3f48da4f43fa99d0e3e25ab48ca2398970bf4a763f9e5ee8db2c9e5f0c26506d",
+        "vout": 100,
+        "satoshis": "48221"
+      },
+      "contract": {
+        "txid": "e12607d15cc828ee5d03c137f9fa44923fca5fcc0b43a5c5019eee70e0ad19d2",
+        "response": {
+          "txid": "e12607d15cc828ee5d03c137f9fa44923fca5fcc0b43a5c5019eee70e0ad19d2",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "e12607d15cc828ee5d03c137f9fa44923fca5fcc0b43a5c5019eee70e0ad19d2",
+          "txStatus": "SEEN_ON_NETWORK",
+          "timestamp": "2026-09-16T07:19:23.476755Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:19:23.07498Z"
+        }
+      },
+      "issue": {
+        "txid": "a88153379758589b315c152bf9de9987eaf6ec048f5bb92b7971b620bca179de",
+        "response": {
+          "txid": "a88153379758589b315c152bf9de9987eaf6ec048f5bb92b7971b620bca179de",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "a88153379758589b315c152bf9de9987eaf6ec048f5bb92b7971b620bca179de",
+          "txStatus": "SEEN_ON_NETWORK",
+          "timestamp": "2026-09-16T07:19:28.509371Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:19:26.324716Z"
+        }
+      },
+      "rawBytes": 324740,
+      "efBytes": 325206,
+      "elapsedMs": 6859
+    },
+    {
+      "index": 92,
+      "funding": {
+        "txid": "7738b6c51792a535545d325471f0a183d72e80a412a7d80870b0c570293c79ca",
+        "vout": 100,
+        "satoshis": "48221"
+      },
+      "contract": {
+        "txid": "3768640b38df2d7171832386f7f694c6b56dda2c8970d48211766ff3a4e473f6",
+        "response": {
+          "txid": "3768640b38df2d7171832386f7f694c6b56dda2c8970d48211766ff3a4e473f6",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "3768640b38df2d7171832386f7f694c6b56dda2c8970d48211766ff3a4e473f6",
+          "txStatus": "SEEN_ON_NETWORK",
+          "timestamp": "2026-09-16T07:19:31.553807Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:19:30.27487Z"
+        }
+      },
+      "issue": {
+        "txid": "730edda71e727a487841ae845a0909b3a8d3f6e932e26f8d09991853367d6481",
+        "response": {
+          "txid": "730edda71e727a487841ae845a0909b3a8d3f6e932e26f8d09991853367d6481",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "730edda71e727a487841ae845a0909b3a8d3f6e932e26f8d09991853367d6481",
+          "txStatus": "ACCEPTED_BY_NETWORK",
+          "timestamp": "2026-09-16T07:19:33.528976Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:19:33.524314Z"
+        }
+      },
+      "rawBytes": 324740,
+      "efBytes": 325206,
+      "elapsedMs": 6847
+    },
+    {
+      "index": 93,
+      "funding": {
+        "txid": "c02f7c6dbff2ce8e248365ec77bd158ad6d7462b7418d0593abab34866ddbb5c",
+        "vout": 100,
+        "satoshis": "48146"
+      },
+      "contract": {
+        "txid": "417a0c76587d97493d3715e90699d0bbcb5f93519a2fe12cf3d60720f7850d73",
+        "response": {
+          "txid": "417a0c76587d97493d3715e90699d0bbcb5f93519a2fe12cf3d60720f7850d73",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "417a0c76587d97493d3715e90699d0bbcb5f93519a2fe12cf3d60720f7850d73",
+          "txStatus": "SEEN_ON_NETWORK",
+          "timestamp": "2026-09-16T07:19:38.607248Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:19:37.474661Z"
+        }
+      },
+      "issue": {
+        "txid": "1c174ae48b89916c08fce78cf78d373feb081adb768155546caa78183c6123da",
+        "response": {
+          "txid": "1c174ae48b89916c08fce78cf78d373feb081adb768155546caa78183c6123da",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "1c174ae48b89916c08fce78cf78d373feb081adb768155546caa78183c6123da",
+          "txStatus": "SEEN_MULTIPLE_NODES",
+          "timestamp": "2026-09-16T07:19:43.379373Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:19:40.724399Z"
+        }
+      },
+      "rawBytes": 324740,
+      "efBytes": 325206,
+      "elapsedMs": 6894
+    },
+    {
+      "index": 94,
+      "funding": {
+        "txid": "c1464a79455de241c0693b6066a9166883f0dbf5f35e8b1b8ea702cad4c4821f",
+        "vout": 1,
+        "satoshis": "47924"
+      },
+      "contract": {
+        "txid": "852ea4833b7c7e33742f37d2edc76467df1928af7d8e8ca2f2eb9d576b2e7592",
+        "response": {
+          "txid": "852ea4833b7c7e33742f37d2edc76467df1928af7d8e8ca2f2eb9d576b2e7592",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "852ea4833b7c7e33742f37d2edc76467df1928af7d8e8ca2f2eb9d576b2e7592",
+          "txStatus": "ACCEPTED_BY_NETWORK",
+          "timestamp": "2026-09-16T07:19:44.526644Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:19:44.524893Z"
+        }
+      },
+      "issue": {
+        "txid": "dac4b3ffc0a66ced559e1371a2ea89d3f9b3a42004449aadba112dab48ba716f",
+        "response": {
+          "txid": "dac4b3ffc0a66ced559e1371a2ea89d3f9b3a42004449aadba112dab48ba716f",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "dac4b3ffc0a66ced559e1371a2ea89d3f9b3a42004449aadba112dab48ba716f",
+          "txStatus": "SEEN_ON_NETWORK",
+          "timestamp": "2026-09-16T07:19:48.600313Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:19:47.775001Z"
+        }
+      },
+      "rawBytes": 324739,
+      "efBytes": 325205,
+      "elapsedMs": 6704
+    },
+    {
+      "index": 95,
+      "funding": {
+        "txid": "ae55e183f8d14f11dcc610ab28a7206b522a9056ba7a9e6c0fb2b4d06448a171",
+        "vout": 100,
+        "satoshis": "47795"
+      },
+      "contract": {
+        "txid": "b003e321f0b369d3087293b7982c464796dee00171179f70fbb49c7f1b0613bc",
+        "response": {
+          "txid": "b003e321f0b369d3087293b7982c464796dee00171179f70fbb49c7f1b0613bc",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "b003e321f0b369d3087293b7982c464796dee00171179f70fbb49c7f1b0613bc",
+          "txStatus": "SEEN_ON_NETWORK",
+          "timestamp": "2026-09-16T07:19:52.379841Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:19:51.676487Z"
+        }
+      },
+      "issue": {
+        "txid": "15e15c410069ca33d8fde65704811fb51715e2736b4686fa4160403a080cdecf",
+        "response": {
+          "txid": "15e15c410069ca33d8fde65704811fb51715e2736b4686fa4160403a080cdecf",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "15e15c410069ca33d8fde65704811fb51715e2736b4686fa4160403a080cdecf",
+          "txStatus": "ACCEPTED_BY_NETWORK",
+          "timestamp": "2026-09-16T07:19:54.974527Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:19:54.973047Z"
+        }
+      },
+      "rawBytes": 324739,
+      "efBytes": 325205,
+      "elapsedMs": 6893
+    },
+    {
+      "index": 96,
+      "funding": {
+        "txid": "3850099ccb12f52f511963b246ee035310e254edc4217f43604c36ef44116b9e",
+        "vout": 100,
+        "satoshis": "47795"
+      },
+      "contract": {
+        "txid": "896e9286fb781d4c3bd64b9a784f3927b6b33b612f1b07c78633ecbbaee520ff",
+        "response": {
+          "txid": "896e9286fb781d4c3bd64b9a784f3927b6b33b612f1b07c78633ecbbaee520ff",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "896e9286fb781d4c3bd64b9a784f3927b6b33b612f1b07c78633ecbbaee520ff",
+          "txStatus": "SEEN_ON_NETWORK",
+          "timestamp": "2026-09-16T07:20:01.549597Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:19:58.925417Z"
+        }
+      },
+      "issue": {
+        "txid": "e626862d3d5becf26d89a50e8721fe89a74c6295317bb0b739ae10e128eaf484",
+        "response": {
+          "txid": "e626862d3d5becf26d89a50e8721fe89a74c6295317bb0b739ae10e128eaf484",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "e626862d3d5becf26d89a50e8721fe89a74c6295317bb0b739ae10e128eaf484",
+          "txStatus": "SEEN_ON_NETWORK",
+          "timestamp": "2026-09-16T07:20:03.306096Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:20:02.17704Z"
+        }
+      },
+      "rawBytes": 324738,
+      "efBytes": 325204,
+      "elapsedMs": 6815
+    },
+    {
+      "index": 97,
+      "funding": {
+        "txid": "71b028fe84fbba99bcc15684a496685fc19256cdba1cbed9b4b8e32ad567aac4",
+        "vout": 100,
+        "satoshis": "47795"
+      },
+      "contract": {
+        "txid": "2f616c24045c486f13db2ae2594b65f249f83649d5bee454e7a5131ffbe8797e",
+        "response": {
+          "txid": "2f616c24045c486f13db2ae2594b65f249f83649d5bee454e7a5131ffbe8797e",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "2f616c24045c486f13db2ae2594b65f249f83649d5bee454e7a5131ffbe8797e",
+          "txStatus": "SEEN_ON_NETWORK",
+          "timestamp": "2026-09-16T07:20:08.755416Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:20:06.073032Z"
+        }
+      },
+      "issue": {
+        "txid": "edb377ac36dbd356c8d39d731d3bb205767e1df7aec177a2b3b419a4c3cb617b",
+        "response": {
+          "txid": "edb377ac36dbd356c8d39d731d3bb205767e1df7aec177a2b3b419a4c3cb617b",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "edb377ac36dbd356c8d39d731d3bb205767e1df7aec177a2b3b419a4c3cb617b",
+          "txStatus": "SEEN_ON_NETWORK",
+          "timestamp": "2026-09-16T07:20:11.948253Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:20:09.327674Z"
+        }
+      },
+      "rawBytes": 324738,
+      "efBytes": 325204,
+      "elapsedMs": 6826
+    },
+    {
+      "index": 98,
+      "funding": {
+        "txid": "acba9a23c132c7443ba3d2c603687de0edc9c8f1947cc950ec43401fa6753d21",
+        "vout": 100,
+        "satoshis": "47795"
+      },
+      "contract": {
+        "txid": "e7813132c5311d4b98659234f99784946f4cd6e89296daefddb9d6306ea3ab8c",
+        "response": {
+          "txid": "e7813132c5311d4b98659234f99784946f4cd6e89296daefddb9d6306ea3ab8c",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "e7813132c5311d4b98659234f99784946f4cd6e89296daefddb9d6306ea3ab8c",
+          "txStatus": "SEEN_ON_NETWORK",
+          "timestamp": "2026-09-16T07:20:13.771084Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:20:13.240272Z"
+        }
+      },
+      "issue": {
+        "txid": "077a6c84551f76448fcebd94a30f70c24e0d0cb5e877f2ecb4703831dc0301de",
+        "response": {
+          "txid": "077a6c84551f76448fcebd94a30f70c24e0d0cb5e877f2ecb4703831dc0301de",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "077a6c84551f76448fcebd94a30f70c24e0d0cb5e877f2ecb4703831dc0301de",
+          "txStatus": "SEEN_ON_NETWORK",
+          "timestamp": "2026-09-16T07:20:18.74122Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:20:16.47568Z"
+        }
+      },
+      "rawBytes": 324739,
+      "efBytes": 325205,
+      "elapsedMs": 6836
+    },
+    {
+      "index": 99,
+      "funding": {
+        "txid": "42efed9295a72880e8f21b4db7cf636637fd97a560890639fc3c0721852211bf",
+        "vout": 100,
+        "satoshis": "47795"
+      },
+      "contract": {
+        "txid": "a5c93959484fb96dd5dbbc12b60f61b67348c52e71ee4d35ba53c3fb914da1a2",
+        "response": {
+          "txid": "a5c93959484fb96dd5dbbc12b60f61b67348c52e71ee4d35ba53c3fb914da1a2",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "a5c93959484fb96dd5dbbc12b60f61b67348c52e71ee4d35ba53c3fb914da1a2",
+          "txStatus": "SEEN_MULTIPLE_NODES",
+          "timestamp": "2026-09-16T07:20:23.402811Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:20:20.424384Z"
+        }
+      },
+      "issue": {
+        "txid": "bbb3abae0e688bc725d3c5c594623d0cb57b5ed1f693e816d68b6e625aaee173",
+        "response": {
+          "txid": "bbb3abae0e688bc725d3c5c594623d0cb57b5ed1f693e816d68b6e625aaee173",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "bbb3abae0e688bc725d3c5c594623d0cb57b5ed1f693e816d68b6e625aaee173",
+          "txStatus": "ACCEPTED_BY_NETWORK",
+          "timestamp": "2026-09-16T07:20:23.674716Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:20:23.673065Z"
+        }
+      },
+      "rawBytes": 324738,
+      "efBytes": 325204,
+      "elapsedMs": 6816
+    },
+    {
+      "index": 100,
+      "funding": {
+        "txid": "bbd8869eafc79e659483bdb045f3fdc91cb870b09b335468b57dda55c16ae862",
+        "vout": 100,
+        "satoshis": "47795"
+      },
+      "contract": {
+        "txid": "9ce48a335638e667c1a017d0ace4e77a2f78b93561e7c8a406469e55f4c0bd97",
+        "response": {
+          "txid": "9ce48a335638e667c1a017d0ace4e77a2f78b93561e7c8a406469e55f4c0bd97",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "9ce48a335638e667c1a017d0ace4e77a2f78b93561e7c8a406469e55f4c0bd97",
+          "txStatus": "SEEN_ON_NETWORK",
+          "timestamp": "2026-09-16T07:20:28.750784Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:20:27.574413Z"
+        }
+      },
+      "issue": {
+        "txid": "c359d8fb9980b00d422857405271b5beadd7b2d670dfb17b4091089b86d09465",
+        "response": {
+          "txid": "c359d8fb9980b00d422857405271b5beadd7b2d670dfb17b4091089b86d09465",
+          "status": 202,
+          "txStatus": "RECEIVED"
+        },
+        "statusAfter3s": {
+          "txid": "c359d8fb9980b00d422857405271b5beadd7b2d670dfb17b4091089b86d09465",
+          "txStatus": "SEEN_MULTIPLE_NODES",
+          "timestamp": "2026-09-16T07:20:33.402288Z",
+          "rawTx": "<omitted>",
+          "nextRetryAt": "0001-01-01T00:00:00Z",
+          "merkleRegisteredAt": "2026-09-16T07:20:30.82359Z"
+        }
+      },
+      "rawBytes": 324738,
+      "efBytes": 325204,
+      "elapsedMs": 6841
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "network": "ttn",
+  "mode": "stas",
+  "count": 10000,
+  "workers": 8,
+  "buildTps": 647.6233219675125,
+  "buildP50us": 8419.519,
+  "buildP99us": 23872.866,
+  "broadcastTps": 676.2024281836708,
+  "endToEndTps": 330.71822694101206,
+  "accepted": 10000,
+  "rejected": 0,
+  "elapsedMs": 30237,
+  "errors": [],
+  "txids": [
+    "b5c00d5d91035c5b7c71db113aa4be2850be2a70f9b01c5c2c967891b8faaf2f",
+    "09ca9e8e86bf0724bfde1cf61d2b4577e0e0dce260f77ea9944770b5f724d697",
+    "d2a54435b948582d00872195bc19eeb85479ec26c8b3ac537435001c3955a87a",
+    "fd71f7794bbce1983f289bee7ba2fab9fea88b9d7eeb9106bce542ae42536155",
+    "8a5c8950b2a0a9da581f3ec76ea9fbdfcc849df7a6fae4d1ae85778c4c88505c",
+    "78157a0fee07210d7c422eec612e7f57bfd13888e224b7940e9fc6fa21d560c4",
+    "95d969a41afe2d5ebc5cc48e6438ff6b975db130db0c1cf32257e268d36499a4",
+    "d657d337847dd98cbf68402c5cb6acb717f8780cacc83d3fea245d8c0b9e9ed6",
+    "e0ba6085fc60c6432a603fd505845e502d8eb35dd7861e0194ce43ac914590ee",
+    "a414c7403a2fff7fe1c5b2f12a193c9ea7a785ba3a4a165dc8c56b6c6bf0bca8",
+    "bb404c02f49fed83749c8b4a48ccbc98225c54fd707e0d526f1fe668a962ea61",
+    "b27220e10edde49f884274f3f567c2b75856ca152e7b4d4b7e27d67691929a07",
+    "f45da0b0773a00af1f0e16988308f05c066986f01af2ed6c8fbb6e3b5b05a4a4",
+    "4742e6ab394400fef43b1c84d0778554a168f0a518745c79eb237395f8157cde",
+    "3ba1913736fc6d7ef95d41177959067e048c33c50d11b13e81cf5bc33c1c520b",
+    "a710901cffd96804a452745103901916ceedcff634adc017694b69ae8142ceb9",
+    "4e0ccf947983602cfd6e2a1435e8c759aa18341dfe066a1132d0a7add41f2157",
+    "25cf5e36a80e8b1234b149fef7611d22e5f9f49c275c91d7b8d171657dc58770",
+    "d481312c03302e3b22140da9f2cfd8b75631513df666797cbffede59fe9f5359",
+    "9dce1f3a3b7a8d1036be0b4a9901ffaf9563e66a9b6a67ec33ebf9cda78a2709"
+  ],
+  "verdict": {
+    "target": 10000,
+    "buildMeetsTarget": false,
+    "broadcastMeetsTarget": false
+  },
+  "verificationSample": {
+    "SEEN_ON_NETWORK": 9,
+    "SEEN_MULTIPLE_NODES": 2,
+    "RECEIVED": 9
+  },
+  "pipeline": false
+}
