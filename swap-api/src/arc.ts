@@ -40,6 +40,24 @@ export const arcSubmit = async (efHex: string): Promise<ArcSubmitResult> => {
   return body
 }
 
+export const arcSubmitBatch = async (efHexes: string[]): Promise<ArcSubmitResult[]> => {
+  const res = await fetch(`${config.arcUrl}/v1/txs`, {
+    method: 'POST',
+    headers: headers(),
+    body: JSON.stringify(efHexes.map((rawTx) => ({ rawTx }))),
+  })
+  const body = (await res.json().catch(() => ({}))) as ArcSubmitResult[] | ArcSubmitResult
+  if (res.status === 404 || res.status === 405) throw new ArcBatchUnavailableError(res.status)
+  if (!res.ok) throw new ArcError(res.status, body as ArcSubmitResult)
+  return Array.isArray(body) ? body : [body]
+}
+
+export class ArcBatchUnavailableError extends Error {
+  constructor(public httpStatus: number) {
+    super(`ARC batch endpoint unavailable (${httpStatus})`)
+  }
+}
+
 export const arcStatus = async (txid: string): Promise<ArcSubmitResult> => {
   const res = await fetch(`${config.arcUrl}/v1/tx/${txid}`, { headers: headers() })
   const body = (await res.json().catch(() => ({}))) as ArcSubmitResult

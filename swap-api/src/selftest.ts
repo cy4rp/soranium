@@ -13,6 +13,8 @@ import { encodeSwapDescriptor, decodeSwapDescriptor, requiredWantedAmount } from
 import { buildOfferTx, buildTakeTx, buildCancelTx, Utxo } from './stas/swap.js'
 import { EMPTY_HASH160 } from './stas/constants.js'
 import { pkhOfKey } from './keys.js'
+import { buildP2pkhSend, buildSplitTx, buildStasTransferTx } from './wallet/transfer.js'
+import { runSendBench } from './wallet/sendbench.js'
 
 // --- synthetic fixtures ------------------------------------------------------
 const makerKey = PrivateKey.fromRandom()
@@ -131,5 +133,54 @@ const back = parseStasScript(bytesToHex(cancelTx.outputs[0].script))
 assert(eq(back.owner, pkhOfKey(makerKey)), 'cancel sends back to receiveAddr')
 assert.equal(cancelTx.outputs[0].satoshis, 9_300n, 'cancel preserves amount')
 console.log('✓ cancel tx built:', cancel.built.txid.slice(0, 16) + '…')
+
+// --- 6. wallet builders + offline send benchmark ----------------------------
+const p2pkhInput = fundingUtxo(500_000n)
+const sendA = buildP2pkhSend({
+  utxos: [p2pkhInput], wif: fundKey.toWif([0xef]),
+  outputs: [{ pkh: pkhOfKey(makerKey), satoshis: 10_000n }],
+  changePkh: pkhOfKey(fundKey), feePerKb: 50,
+})
+const sendB = buildP2pkhSend({
+  utxos: [p2pkhInput], wif: fundKey.toWif([0xef]),
+  outputs: [{ pkh: pkhOfKey(makerKey), satoshis: 10_000n }],
+  changePkh: pkhOfKey(fundKey), feePerKb: 50,
+})
+assert.equal(sendA.txid, sendB.txid, 'P2PKH txid should be deterministic')
+assert.equal(parseTx(sendA.rawHex).outputs.length, 2)
+assert(sendA.efHex.includes('0000000000ef'), 'P2PKH EF marker present')
+console.log('✓ P2PKH send deterministic + EF serialized')
+
+const split = buildSplitTx({
+  utxo: fundingUtxo(100_000n), wif: fundKey.toWif([0xef]), count: 10, satoshisEach: 1_000n, feePerKb: 50,
+})
+const splitTx = parseTx(split.rawHex)
+assert.equal(splitTx.outputs.length, 11, 'split should include count outputs plus change')
+assert.equal(splitTx.outputs.slice(0, 10).reduce((s, o) => s + o.satoshis, 0n), 10_000n)
+assert(splitTx.outputs[10].satoshis < 90_000n, 'split change must account for fee')
+console.log('✓ split output count + change math')
+
+const transferred = buildStasTransferTx({
+  tokenUtxo: makerTokenUtxo, ownerWif: makerKey.toWif([0xef]),
+  fundingUtxo: fundingUtxo(50_000n), fundingWif: fundKey.toWif([0xef]),
+  toPkh: pkhOfKey(takerKey), amount: 7_000n, feePerKb: 50,
+})
+const transferredOut = parseStasScript(bytesToHex(parseTx(transferred.rawHex).outputs[0].script))
+assert(eq(transferredOut.owner, pkhOfKey(takerKey)), 'STAS transfer out0 owner')
+assert(eq(transferredOut.tail, tailA), 'STAS transfer preserves tail')
+console.log('✓ synthetic STAS transfer owner + tail')
+
+const benchUtxos = Array.from({ length: 200 }, (_, i) => {
+  const script = p2pkh(pkhOfKey(fundKey))
+  return utxoFromSource(fakeSourceTx(script, 10_000n + BigInt(i)), 0)
+})
+const bench = await runSendBench({
+  wif: fundKey.toWif([0xef]), utxos: benchUtxos, mode: 'p2pkh',
+  toPkh: pkhOfKey(makerKey), feePerKb: 50, concurrency: 32, broadcast: false, batchSize: 100,
+  satoshisEach: 1_000n,
+})
+assert.equal(bench.count, 200)
+assert.equal(bench.accepted, 0)
+console.log('✓ offline send benchmark:', bench.count, 'transactions')
 
 console.log('\nALL SELF-TESTS PASSED')

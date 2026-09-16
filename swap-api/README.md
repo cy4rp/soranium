@@ -32,6 +32,7 @@ npm install
 cp .env.example .env   # ARC_URL を自前ノードのARCに向ける
 npm run dev            # tsx 起動
 npm test               # オフライン自己テスト(ビルダーE2E)
+npm run mcp            # TTN MCP wallet (stdio)
 ```
 
 Node 22+(`node:sqlite`使用)。
@@ -80,6 +81,33 @@ Node 22+(`node:sqlite`使用)。
 ### POST /inspect — 任意のSTASスクリプトの解析(owner / action / descriptor / persistentScriptHash / protoID)
 ### GET /tx/:txid — ARCステータス
 ### GET /health
+
+## TTN MCP wallet
+
+Teranode Testnet (TTN) のARC/WoCを使うウォレットMCPです。`.env` に `NETWORK=ttn`、`WOC_URL`、`WALLET_WIF` を設定すると、残高・UTXO確認、P2PKH送金、分割、合成/テンプレートSTAS発行・転送、オフライン/送信ベンチを利用できます。WIFはツール結果に返しません。送信系は安全のため `broadcast: false` を指定して構築だけ確認できます。
+
+stdio:
+
+```bash
+npm run mcp
+```
+
+Claude Desktop / Cursor の設定例(`mcp.json`):
+
+```json
+{
+  "mcpServers": {
+    "ttn-wallet": {
+      "command": "npm",
+      "args": ["--prefix", "/path/to/swap-api", "run", "mcp"]
+    }
+  }
+}
+```
+
+Express起動時はStreamable HTTPの `POST /mcp` も利用できます。
+
+テンプレートengineは同梱ASMの大文字hexを正規化して組み立て、公式ファイル末尾のprotocol/flags/serviceプレースホルダーはPoC用にowner PKH/空フィールドで補います。実TTN発行ではissuerのprotocol IDとflags/service dataを確定してから検証してください。
 
 ## ARC
 

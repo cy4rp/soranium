@@ -12,9 +12,11 @@ import { PrivateKey } from '@bsv/sdk'
 import { pkhOfKey, pkhToTestnetAddress } from './keys.js'
 import { signerBackend } from './fastsign.js'
 import { bytesToHex, hexToBytes } from './bytes.js'
+import { handleMcpRequest } from './mcp/server.js'
 
 const app = express()
 app.use(express.json({ limit: '20mb' })) // sourceTxHex payloads can be large
+app.post('/mcp', (req, res) => { void handleMcpRequest(req, res, req.body) })
 
 const utxoSchema = z.object({
   txid: z.string().length(64),
