@@ -1,7 +1,9 @@
-import { arcSubmit, arcSubmitBatch, ArcBatchUnavailableError, ArcSubmitResult } from '../arc.js'
+import { Worker } from 'node:worker_threads'
+import { availableParallelism } from 'node:os'
+import { arcSubmit, arcSubmitBatch, ArcBatchUnavailableError } from '../arc.js'
 import { config } from '../config.js'
-import { Utxo } from '../stas/swap.js'
-import { buildP2pkhSend, buildStasTransferTx } from './transfer.js'
+import type { Utxo } from '../stas/swap.js'
+import { recordBroadcast } from './store.js'
 
 export interface SendBenchParams {
   wif: string
@@ -14,7 +16,11 @@ export interface SendBenchParams {
   broadcast: boolean
   batchSize: number
   satoshisEach?: bigint
+  workers?: number
+  pipeline?: boolean
 }
+
+interface BuiltItem { index: number; txid: string; rawHex: string; efHex: string; us: number }
 
 export interface SendBenchReport {
   network: typeof config.network
@@ -25,11 +31,14 @@ export interface SendBenchReport {
   buildP50us: number
   buildP99us: number
   broadcastTps: number
+  endToEndTps: number
   accepted: number
   rejected: number
   elapsedMs: number
   errors: string[]
   txids: string[]
+  verdict: { target: 10000; buildMeetsTarget: boolean; broadcastMeetsTarget: boolean }
+  pipeline?: boolean
 }
 
 const percentile = (values: number[], q: number): number => {
@@ -38,91 +47,200 @@ const percentile = (values: number[], q: number): number => {
   return sorted[Math.min(sorted.length - 1, Math.floor(sorted.length * q))]
 }
 
-const acceptedStatus = (status: string | undefined): boolean =>
-  ['accepted', 'received', 'stored', 'announced_to_network', 'seen_on_network', 'success', 'mined']
-    .includes((status ?? '').toLowerCase())
+const workerUrl = (): URL => new URL(import.meta.url.endsWith('.ts') ? './sendbench-worker.ts' : './sendbench-worker.js', import.meta.url)
+const workerExecArgv = (): string[] => (import.meta.url.endsWith('.ts') ? ['--import', 'tsx'] : [])
 
-export const runSendBench = async (p: SendBenchParams): Promise<SendBenchReport> => {
-  if (p.mode === 'stas' && (!p.fundingUtxos || p.fundingUtxos.length < p.utxos.length))
-    throw new Error('stas mode requires one funding UTXO per token UTXO')
-  const built: { txid: string; efHex: string }[] = []
-  const latencies: number[] = []
-  const buildStart = process.hrtime.bigint()
-  for (let i = 0; i < p.utxos.length; i++) {
-    const started = process.hrtime.bigint()
-    const tx = p.mode === 'p2pkh'
-      ? buildP2pkhSend({
-        utxos: [p.utxos[i]], wif: p.wif,
-        outputs: [{ pkh: p.toPkh, satoshis: p.satoshisEach ?? 1n }],
-        changePkh: p.toPkh, feePerKb: p.feePerKb,
-      })
-      : buildStasTransferTx({
-        tokenUtxo: p.utxos[i], ownerWif: p.wif, fundingUtxo: p.fundingUtxos![i],
-        fundingWif: p.wif, toPkh: p.toPkh, amount: p.satoshisEach, feePerKb: p.feePerKb,
-      })
-    built.push({ txid: tx.txid, efHex: tx.efHex })
-    latencies.push(Number(process.hrtime.bigint() - started) / 1000)
-  }
-  const buildElapsedMs = Number(process.hrtime.bigint() - buildStart) / 1e6
-  if (!p.broadcast) {
-    return {
-      network: config.network, mode: p.mode, count: built.length, workers: 1,
-      buildTps: built.length / Math.max(buildElapsedMs / 1000, 0.000001),
-      buildP50us: percentile(latencies, 0.5), buildP99us: percentile(latencies, 0.99),
-      broadcastTps: 0, accepted: 0, rejected: 0, elapsedMs: Math.round(buildElapsedMs),
-      errors: [], txids: built.map((b) => b.txid),
-    }
-  }
+const buildWithWorkers = async (p: SendBenchParams, onChunk?: (chunk: BuiltItem[]) => void): Promise<{ built: BuiltItem[]; elapsedMs: number }> => {
+  const workers = Math.max(1, Math.min(p.workers ?? availableParallelism(), p.utxos.length || 1))
+  const pairs = p.utxos.map((utxo, index) => ({ index, utxo, fundingUtxo: p.fundingUtxos?.[index] }))
+  const slices = Array.from({ length: workers }, (_, i) =>
+    pairs.slice(Math.floor(i * pairs.length / workers), Math.floor((i + 1) * pairs.length / workers))).filter((x) => x.length)
+  const all: BuiltItem[] = []
+  const started = process.hrtime.bigint()
+  await Promise.all(slices.map((slice) => new Promise<void>((resolve, reject) => {
+    const worker = new Worker(workerUrl(), {
+      execArgv: workerExecArgv(),
+      workerData: {
+        wif: p.wif, pairs: slice, mode: p.mode,
+        toPkh: typeof p.toPkh === 'string' ? Uint8Array.from(Buffer.from(p.toPkh, 'hex')) : p.toPkh,
+        feePerKb: p.feePerKb, satoshisEach: p.satoshisEach, chunkSize: Math.max(1, p.batchSize),
+      },
+    })
+    worker.on('message', (message: { type: string; built?: BuiltItem[]; message?: string }) => {
+      if (message.type === 'chunk' && message.built) {
+        all.push(...message.built)
+        onChunk?.(message.built)
+      }
+      else if (message.type === 'done') { resolve(); void worker.terminate() }
+      else if (message.type === 'error') reject(new Error(message.message))
+    })
+    worker.on('error', reject)
+  })))
+  return { built: all.sort((a, b) => a.index - b.index), elapsedMs: Number(process.hrtime.bigint() - started) / 1e6 }
+}
 
+const builtTx = (item: BuiltItem): any => ({ txid: item.txid, rawHex: item.rawHex, efHex: item.efHex, tx: {} })
+
+const broadcastBuilt = async (p: SendBenchParams, built: BuiltItem[], inputs: Utxo[][]): Promise<{ elapsedMs: number; accepted: number; rejected: number; errors: string[]; txids: string[] }> => {
+  const chunks: BuiltItem[][] = []
+  for (let i = 0; i < built.length; i += Math.max(1, p.batchSize)) chunks.push(built.slice(i, i + Math.max(1, p.batchSize)))
   const accepted: string[] = []
   const rejected: string[] = []
   const errors: string[] = []
   const txids: string[] = []
-  const broadcastStart = process.hrtime.bigint()
-  const chunks: { txid: string; efHex: string }[][] = []
-  for (let i = 0; i < built.length; i += Math.max(1, p.batchSize)) chunks.push(built.slice(i, i + Math.max(1, p.batchSize)))
-  let nextChunk = 0
-  const worker = async (): Promise<void> => {
-    while (nextChunk < chunks.length) {
-      const chunk = chunks[nextChunk++]
-      let results: ArcSubmitResult[]
+  let next = 0
+  const started = process.hrtime.bigint()
+  const submit = async (): Promise<void> => {
+    while (true) {
+      const chunk = chunks[next++]
+      if (!chunk) return
       try {
-        results = await arcSubmitBatch(chunk.map((x) => x.efHex))
-      } catch (e) {
-        if (!(e instanceof ArcBatchUnavailableError)) {
+        const response = await arcSubmitBatch(chunk.map((item) => item.efHex))
+        if (Array.isArray(response)) {
+          for (let i = 0; i < chunk.length; i++) {
+            const item = chunk[i]
+            const row = response[i] ?? {}
+            const txid = row.txid || item.txid
+            txids.push(txid)
+            if (String(row.txStatus ?? '').toLowerCase() === 'rejected') rejected.push(txid)
+            else { accepted.push(txid); recordBroadcast(builtTx(item), inputs[item.index]) }
+          }
+        } else {
           for (const item of chunk) {
-            rejected.push(item.txid)
-            if (errors.length < 5) errors.push((e as Error).message)
+            accepted.push(item.txid)
+            txids.push(item.txid)
+            recordBroadcast(builtTx(item), inputs[item.index])
           }
-          continue
         }
-        results = await Promise.all(chunk.map(async (item) => {
-          try { return await arcSubmit(item.efHex) }
-          catch (error) {
-            if (errors.length < 5) errors.push((error as Error).message)
-            return { txid: item.txid, txStatus: 'REJECTED', detail: (error as Error).message }
+      } catch (error) {
+        if (error instanceof ArcBatchUnavailableError) {
+          for (const item of chunk) {
+            try {
+              const response = await arcSubmit(item.efHex)
+              const txid = response.txid || item.txid
+              accepted.push(txid); txids.push(txid)
+              recordBroadcast(builtTx(item), inputs[item.index])
+            } catch (singleError) {
+              rejected.push(item.txid)
+              if (errors.length < 5) errors.push((singleError as Error).message)
+            }
           }
-        }))
+        } else {
+          rejected.push(...chunk.map((item) => item.txid))
+          if (errors.length < 5) errors.push((error as Error).message)
+        }
       }
-      results.forEach((result, i) => {
-        const txid = result.txid || chunk[i]?.txid
-        if (txid) txids.push(txid)
-        if (acceptedStatus(result.txStatus)) accepted.push(txid)
-        else {
-          rejected.push(txid)
-          if (errors.length < 5 && (result.detail || result.title)) errors.push(String(result.detail ?? result.title))
-        }
-      })
     }
   }
-  await Promise.all(Array.from({ length: Math.max(1, p.concurrency) }, worker))
-  const elapsedMs = Number(process.hrtime.bigint() - broadcastStart) / 1e6
+  await Promise.all(Array.from({ length: Math.max(1, p.concurrency) }, submit))
+  return { elapsedMs: Number(process.hrtime.bigint() - started) / 1e6, accepted: accepted.length, rejected: rejected.length, errors, txids }
+}
+
+type BroadcastAccumulator = { accepted: string[]; rejected: string[]; errors: string[]; txids: string[] }
+
+const submitChunk = async (p: SendBenchParams, chunk: BuiltItem[], inputs: Utxo[][], acc: BroadcastAccumulator): Promise<void> => {
+  try {
+    const response = await arcSubmitBatch(chunk.map((item) => item.efHex))
+    if (Array.isArray(response)) {
+      for (let i = 0; i < chunk.length; i++) {
+        const item = chunk[i]
+        const row = response[i] ?? {}
+        const txid = row.txid || item.txid
+        acc.txids.push(txid)
+        if (String(row.txStatus ?? '').toLowerCase() === 'rejected') acc.rejected.push(txid)
+        else { acc.accepted.push(txid); recordBroadcast(builtTx(item), inputs[item.index]) }
+      }
+    } else {
+      for (const item of chunk) {
+        acc.accepted.push(item.txid); acc.txids.push(item.txid)
+        recordBroadcast(builtTx(item), inputs[item.index])
+      }
+    }
+  } catch (error) {
+    if (error instanceof ArcBatchUnavailableError) {
+      for (const item of chunk) {
+        try {
+          const response = await arcSubmit(item.efHex)
+          const txid = response.txid || item.txid
+          acc.accepted.push(txid); acc.txids.push(txid)
+          recordBroadcast(builtTx(item), inputs[item.index])
+        } catch (singleError) {
+          acc.rejected.push(item.txid)
+          if (acc.errors.length < 5) acc.errors.push((singleError as Error).message)
+        }
+      }
+    } else {
+      acc.rejected.push(...chunk.map((item) => item.txid))
+      if (acc.errors.length < 5) acc.errors.push((error as Error).message)
+    }
+  }
+}
+
+export const runSendBench = async (p: SendBenchParams): Promise<SendBenchReport> => {
+  if (p.utxos.length > 100000) throw new Error('count exceeds 100000')
+  if (p.mode === 'stas' && (!p.fundingUtxos || p.fundingUtxos.length < p.utxos.length)) throw new Error('stas mode requires one funding UTXO per token UTXO')
+  const started = process.hrtime.bigint()
+  const inputs = p.utxos.map((utxo, index) => p.mode === 'stas' ? [utxo, p.fundingUtxos![index]] : [utxo])
+  const pipelineAcc: BroadcastAccumulator = { accepted: [], rejected: [], errors: [], txids: [] }
+  let pipelineActive = 0
+  const pipelineQueue: BuiltItem[][] = []
+  const drainPipeline = (): void => {
+    while (pipelineActive < Math.max(1, p.concurrency) && pipelineQueue.length) {
+      const chunk = pipelineQueue.shift()!
+      pipelineActive++
+      const job = submitChunk(p, chunk, inputs, pipelineAcc).finally(() => {
+        pipelineActive--
+        drainPipeline()
+      })
+      void job
+    }
+  }
+  const build = await buildWithWorkers(p, p.pipeline && p.broadcast ? (chunk) => {
+    pipelineQueue.push(chunk)
+    drainPipeline()
+  } : undefined)
+  const latencies = build.built.map((item) => item.us)
+  const workers = Math.max(1, Math.min(p.workers ?? availableParallelism(), p.utxos.length || 1))
+  const buildTps = build.built.length / Math.max(build.elapsedMs / 1000, 0.000001)
+  if (!p.broadcast) {
+    const elapsedMs = Number(process.hrtime.bigint() - started) / 1e6
+    return {
+      network: config.network, mode: p.mode, count: build.built.length, workers, buildTps,
+      buildP50us: percentile(latencies, 0.5), buildP99us: percentile(latencies, 0.99),
+      broadcastTps: 0, endToEndTps: build.built.length / Math.max(elapsedMs / 1000, 0.000001),
+      accepted: 0, rejected: 0, elapsedMs: Math.round(elapsedMs), errors: [],
+      txids: build.built.slice(0, 20).map((item) => item.txid),
+      verdict: { target: 10000, buildMeetsTarget: buildTps >= 10000, broadcastMeetsTarget: false },
+      pipeline: false,
+    }
+  }
+  if (p.pipeline) {
+    drainPipeline()
+    while (pipelineActive > 0 || pipelineQueue.length > 0) {
+      await new Promise<void>((resolve) => setImmediate(resolve))
+    }
+    const elapsedMs = Number(process.hrtime.bigint() - started) / 1e6
+    const broadcastTps = pipelineAcc.accepted.length / Math.max(elapsedMs / 1000, 0.000001)
+    return {
+      network: config.network, mode: p.mode, count: build.built.length, workers, buildTps,
+      buildP50us: percentile(latencies, 0.5), buildP99us: percentile(latencies, 0.99),
+      broadcastTps, endToEndTps: broadcastTps, accepted: pipelineAcc.accepted.length,
+      rejected: pipelineAcc.rejected.length, elapsedMs: Math.round(elapsedMs),
+      errors: pipelineAcc.errors.slice(0, 5), txids: pipelineAcc.txids.slice(0, 20),
+      verdict: { target: 10000, buildMeetsTarget: buildTps >= 10000, broadcastMeetsTarget: broadcastTps >= 10000 },
+      pipeline: true,
+    }
+  }
+  const broadcast = await broadcastBuilt(p, build.built, inputs)
+  const totalMs = Number(process.hrtime.bigint() - started) / 1e6
+  const broadcastTps = broadcast.accepted / Math.max(broadcast.elapsedMs / 1000, 0.000001)
   return {
-    network: config.network, mode: p.mode, count: built.length, workers: 1,
-    buildTps: built.length / Math.max(buildElapsedMs / 1000, 0.000001),
+    network: config.network, mode: p.mode, count: build.built.length, workers, buildTps,
     buildP50us: percentile(latencies, 0.5), buildP99us: percentile(latencies, 0.99),
-    broadcastTps: accepted.length / Math.max(elapsedMs / 1000, 0.000001),
-    accepted: accepted.length, rejected: rejected.length, elapsedMs: Math.round(elapsedMs),
-    errors: errors.slice(0, 5), txids: txids.slice(0, 20),
+    broadcastTps, endToEndTps: broadcast.accepted / Math.max(totalMs / 1000, 0.000001),
+    accepted: broadcast.accepted, rejected: broadcast.rejected, elapsedMs: Math.round(totalMs),
+    errors: broadcast.errors.slice(0, 5), txids: broadcast.txids.slice(0, 20),
+    verdict: { target: 10000, buildMeetsTarget: buildTps >= 10000, broadcastMeetsTarget: broadcastTps >= 10000 },
+    pipeline: Boolean(p.pipeline),
   }
 }

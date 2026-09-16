@@ -1,6 +1,6 @@
 import { config } from '../config.js'
 import { bytesToHex } from '../bytes.js'
-import { parseTx } from '../tx.js'
+import { parseTx, serializeTx, Tx } from '../tx.js'
 import type { Utxo } from '../stas/swap.js'
 
 export interface WalletUtxo {
@@ -12,21 +12,57 @@ export interface WalletUtxo {
 
 const rawCache = new Map<string, string>()
 
+class WocError extends Error {
+  constructor(public status: number, message: string) { super(message) }
+}
+
 const json = async (path: string): Promise<unknown> => {
   const res = await fetch(`${config.wocUrl.replace(/\/$/, '')}${path}`)
-  if (!res.ok) throw new Error(`WoC ${res.status}: ${await res.text()}`)
+  if (!res.ok) throw new WocError(res.status, `WoC ${res.status}: ${await res.text()}`)
   return res.json()
+}
+
+const reconstructRawTx = (body: Record<string, unknown>, txid: string): string => {
+  const vin = Array.isArray(body.vin) ? body.vin as Record<string, unknown>[] : []
+  const vout = Array.isArray(body.vout) ? body.vout as Record<string, unknown>[] : []
+  const tx: Tx = {
+    version: Number(body.version ?? 1),
+    inputs: vin.map((input) => ({
+      txid: String(input.txid ?? input.tx_hash ?? ''),
+      vout: Number(input.vout ?? input.tx_pos ?? 0),
+      script: Uint8Array.from(Buffer.from(String((input.scriptSig as Record<string, unknown> | undefined)?.hex ?? ''), 'hex')),
+      sequence: Number(input.sequence ?? 0xffffffff),
+      prevSatoshis: 0n,
+      prevScript: new Uint8Array(0),
+    })),
+    outputs: vout.map((output) => ({
+      satoshis: BigInt(Math.round(Number(output.value ?? 0) * 100_000_000)),
+      script: Uint8Array.from(Buffer.from(String((output.scriptPubKey as Record<string, unknown> | undefined)?.hex ?? ''), 'hex')),
+    })),
+    lockTime: Number(body.locktime ?? 0),
+  }
+  const raw = bytesToHex(serializeTx(tx))
+  if (parseTx(raw).txid !== txid) throw new Error(`WoC reconstructed txid mismatch for ${txid}`)
+  return raw
 }
 
 export const getRawTx = async (txid: string): Promise<string> => {
   const cached = rawCache.get(txid)
   if (cached) return cached
-  const body = await json(`/tx/${txid}/hex`)
-  const raw = typeof body === 'string'
-    ? body
-    : typeof body === 'object' && body !== null && 'hex' in body
-      ? String((body as { hex: unknown }).hex)
-      : ''
+  let raw = ''
+  try {
+    const body = await json(`/tx/${txid}/hex`)
+    raw = typeof body === 'string'
+      ? body
+      : typeof body === 'object' && body !== null && 'hex' in body
+        ? String((body as { hex: unknown }).hex)
+        : ''
+  } catch (error) {
+    if (!(error instanceof WocError) || error.status !== 404) throw error
+    const body = await json(`/tx/hash/${txid}`)
+    if (typeof body !== 'object' || body === null) throw new Error(`WoC returned no transaction JSON for ${txid}`)
+    raw = reconstructRawTx(body as Record<string, unknown>, txid)
+  }
   if (!/^[0-9a-f]+$/i.test(raw)) throw new Error(`WoC returned no raw transaction for ${txid}`)
   rawCache.set(txid, raw)
   return raw

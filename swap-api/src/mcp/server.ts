@@ -7,11 +7,12 @@ import { arcStatus, arcSubmit } from '../arc.js'
 import { config } from '../config.js'
 import { bytesToHex } from '../bytes.js'
 import { pkhOfKey, pkhToTestnetAddress, addressToPkh } from '../keys.js'
-import { getBalance, getChainInfo, getUtxos, utxoWithSource } from '../wallet/chain.js'
+import { getChainInfo, getUtxos, getRawTx } from '../wallet/chain.js'
 import { buildP2pkhSend, buildSplitTx, buildStasIssueTx, buildStasTransferTx } from '../wallet/transfer.js'
 import { runSendBench } from '../wallet/sendbench.js'
 import type { Utxo } from '../stas/swap.js'
 import { parseStasScript } from '../stas/script.js'
+import { balance as localBalance, importTx, listUtxos, recordBroadcast } from '../wallet/store.js'
 
 const walletKey = (): PrivateKey => {
   if (!config.walletWif) throw new Error('WALLET_WIF is not configured')
@@ -23,8 +24,9 @@ const result = (value: unknown) => ({ content: [{ type: 'text' as const, text: J
 const errorResult = (error: unknown) => result({ error: (error as Error).message })
 
 const sourceUtxos = async (address: string, limit?: number): Promise<Utxo[]> => {
-  const rows = await getUtxos(address, limit)
-  return Promise.all(rows.map((u) => utxoWithSource(u.txid, u.vout)))
+  const local = listUtxos({ limit })
+  if (local.length) return local
+  return []
 }
 
 const selectFunding = (utxos: Utxo[], amount: bigint): Utxo[] => {
@@ -44,7 +46,7 @@ export const createMcpServer = (): McpServer => {
     try {
       const [health, policy, chain] = await Promise.all([
         fetch(`${config.arcUrl}/health`).then((r) => r.json()),
-        fetch(`${config.arcUrl}/v1/policy`).then((r) => r.json()),
+        fetch(`${config.arcUrl}/${config.arcFlavor === 'arcade' ? 'policy' : 'v1/policy'}`).then((r) => r.json()),
         getChainInfo(),
       ])
       return result({ network: config.network, arcUrl: config.arcUrl, health, policy, chain })
@@ -53,14 +55,14 @@ export const createMcpServer = (): McpServer => {
   server.registerTool('wallet_info', { description: 'Wallet address and public key hash' }, async () =>
     result({ address: walletAddress(), pkh: bytesToHex(walletPkh()) }))
   server.registerTool('wallet_balance', { description: 'Wallet balance' }, async () => {
-    try { return result(await getBalance(walletAddress())) } catch (e) { return errorResult(e) }
+    try { return result({ satoshis: localBalance().toString() }) } catch (e) { return errorResult(e) }
   })
   server.registerTool('wallet_utxos', {
     description: 'List wallet UTXOs',
     inputSchema: { limit: z.number().int().positive().max(1000).optional() },
   }, async ({ limit }) => {
     try {
-      const rows = await getUtxos(walletAddress(), limit)
+      const rows = listUtxos({ limit })
       return result(rows.map((u) => ({ ...u, satoshis: u.satoshis.toString() })))
     } catch (e) { return errorResult(e) }
   })
@@ -76,7 +78,9 @@ export const createMcpServer = (): McpServer => {
         utxos: selected, wif: config.walletWif, outputs: [{ pkh: addressToPkh(toAddress), satoshis: amount }],
         changePkh: walletPkh(), feePerKb: config.feePerKb,
       })
-      return result({ txid: built.txid, rawHex: built.rawHex, arc: broadcast ? await arcSubmit(built.efHex) : null })
+      const arc = broadcast ? await arcSubmit(built.efHex) : null
+      if (broadcast) recordBroadcast(built, selected)
+      return result({ txid: built.txid, rawHex: built.rawHex, arc })
     } catch (e) { return errorResult(e) }
   })
   server.registerTool('wallet_split', {
@@ -86,15 +90,17 @@ export const createMcpServer = (): McpServer => {
     try {
       const each = BigInt(satoshisEach)
       const rows = await sourceUtxos(walletAddress())
-      const input = selectFunding(rows, each * BigInt(count))[0]
-      const built = buildSplitTx({ utxo: input, wif: config.walletWif, count, satoshisEach: each, feePerKb: config.feePerKb })
-      return result({ txid: built.txid, rawHex: built.rawHex, arc: broadcast ? await arcSubmit(built.efHex) : null })
+      const inputs = selectFunding(rows, each * BigInt(count))
+      const built = buildSplitTx({ utxos: inputs, wif: config.walletWif, count, satoshisEach: each, feePerKb: config.feePerKb })
+      const arc = broadcast ? await arcSubmit(built.efHex) : null
+      if (broadcast) recordBroadcast(built, inputs)
+      return result({ txid: built.txid, rawHex: built.rawHex, arc })
     } catch (e) { return errorResult(e) }
   })
   server.registerTool('stas_issue', {
     description: 'Issue a synthetic or template STAS output',
-    inputSchema: { amount: z.union([z.number(), z.string()]), toAddress: z.string().optional(), engine: z.enum(['synthetic', 'template']).default('synthetic') },
-  }, async ({ amount, toAddress, engine }) => {
+    inputSchema: { amount: z.union([z.number(), z.string()]), toAddress: z.string().optional(), engine: z.enum(['synthetic', 'template']).default('synthetic'), broadcast: z.boolean().default(true) },
+  }, async ({ amount, toAddress, engine, broadcast }) => {
     try {
       const value = BigInt(amount)
       const rows = await sourceUtxos(walletAddress())
@@ -103,7 +109,9 @@ export const createMcpServer = (): McpServer => {
         fundingUtxo: input, wif: config.walletWif, toPkh: toAddress ? addressToPkh(toAddress) : walletPkh(),
         amount: value, engine,
       })
-      return result({ txid: built.txid, rawHex: built.rawHex })
+      const arc = broadcast ? await arcSubmit(built.efHex) : null
+      if (broadcast) recordBroadcast(built, [input])
+      return result({ txid: built.txid, rawHex: built.rawHex, arc })
     } catch (e) { return errorResult(e) }
   })
   server.registerTool('stas_transfer', {
@@ -114,15 +122,37 @@ export const createMcpServer = (): McpServer => {
     },
   }, async ({ tokenTxid, tokenVout, toAddress, amount, broadcast }) => {
     try {
-      const token = await utxoWithSource(tokenTxid, tokenVout)
+      const token = listUtxos({ kind: 'stas', unspentOnly: true }).find((u) => u.txid === tokenTxid && u.vout === tokenVout)
+      if (!token) throw new Error(`local token UTXO not found: ${tokenTxid}:${tokenVout}`)
       const rows = await sourceUtxos(walletAddress())
       const funding = selectFunding(rows.filter((u) => u.txid !== tokenTxid), 1n)[0]
       const built = buildStasTransferTx({
         tokenUtxo: token, ownerWif: config.walletWif, fundingUtxo: funding, fundingWif: config.walletWif,
         toPkh: addressToPkh(toAddress), amount: amount === undefined ? undefined : BigInt(amount), feePerKb: config.feePerKb,
       })
-      return result({ txid: built.txid, rawHex: built.rawHex, arc: broadcast ? await arcSubmit(built.efHex) : null })
+      const arc = broadcast ? await arcSubmit(built.efHex) : null
+      if (broadcast) recordBroadcast(built, [token, funding])
+      return result({ txid: built.txid, rawHex: built.rawHex, arc })
     } catch (e) { return errorResult(e) }
+  })
+  server.registerTool('wallet_import_tx', {
+    description: 'Import a raw or EF transaction into the local wallet store',
+    inputSchema: { hex: z.string().min(2) },
+  }, async ({ hex }) => {
+    try { return result(importTx(hex)) } catch (e) { return errorResult(e) }
+  })
+  server.registerTool('wallet_sync', { description: 'Best-effort WoC wallet synchronization' }, async () => {
+    try {
+      const rows = await getUtxos(walletAddress())
+      let imported = 0
+      for (const row of rows) {
+        const importedTx = importTx(await getRawTx(row.txid))
+        imported += importedTx.added
+      }
+      return result({ synced: true, transactions: rows.length, imported })
+    } catch (e) {
+      return result({ synced: false, reason: (e as Error).message })
+    }
   })
   server.registerTool('tps_bench', {
     description: 'Build and optionally broadcast independent wallet transfers',
@@ -130,8 +160,9 @@ export const createMcpServer = (): McpServer => {
       count: z.number().int().positive().max(100000), mode: z.enum(['p2pkh', 'stas']).default('p2pkh'),
       concurrency: z.number().int().positive().max(256).default(32), batchSize: z.number().int().positive().max(1000).default(100),
       broadcast: z.boolean().default(true), satoshisEach: z.union([z.number(), z.string()]).default(1000),
+      workers: z.number().int().positive().max(256).optional(), pipeline: z.boolean().default(false),
     },
-  }, async ({ count, mode, concurrency, batchSize, broadcast, satoshisEach }) => {
+  }, async ({ count, mode, concurrency, batchSize, broadcast, satoshisEach, workers, pipeline }) => {
     try {
       const each = BigInt(satoshisEach)
       const rows = await sourceUtxos(walletAddress())
@@ -146,7 +177,7 @@ export const createMcpServer = (): McpServer => {
       if (mode === 'stas' && funding!.length < count) throw new Error('not enough funding UTXOs for stas mode; run wallet_split first')
       return result(await runSendBench({
         wif: config.walletWif, utxos: chosen, fundingUtxos: funding, mode, toPkh: walletPkh(),
-        feePerKb: config.feePerKb, concurrency, broadcast, batchSize, satoshisEach: each,
+        feePerKb: config.feePerKb, concurrency, broadcast, batchSize, satoshisEach: each, workers, pipeline,
       }))
     } catch (e) { return errorResult(e) }
   })

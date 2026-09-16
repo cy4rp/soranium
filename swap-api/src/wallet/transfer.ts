@@ -49,7 +49,7 @@ export const buildP2pkhSend = (p: P2pkhSendParams): BuiltTx => {
 }
 
 export interface SplitTxParams {
-  utxo: Utxo
+  utxos: Utxo[]
   wif: string
   count: number
   satoshisEach: bigint
@@ -58,9 +58,10 @@ export interface SplitTxParams {
 
 export const buildSplitTx = (p: SplitTxParams): BuiltTx => {
   if (!Number.isInteger(p.count) || p.count <= 0) throw new Error('count must be positive')
+  if (!p.utxos.length) throw new Error('at least one input UTXO is required')
   const km = keyMaterialFromWif(p.wif)
   return buildP2pkhSend({
-    utxos: [p.utxo],
+    utxos: p.utxos,
     wif: p.wif,
     outputs: Array.from({ length: p.count }, () => ({ pkh: km.pkh, satoshis: p.satoshisEach })),
     changePkh: km.pkh,

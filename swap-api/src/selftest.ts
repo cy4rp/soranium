@@ -7,7 +7,7 @@
 import { PrivateKey } from '@bsv/sdk'
 import assert from 'node:assert'
 import { bytesToHex, concat, eq, hexToBytes } from './bytes.js'
-import { parseTx, txPieces, serializeTx } from './tx.js'
+import { parseTx, txPieces, serializeTx, serializeTxEF, efToRaw } from './tx.js'
 import { buildStasScript, p2pkh, parseStasScript } from './stas/script.js'
 import { encodeSwapDescriptor, decodeSwapDescriptor, requiredWantedAmount } from './stas/descriptor.js'
 import { buildOfferTx, buildTakeTx, buildCancelTx, Utxo } from './stas/swap.js'
@@ -15,6 +15,9 @@ import { EMPTY_HASH160 } from './stas/constants.js'
 import { pkhOfKey } from './keys.js'
 import { buildP2pkhSend, buildSplitTx, buildStasTransferTx } from './wallet/transfer.js'
 import { runSendBench } from './wallet/sendbench.js'
+import { arcadeBatchBody } from './arc.js'
+import { importTx, listUtxos, markSpent, removeTx } from './wallet/store.js'
+import { config } from './config.js'
 
 // --- synthetic fixtures ------------------------------------------------------
 const makerKey = PrivateKey.fromRandom()
@@ -152,13 +155,48 @@ assert(sendA.efHex.includes('0000000000ef'), 'P2PKH EF marker present')
 console.log('✓ P2PKH send deterministic + EF serialized')
 
 const split = buildSplitTx({
-  utxo: fundingUtxo(100_000n), wif: fundKey.toWif([0xef]), count: 10, satoshisEach: 1_000n, feePerKb: 50,
+  utxos: [fundingUtxo(100_000n)], wif: fundKey.toWif([0xef]), count: 10, satoshisEach: 1_000n, feePerKb: 50,
 })
 const splitTx = parseTx(split.rawHex)
 assert.equal(splitTx.outputs.length, 11, 'split should include count outputs plus change')
 assert.equal(splitTx.outputs.slice(0, 10).reduce((s, o) => s + o.satoshis, 0n), 10_000n)
 assert(splitTx.outputs[10].satoshis < 90_000n, 'split change must account for fee')
 console.log('✓ split output count + change math')
+
+const splitMulti = buildSplitTx({
+  utxos: [fundingUtxo(20_000n), fundingUtxo(30_000n)], wif: fundKey.toWif([0xef]),
+  count: 10, satoshisEach: 1_000n, feePerKb: 50,
+})
+const splitMultiTx = parseTx(splitMulti.rawHex)
+assert.equal(splitMultiTx.outputs.length, 11)
+assert(splitMultiTx.outputs[10].satoshis > 0n)
+console.log('✓ multi-input split change math')
+
+const efRoundTrip = serializeTxEF(split.tx)
+assert.equal(efToRaw(bytesToHex(efRoundTrip)), split.rawHex)
+assert.equal(arcadeBatchBody([bytesToHex(efRoundTrip), bytesToHex(efRoundTrip)]).length, efRoundTrip.length * 2)
+console.log('✓ EF-to-raw conversion + Arcade batch body length')
+
+if (config.walletWif) {
+  const walletPkh = pkhOfKey(PrivateKey.fromWif(config.walletWif))
+  const walletRawTx = {
+    version: 2,
+    inputs: [{ txid: '22'.repeat(32), vout: 0, script: new Uint8Array([0x51]), sequence: 0xffffffff, prevSatoshis: 0n, prevScript: new Uint8Array(0) }],
+    outputs: [
+      { satoshis: 777n, script: p2pkh(walletPkh) },
+      { satoshis: 333n, script: p2pkh(pkhOfKey(makerKey)) },
+    ],
+    lockTime: 0,
+  }
+  const walletRaw = bytesToHex(serializeTx(walletRawTx))
+  const walletImported = importTx(bytesToHex(serializeTxEF(walletRawTx)))
+  assert.equal(walletImported.added, 1)
+  assert.equal(listUtxos().filter((row) => row.txid === walletImported.txid).length, 1)
+  markSpent([{ txid: walletImported.txid, vout: 0 }], '33'.repeat(32))
+  assert.equal(listUtxos().some((row) => row.txid === walletImported.txid && row.vout === 0), false)
+  removeTx(walletImported.txid)
+  console.log('✓ local wallet import ownership + markSpent')
+}
 
 const transferred = buildStasTransferTx({
   tokenUtxo: makerTokenUtxo, ownerWif: makerKey.toWif([0xef]),

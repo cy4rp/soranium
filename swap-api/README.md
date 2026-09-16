@@ -86,6 +86,15 @@ Node 22+(`node:sqlite`使用)。
 
 Teranode Testnet (TTN) のARC/WoCを使うウォレットMCPです。`.env` に `NETWORK=ttn`、`WOC_URL`、`WALLET_WIF` を設定すると、残高・UTXO確認、P2PKH送金、分割、合成/テンプレートSTAS発行・転送、オフライン/送信ベンチを利用できます。WIFはツール結果に返しません。送信系は安全のため `broadcast: false` を指定して構築だけ確認できます。
 
+TTNではWoCのaddress indexが不安定なため、ウォレットUTXOは`DB_PATH`のSQLiteに保存します。faucetのEF JSONLまたはraw/EF hexを取り込むには次を使います。
+
+```bash
+npm run wallet:import -- /path/to/faucet-claims.jsonl
+npm run wallet:import -- /path/to/transactions.txt
+```
+
+`wallet_import_tx`は1件を取り込み、`wallet_sync`はWoCからbest-effort同期します。indexer障害時は`{ "synced": false, "reason": "..." }`を返します。
+
 stdio:
 
 ```bash
@@ -111,7 +120,11 @@ Express起動時はStreamable HTTPの `POST /mcp` も利用できます。
 
 ## ARC
 
-`POST {ARC_URL}/v1/tx` に `{ rawTx: <EF hex> }` を送信。EFは前出力(satoshis+script)を内包するため、ARCが他のインデクサに依存せず単独検証できる。`X-WaitFor` は既定 `SEEN_ON_NETWORK`。
+`ARC_FLAVOR=arc`（非TTN）は `POST {ARC_URL}/v1/tx` に `{ rawTx: <EF hex> }`、batchは`/v1/txs` JSONを使います。`ARC_FLAVOR=arcade`（TTN）は単体が`POST /tx`（text/plain EF hex）、状態が`GET /tx/:txid`、batchが`POST /txs`（application/octet-streamの連結EF bytes）、policyが`/policy`です。実TTNの2 tx試験では連結EFがHTTP 202（submitted=2）で受理され、raw連結を使う必要はありませんでした。Arcade batchは202ならチャンク全体を受理、400ならチャンク全体を拒否し、503はRetry-After（なければ1秒）で最大3回再試行します。EFは前出力(satoshis+script)を内包するため、単体送信ではARCが他のインデクサに依存せず検証できます。`X-WaitFor` は既定 `SEEN_ON_NETWORK`。
+
+### ウォレットベンチ
+
+`tps_bench`は`worker_threads`で構築を並列化します。`workers`（既定`os.availableParallelism()`）、`concurrency`、`batchSize`、`pipeline`を指定でき、`buildTps`/`buildP50us`/`buildP99us`、`broadcastTps`、`endToEndTps`、受理/拒否件数、10,000 TPSに対する`verdict`を返します。`broadcast: false`はオフライン構築のみを測定し、count上限は100,000です。
 
 ## ⚠ 本番前に必ず検証すべき点
 
@@ -151,6 +164,8 @@ API: `POST /bench/wallet`(WIF→アドレス+トークン一覧)、`POST /bench/
 src/
   server.ts          Express API
   arc.ts             ARCクライアント(EF送信/ステータス)
+  wallet/store.ts    ローカルwallet_txs/wallet_utxos SQLiteストア
+  wallet/import-cli.ts faucet/raw/EF取り込みCLI
   orderbook.ts       node:sqlite オーダーブック
   tx.ts              最小txモデル(直列化・txid・EF・出力オフセット・pieces)
   sighash.ts         BIP143系preimage + ECDSA署名
